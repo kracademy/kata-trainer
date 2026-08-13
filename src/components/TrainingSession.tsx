@@ -219,8 +219,9 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
                 Votos: AKA {perf.judgeVotes.aka} – {perf.judgeVotes.ao} AO
               </p>
             )}
+            {perf.notes && <p className="muted" style={{ marginBottom: 0 }}>ℹ️ {perf.notes}</p>}
             <p className="muted center" style={{ marginBottom: 0 }}>
-              Media = total / {judges} jueces
+              {(avgAka != null || avgAo != null) && <>Media por juez = total / {judges}</>}
               {perf.sportDataUrl && (
                 <> · <a href={perf.sportDataUrl} target="_blank" rel="noreferrer">SportData</a></>
               )}
