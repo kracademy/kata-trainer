@@ -87,7 +87,10 @@ export default function Catalog() {
         <h1 style={{ marginTop: 12 }}>{comp?.name} · {roundLabel(perf.roundType)}</h1>
         <div className="card perf-item">
           <div className="meta">{cat?.name}</div>
-          <div className="who">🔴 {aka?.displayName} ({aka?.countryCode}) vs 🔵 {ao?.displayName} ({ao?.countryCode})</div>
+          <div className="who">
+            🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
+            <span className="muted">({ao?.countryCode})</span>
+          </div>
           <div className="meta">Katas: {perf.kataAka ?? '—'} / {perf.kataAo ?? '—'} · Ganador oficial: {perf.officialWinner}</div>
           {perf.sportDataUrl && <a href={perf.sportDataUrl} target="_blank" rel="noreferrer">Ver en SportData</a>}
         </div>
@@ -136,7 +139,8 @@ export default function Catalog() {
     <>
       <h1>Catalogar vídeos</h1>
       <p className="muted">
-        Asigna el vídeo de YouTube y marca inicio/fin de cada actuación (mejor en ordenador). Cuando termines,
+        Asigna el vídeo de YouTube y marca inicio/fin de cada actuación (mejor en ordenador). 💡 Los campeonatos
+        completos están en la pestaña <b>"Live"</b> del canal de YouTube de la WKF (no en "Vídeos"). Cuando termines,
         exporta el catálogo y pásaselo a Claude para fijarlo en el dataset publicado.
       </p>
       <button className="btn-secondary" onClick={exportCatalog} disabled={done.length === 0}>
@@ -151,7 +155,10 @@ export default function Catalog() {
         return (
           <div className="card perf-item" key={p.id}>
             <div className="meta">{comp?.name} · {data.categoryById.get(p.categoryId)?.name} · {roundLabel(p.roundType)}</div>
-            <div className="who">🔴 {aka?.displayName} vs 🔵 {ao?.displayName}</div>
+            <div className="who">
+              🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
+              <span className="muted">({ao?.countryCode})</span>
+            </div>
             <div className="meta">{p.videoId ? '🎥 Vídeo asignado, faltan tiempos' : '⚪ Sin vídeo'}</div>
             <button className="btn-secondary" onClick={() => open(p.id)}>CATALOGAR</button>
           </div>
@@ -166,7 +173,10 @@ export default function Catalog() {
         return (
           <div className="card perf-item" key={p.id}>
             <div className="meta">{comp?.name} · {roundLabel(p.roundType)} · {fmtTime(p.startSeconds)} → {fmtTime(p.endSeconds)}</div>
-            <div className="who">🔴 {aka?.displayName} vs 🔵 {ao?.displayName}</div>
+            <div className="who">
+              🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
+              <span className="muted">({ao?.countryCode})</span>
+            </div>
             <button onClick={() => open(p.id)}>Editar</button>
           </div>
         );

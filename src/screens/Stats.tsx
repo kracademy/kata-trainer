@@ -44,10 +44,10 @@ export default function Stats() {
           <h2>Evolución mensual</h2>
           <div className="card">
             {months.map((m) => (
-              <div key={m.month} className="row" style={{ alignItems: 'center', marginBottom: 6 }}>
+              <div key={m.month} className="row" style={{ alignItems: 'center', marginBottom: 8 }}>
                 <span style={{ width: 70 }} className="muted">{m.month}</span>
-                <div style={{ flex: 1, background: 'var(--bg-card-2)', borderRadius: 6, height: 14 }}>
-                  <div style={{ width: `${m.pct}%`, background: 'linear-gradient(90deg,#3557d6,#2fae5f)', height: '100%', borderRadius: 6 }} />
+                <div className="progressbar">
+                  <div style={{ width: `${m.pct}%` }} />
                 </div>
                 <span style={{ width: 80, textAlign: 'right' }}>{m.pct}% <span className="muted">({m.n})</span></span>
               </div>

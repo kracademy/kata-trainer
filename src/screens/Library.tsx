@@ -84,8 +84,8 @@ export default function Library() {
               <span className="badge round">{roundLabel(p.roundType)}</span>
             </div>
             <div className="who">
-              <span style={{ color: 'var(--aka)' }}>🔴 {aka?.displayName}</span> ({aka?.countryCode}) vs{' '}
-              <span style={{ color: '#86a6ff' }}>🔵 {ao?.displayName}</span> ({ao?.countryCode})
+              🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
+              <span className="muted">({ao?.countryCode})</span>
             </div>
             <div className="meta">
               <span className={`badge ${badge.cls}`}>{badge.txt}</span>{' '}

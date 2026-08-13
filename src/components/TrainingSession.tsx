@@ -86,7 +86,8 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
     setVideoError(false);
   }
 
-  const winnerName = perf.officialWinner === 'AKA' ? aka?.displayName : ao?.displayName;
+  const winnerAthlete = perf.officialWinner === 'AKA' ? aka : ao;
+  const winnerName = winnerAthlete ? `${winnerAthlete.displayName} (${winnerAthlete.countryCode})` : '';
 
   return (
     <>
@@ -139,18 +140,10 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
       {phase === 'decision' && (
         <>
           <div className="row" style={{ margin: '14px 0' }}>
-            <button
-              className="btn-aka"
-              style={{ outline: selected === 'AKA' ? '3px solid #fff' : 'none' }}
-              onClick={() => setSelected('AKA')}
-            >
+            <button className={`btn-aka${selected === 'AKA' ? ' sel' : ''}`} onClick={() => setSelected('AKA')}>
               🔴 AKA
             </button>
-            <button
-              className="btn-ao"
-              style={{ outline: selected === 'AO' ? '3px solid #fff' : 'none' }}
-              onClick={() => setSelected('AO')}
-            >
+            <button className={`btn-ao${selected === 'AO' ? ' sel' : ''}`} onClick={() => setSelected('AO')}>
               🔵 AO
             </button>
           </div>
@@ -189,7 +182,7 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
         <>
           <div className={`reveal-banner ${wasCorrect ? 'ok' : 'bad'}`}>
             {wasCorrect ? '✅ ¡CORRECTO!' : '❌ FALLASTE'}
-            <div style={{ fontSize: '0.95rem', fontWeight: 500, marginTop: 6 }}>
+            <div className="sub">
               Oficial: 🏆 {perf.officialWinner} — {winnerName} · Tu decisión: {selected}
             </div>
           </div>
@@ -205,7 +198,7 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
               <tbody>
                 <tr>
                   <td className="side-aka">AKA</td>
-                  <td>{aka?.displayName}<br /><span className="muted">{aka?.countryCode}</span></td>
+                  <td>{aka?.displayName} <span className="muted">({aka?.countryCode})</span></td>
                   <td>{perf.kataAka ?? '—'}{perf.kataAkaNumber ? <span className="muted"> #{perf.kataAkaNumber}</span> : null}</td>
                   <td>{perf.officialScoreAka?.toFixed(2) ?? '—'}</td>
                   <td>{avgAka?.toFixed(2) ?? '—'}</td>
@@ -213,7 +206,7 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
                 </tr>
                 <tr>
                   <td className="side-ao">AO</td>
-                  <td>{ao?.displayName}<br /><span className="muted">{ao?.countryCode}</span></td>
+                  <td>{ao?.displayName} <span className="muted">({ao?.countryCode})</span></td>
                   <td>{perf.kataAo ?? '—'}{perf.kataAoNumber ? <span className="muted"> #{perf.kataAoNumber}</span> : null}</td>
                   <td>{perf.officialScoreAo?.toFixed(2) ?? '—'}</td>
                   <td>{avgAo?.toFixed(2) ?? '—'}</td>

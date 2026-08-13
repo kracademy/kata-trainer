@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T17:30:00Z",
+  "generatedAt": "2026-08-13T18:10:00Z",
   "competitions": [
     {
       "id": "wkf-worlds-2025-cairo",
@@ -52,12 +52,28 @@
   ],
   "videos": [
     {
+      "id": "qYNwUA8D0z4",
+      "platform": "YOUTUBE",
+      "url": "https://www.youtube.com/watch?v=qYNwUA8D0z4",
+      "title": "Cairo 2025 — sesión de medallas Female Kata (WKF live)",
+      "availabilityStatus": "AVAILABLE",
+      "lastChecked": "2026-08-13"
+    },
+    {
+      "id": "CSHs9WGeCYc",
+      "platform": "YOUTUBE",
+      "url": "https://www.youtube.com/watch?v=CSHs9WGeCYc",
+      "title": "Cairo 2025 — sesión de medallas Male Kata (WKF live)",
+      "availabilityStatus": "AVAILABLE",
+      "lastChecked": "2026-08-13"
+    },
+    {
       "id": "mlcWEkfsxjQ",
       "platform": "YOUTUBE",
       "url": "https://www.youtube.com/watch?v=mlcWEkfsxjQ",
       "title": "Spectacular Kata! | Best Bouts of #KarateCairo2025 | Kakeru Nishiyama (JPN) vs Alessio Ghinami (ITA)",
-      "availabilityStatus": "UNKNOWN",
-      "notes": "Candidato para la final masculina; verificar y marcar timestamps"
+      "availabilityStatus": "AVAILABLE",
+      "lastChecked": "2026-08-13"
     }
   ],
   "performances": [
@@ -79,7 +95,10 @@
       "officialScoreAka": 43.3,
       "officialScoreAo": 46.1,
       "judgesCount": 5,
-      "status": "VIDEO_MISSING",
+      "videoId": "qYNwUA8D0z4",
+      "startSeconds": 2176,
+      "endSeconds": 2603,
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063"
     },
     {
@@ -100,7 +119,10 @@
       "officialScoreAka": 42.1,
       "officialScoreAo": 42.4,
       "judgesCount": 5,
-      "status": "VIDEO_MISSING",
+      "videoId": "qYNwUA8D0z4",
+      "startSeconds": 672,
+      "endSeconds": 1154,
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063"
     },
     {
@@ -121,7 +143,10 @@
       "officialScoreAka": 42.6,
       "officialScoreAo": 41.8,
       "judgesCount": 5,
-      "status": "VIDEO_MISSING",
+      "videoId": "qYNwUA8D0z4",
+      "startSeconds": 1483,
+      "endSeconds": 1856,
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063"
     },
     {
@@ -143,7 +168,9 @@
       "officialScoreAo": 46.4,
       "judgesCount": 5,
       "videoId": "mlcWEkfsxjQ",
-      "status": "VIDEO_CATALOGUED",
+      "startSeconds": 53,
+      "endSeconds": 496,
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063"
     },
     {
@@ -164,7 +191,10 @@
       "officialScoreAka": 42.0,
       "officialScoreAo": 44.0,
       "judgesCount": 5,
-      "status": "VIDEO_MISSING",
+      "videoId": "CSHs9WGeCYc",
+      "startSeconds": 385,
+      "endSeconds": 810,
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063"
     },
     {
@@ -185,7 +215,10 @@
       "officialScoreAka": 43.2,
       "officialScoreAo": 44.3,
       "judgesCount": 5,
-      "status": "VIDEO_MISSING",
+      "videoId": "CSHs9WGeCYc",
+      "startSeconds": 1097,
+      "endSeconds": 1448,
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063"
     }
   ]

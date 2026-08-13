@@ -39,10 +39,11 @@ export default function ErrorsScreen() {
               {comp?.name} ({comp?.year}) · {cat?.name} · {roundLabel(p.roundType)}
             </div>
             <div className="who">
-              🔴 {aka?.displayName} vs 🔵 {ao?.displayName}
+              🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
+              <span className="muted">({ao?.countryCode})</span>
             </div>
             <div className="meta">
-              Tu decisión: ❌ {yourPick?.displayName} · Real: 🏆 {real?.displayName} · {t.attempts.length} intento{t.attempts.length !== 1 ? 's' : ''}
+              Tu decisión: ❌ {yourPick?.displayName} ({yourPick?.countryCode}) · Real: 🏆 {real?.displayName} ({real?.countryCode}) · {t.attempts.length} intento{t.attempts.length !== 1 ? 's' : ''}
             </div>
             <button className="btn-secondary" onClick={() => setQueue([p])}>
               REVISAR
