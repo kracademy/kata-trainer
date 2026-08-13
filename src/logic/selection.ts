@@ -8,6 +8,7 @@ export interface TrainFilters {
   competitionType: string; // 'ALL' | CompetitionType
   year: string; // 'ALL' | '2025'...
   gender: string; // 'ALL' | 'FEMALE' | 'MALE'
+  format: string; // 'ALL' | 'INDIVIDUAL' | 'TEAM'
   round: string; // 'ALL' | 'FINAL' | 'BRONZE'
   status: TrainStatusFilter;
   mode: TrainMode;
@@ -17,6 +18,7 @@ export const DEFAULT_FILTERS: TrainFilters = {
   competitionType: 'ALL',
   year: 'ALL',
   gender: 'ALL',
+  format: 'ALL',
   round: 'ALL',
   status: 'ALL',
   mode: 'RANDOM',
@@ -26,6 +28,7 @@ interface Ctx {
   compTypeById: Map<string, string>;
   compYearById: Map<string, number>;
   genderByCategoryId: Map<string, string>;
+  formatByCategoryId: Map<string, string>;
   attemptsByPerf: Map<string, Attempt[]>;
 }
 
@@ -35,6 +38,7 @@ export function filterPerformances(perfs: Performance[], f: TrainFilters, ctx: C
     if (f.competitionType !== 'ALL' && ctx.compTypeById.get(p.competitionId) !== f.competitionType) return false;
     if (f.year !== 'ALL' && String(ctx.compYearById.get(p.competitionId)) !== f.year) return false;
     if (f.gender !== 'ALL' && ctx.genderByCategoryId.get(p.categoryId) !== f.gender) return false;
+    if (f.format !== 'ALL' && (ctx.formatByCategoryId.get(p.categoryId) ?? 'INDIVIDUAL') !== f.format) return false;
     if (f.round === 'FINAL' && p.roundType !== 'FINAL') return false;
     if (f.round === 'BRONZE' && p.roundType !== 'BRONZE_1' && p.roundType !== 'BRONZE_2') return false;
     const t = analyzePerformance(ctx.attemptsByPerf.get(p.id) ?? []);

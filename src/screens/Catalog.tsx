@@ -1,11 +1,13 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { db } from '../db/db';
 import { useCatalog } from '../logic/useCatalog';
 import { computeStatus } from '../data/dataset';
 import YouTubePlayer, { type YouTubePlayerHandle } from '../components/YouTubePlayer';
 import { extractYouTubeId, fmtTime, parseTime, roundLabel } from '../logic/format';
 import { downloadJson } from '../logic/backup';
-import type { CatalogExport } from '../db/types';
+import type { CatalogExport, Performance } from '../db/types';
+
+const ROUND_ORDER: Record<string, number> = { FINAL: 2, BRONZE_1: 0, BRONZE_2: 1, OTHER: 3 };
 
 export default function Catalog() {
   const data = useCatalog();
@@ -15,13 +17,36 @@ export default function Catalog() {
   const [startTxt, setStartTxt] = useState('');
   const [endTxt, setEndTxt] = useState('');
   const [msg, setMsg] = useState('');
+  const [showDone, setShowDone] = useState(false);
   const playerRef = useRef<YouTubePlayerHandle>(null);
 
   const perf = selectedId ? data.performances.find((p) => p.id === selectedId) : null;
-  const pending = data.performances
-    .filter((p) => p.status !== 'READY')
-    .sort((a, b) => a.id.localeCompare(b.id));
-  const done = data.performances.filter((p) => p.status === 'READY');
+
+  /** Competiciones en orden cronológico (año y, dentro del año, orden de SportData). */
+  const groups = useMemo(() => {
+    const byComp = new Map<string, Performance[]>();
+    for (const p of data.performances) {
+      (byComp.get(p.competitionId) ?? byComp.set(p.competitionId, []).get(p.competitionId)!).push(p);
+    }
+    return [...byComp.entries()]
+      .map(([compId, perfs]) => ({
+        comp: data.compById.get(compId),
+        perfs: perfs.sort(
+          (a, b) =>
+            (data.categoryById.get(a.categoryId)?.name ?? '').localeCompare(data.categoryById.get(b.categoryId)?.name ?? '') ||
+            (ROUND_ORDER[a.roundType] ?? 9) - (ROUND_ORDER[b.roundType] ?? 9),
+        ),
+        pending: perfs.filter((p) => p.status !== 'READY').length,
+      }))
+      .sort(
+        (a, b) =>
+          (a.comp?.year ?? 0) - (b.comp?.year ?? 0) ||
+          (a.comp?.sportDataEventId ?? 0) - (b.comp?.sportDataEventId ?? 0),
+      );
+  }, [data.performances, data.compById, data.categoryById]);
+
+  const doneCount = data.performances.filter((p) => p.status === 'READY').length;
+  const pendingCount = data.performances.length - doneCount;
 
   function open(id: string) {
     const p = data.performances.find((x) => x.id === id);
@@ -33,10 +58,11 @@ export default function Catalog() {
     setMsg('');
   }
 
-  function applyUrl() {
-    const id = extractYouTubeId(urlInput);
+  function applyUrl(raw?: string) {
+    const id = extractYouTubeId(raw ?? urlInput);
     if (!id) { setMsg('URL de YouTube no reconocida.'); return; }
     setVideoId(id);
+    setUrlInput(`https://www.youtube.com/watch?v=${id}`);
     setMsg('');
   }
 
@@ -81,12 +107,13 @@ export default function Catalog() {
     const ao = data.athleteById.get(perf.aoAthleteId);
     const start = parseTime(startTxt);
     const end = parseTime(endTxt);
+    const candidates = comp?.candidateVideos ?? [];
     return (
       <>
         <button onClick={() => setSelectedId(null)}>← Volver a la lista</button>
-        <h1 style={{ marginTop: 12 }}>{comp?.name} · {roundLabel(perf.roundType)}</h1>
+        <h1 style={{ marginTop: 12, fontSize: '1.4rem' }}>{comp?.name}</h1>
         <div className="card perf-item">
-          <div className="meta">{cat?.name}</div>
+          <div className="meta">{cat?.name} · {roundLabel(perf.roundType)}</div>
           <div className="who">
             🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
             <span className="muted">({ao?.countryCode})</span>
@@ -95,10 +122,31 @@ export default function Catalog() {
           {perf.sportDataUrl && <a href={perf.sportDataUrl} target="_blank" rel="noreferrer">Ver en SportData</a>}
         </div>
 
+        {candidates.length > 0 && (
+          <>
+            <label>Vídeos candidatos (canal WKF · Live)</label>
+            <select value={videoId && candidates.some((c) => c.id === videoId) ? videoId : ''} onChange={(e) => e.target.value && applyUrl(e.target.value)}>
+              <option value="">— Elegir emisión del campeonato —</option>
+              {candidates.map((c) => (
+                <option key={c.id} value={c.id}>{c.title}</option>
+              ))}
+            </select>
+          </>
+        )}
+        <a
+          href={`https://www.youtube.com/@WKFKarateWorldChamps/search?query=${encodeURIComponent(
+            `${comp?.name?.replace(/^(WKF|Karate1|Karate One)\s*/i, '').split('-').pop()?.trim() ?? ''}`,
+          )}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <button className="btn-secondary">🔎 Buscar emisiones en el canal WKF</button>
+        </a>
+
         <label>URL de YouTube</label>
         <div className="row">
           <input type="url" placeholder="https://www.youtube.com/watch?v=…" value={urlInput} onChange={(e) => setUrlInput(e.target.value)} />
-          <button onClick={applyUrl}>Cargar</button>
+          <button onClick={() => applyUrl()}>Cargar</button>
         </div>
 
         {videoId && (
@@ -139,45 +187,53 @@ export default function Catalog() {
     <>
       <h1>Catalogar vídeos</h1>
       <p className="muted">
-        Asigna el vídeo de YouTube y marca inicio/fin de cada actuación (mejor en ordenador). 💡 Los campeonatos
-        completos están en la pestaña <b>"Live"</b> del canal de YouTube de la WKF (no en "Vídeos"). Cuando termines,
-        exporta el catálogo y pásaselo a Claude para fijarlo en el dataset publicado.
+        En orden cronológico, agrupado por campeonato: busca la emisión en la pestaña <b>"Live"</b> del canal de
+        YouTube de la WKF (o elige un vídeo candidato precargado) y marca inicio/fin de cada actuación. Al terminar,
+        exporta el catálogo y pásaselo a Claude.
       </p>
-      <button className="btn-secondary" onClick={exportCatalog} disabled={done.length === 0}>
-        ⬇️ Exportar catálogo ({done.length})
-      </button>
+      <div className="row">
+        <button className="btn-secondary" onClick={exportCatalog} disabled={doneCount === 0}>
+          ⬇️ Exportar catálogo ({doneCount})
+        </button>
+        <button className="btn-secondary" onClick={() => setShowDone((s) => !s)}>
+          {showDone ? 'Ocultar listas' : `Ver listas (${doneCount})`}
+        </button>
+      </div>
+      <p className="muted center">{pendingCount} pendientes · {doneCount} listas</p>
 
-      <h2>Pendientes ({pending.length})</h2>
-      {pending.map((p) => {
-        const comp = data.compById.get(p.competitionId);
-        const aka = data.athleteById.get(p.akaAthleteId);
-        const ao = data.athleteById.get(p.aoAthleteId);
+      {groups.map(({ comp, perfs, pending }) => {
+        if (!comp) return null;
+        const visible = perfs.filter((p) => (showDone ? true : p.status !== 'READY'));
+        if (!visible.length) return null;
         return (
-          <div className="card perf-item" key={p.id}>
-            <div className="meta">{comp?.name} · {data.categoryById.get(p.categoryId)?.name} · {roundLabel(p.roundType)}</div>
-            <div className="who">
-              🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
-              <span className="muted">({ao?.countryCode})</span>
+          <div key={comp.id}>
+            <div className="comp-header">
+              <span className="name">{comp.name}</span>
+              <span className="year">{comp.year} · {pending} pdte.</span>
             </div>
-            <div className="meta">{p.videoId ? '🎥 Vídeo asignado, faltan tiempos' : '⚪ Sin vídeo'}</div>
-            <button className="btn-secondary" onClick={() => open(p.id)}>CATALOGAR</button>
-          </div>
-        );
-      })}
-
-      <h2>Listas ({done.length})</h2>
-      {done.map((p) => {
-        const comp = data.compById.get(p.competitionId);
-        const aka = data.athleteById.get(p.akaAthleteId);
-        const ao = data.athleteById.get(p.aoAthleteId);
-        return (
-          <div className="card perf-item" key={p.id}>
-            <div className="meta">{comp?.name} · {roundLabel(p.roundType)} · {fmtTime(p.startSeconds)} → {fmtTime(p.endSeconds)}</div>
-            <div className="who">
-              🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
-              <span className="muted">({ao?.countryCode})</span>
-            </div>
-            <button onClick={() => open(p.id)}>Editar</button>
+            {visible.map((p) => {
+              const cat = data.categoryById.get(p.categoryId);
+              const aka = data.athleteById.get(p.akaAthleteId);
+              const ao = data.athleteById.get(p.aoAthleteId);
+              const ready = p.status === 'READY';
+              return (
+                <div className="card perf-item" key={p.id}>
+                  <div className="meta">
+                    {cat?.name} · <span className="badge round">{roundLabel(p.roundType)}</span>{' '}
+                    {ready
+                      ? <span className="badge ready">🟢 {fmtTime(p.startSeconds)} → {fmtTime(p.endSeconds)}</span>
+                      : p.videoId
+                        ? <span className="badge nodata">🎥 Vídeo asignado, faltan tiempos</span>
+                        : <span className="badge nodata">⚪ Sin vídeo</span>}
+                  </div>
+                  <div className="who">
+                    🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
+                    <span className="muted">({ao?.countryCode})</span>
+                  </div>
+                  <button onClick={() => open(p.id)}>{ready ? 'Editar' : 'CATALOGAR'}</button>
+                </div>
+              );
+            })}
           </div>
         );
       })}

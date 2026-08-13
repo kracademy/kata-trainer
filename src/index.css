@@ -1,25 +1,25 @@
-/* ── Kracademy Kata Trainer · estilo iOS ───────────────────────────── */
+/* ── Kracademy Kata Trainer · estilo iOS claro ─────────────────────── */
 
 :root {
-  --bg: #000000;
-  --bg-elevated: #1c1c1e;
-  --bg-elevated-2: #2c2c2e;
-  --bg-elevated-3: #3a3a3c;
-  --separator: rgba(84, 84, 88, 0.65);
-  --label: #ffffff;
-  --label-2: rgba(235, 235, 245, 0.6);
-  --label-3: rgba(235, 235, 245, 0.3);
-  --blue: #0a84ff;
-  --aka: #ff453a;
-  --ao: #0a84ff;
-  --green: #30d158;
-  --red: #ff453a;
-  --gold: #ffd60a;
+  --bg: #f2f2f7;
+  --bg-elevated: #ffffff;
+  --bg-elevated-2: #e5e5ea;
+  --bg-elevated-3: #d1d1d6;
+  --separator: rgba(60, 60, 67, 0.15);
+  --label: #000000;
+  --label-2: rgba(60, 60, 67, 0.6);
+  --label-3: rgba(60, 60, 67, 0.3);
+  --blue: #007aff;
+  --aka: #ff3b30;
+  --ao: #007aff;
+  --green: #34c759;
+  --red: #ff3b30;
+  --gold: #ffcc00;
   --radius: 16px;
   --radius-sm: 12px;
   --nav-h: 58px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
-  color-scheme: dark;
+  color-scheme: light;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -68,6 +68,7 @@ h2 {
   border-radius: var(--radius);
   padding: 15px 16px;
   margin-bottom: 12px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.04);
 }
 
 /* Botones */
@@ -76,13 +77,14 @@ button {
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  color: var(--label);
-  background: var(--bg-elevated-2);
+  color: var(--blue);
+  background: var(--bg-elevated);
   padding: 11px 16px;
   font-weight: 500;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
   transition: opacity 0.15s ease, transform 0.1s ease;
 }
-button:active { opacity: 0.65; transform: scale(0.985); }
+button:active { opacity: 0.55; transform: scale(0.985); }
 button:disabled { opacity: 0.35; cursor: default; }
 
 .btn-primary {
@@ -95,6 +97,7 @@ button:disabled { opacity: 0.35; cursor: default; }
   background: var(--blue);
   border-radius: var(--radius-sm);
   margin: 12px 0;
+  box-shadow: none;
 }
 .btn-secondary {
   display: block;
@@ -115,10 +118,11 @@ button:disabled { opacity: 0.35; cursor: default; }
   letter-spacing: 0.03em;
   color: #fff;
   border-radius: var(--radius);
+  box-shadow: none;
 }
 .btn-aka { background: var(--aka); }
 .btn-ao { background: var(--ao); }
-.btn-aka.sel, .btn-ao.sel { box-shadow: 0 0 0 3px #fff inset; }
+.btn-aka.sel, .btn-ao.sel { box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.85) inset; }
 
 .row { display: flex; gap: 10px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -129,6 +133,7 @@ button:disabled { opacity: 0.35; cursor: default; }
   border-radius: var(--radius);
   padding: 16px 12px;
   text-align: center;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.04);
 }
 .stat-tile .v {
   font-size: 1.9rem;
@@ -156,6 +161,7 @@ select, input[type='text'], input[type='number'], input[type='url'], textarea {
   padding: 12px 14px;
   appearance: none;
   -webkit-appearance: none;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08);
 }
 select {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%238e8e93' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
@@ -183,7 +189,7 @@ nav.bottom {
   bottom: 0; left: 0; right: 0;
   height: calc(var(--nav-h) + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
-  background: rgba(22, 22, 24, 0.75);
+  background: rgba(249, 249, 251, 0.82);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   border-top: 0.5px solid var(--separator);
@@ -220,7 +226,8 @@ nav.bottom a .ico { font-size: 1.3rem; line-height: 1; }
 .player-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.97);
+  background: rgba(15, 15, 18, 0.98);
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -240,10 +247,10 @@ nav.bottom a .ico { font-size: 1.3rem; line-height: 1; }
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-.badge.ready { background: rgba(48, 209, 88, 0.18); color: var(--green); }
-.badge.missing { background: rgba(255, 69, 58, 0.18); color: var(--red); }
+.badge.ready { background: rgba(52, 199, 89, 0.15); color: #248a3d; }
+.badge.missing { background: rgba(255, 59, 48, 0.12); color: #d70015; }
 .badge.nodata { background: var(--bg-elevated-2); color: var(--label-2); }
-.badge.round { background: rgba(10, 132, 255, 0.18); color: var(--blue); }
+.badge.round { background: rgba(0, 122, 255, 0.12); color: var(--blue); }
 
 .perf-item { display: flex; flex-direction: column; gap: 5px; }
 .perf-item .who { font-weight: 600; font-size: 0.98rem; }
@@ -258,8 +265,8 @@ nav.bottom a .ico { font-size: 1.3rem; line-height: 1; }
   font-weight: 800;
   margin-bottom: 12px;
 }
-.reveal-banner.ok { background: rgba(48, 209, 88, 0.16); color: var(--green); }
-.reveal-banner.bad { background: rgba(255, 69, 58, 0.16); color: var(--red); }
+.reveal-banner.ok { background: rgba(52, 199, 89, 0.15); color: #1d7a35; }
+.reveal-banner.bad { background: rgba(255, 59, 48, 0.12); color: #c3271b; }
 .reveal-banner .sub { font-size: 0.92rem; font-weight: 500; margin-top: 8px; color: var(--label); }
 
 table.scores { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
@@ -282,3 +289,12 @@ a { color: var(--blue); text-decoration: none; }
 
 .progressbar { flex: 1; background: var(--bg-elevated-2); border-radius: 999px; height: 12px; overflow: hidden; }
 .progressbar > div { background: var(--blue); height: 100%; border-radius: 999px; }
+
+.comp-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 26px 4px 8px;
+}
+.comp-header .name { font-weight: 700; font-size: 1.02rem; }
+.comp-header .year { color: var(--label-2); font-size: 0.85rem; }

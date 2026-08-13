@@ -14,6 +14,7 @@ export default function Train() {
       compTypeById: new Map(data.competitions.map((c) => [c.id, c.competitionType as string])),
       compYearById: new Map(data.competitions.map((c) => [c.id, c.year])),
       genderByCategoryId: new Map(data.categories.map((c) => [c.id, c.gender as string])),
+      formatByCategoryId: new Map(data.categories.map((c) => [c.id, (c.format ?? 'INDIVIDUAL') as string])),
       attemptsByPerf: data.attemptsByPerf,
     }),
     [data.competitions, data.categories, data.attemptsByPerf],
@@ -40,6 +41,7 @@ export default function Train() {
         <option value="CONTINENTAL_CHAMPIONSHIP">Continental Championships</option>
         <option value="PREMIER_LEAGUE">Premier League</option>
         <option value="SERIES_A">Series A</option>
+        <option value="WORLD_CUP">World Cup / Equipos</option>
       </select>
 
       <div className="row">
@@ -58,6 +60,14 @@ export default function Train() {
             <option value="ALL">Ambos</option>
             <option value="FEMALE">Female</option>
             <option value="MALE">Male</option>
+          </select>
+        </div>
+        <div style={{ flex: 1 }}>
+          <label>Modalidad</label>
+          <select value={filters.format} onChange={set('format')}>
+            <option value="ALL">Todas</option>
+            <option value="INDIVIDUAL">Individual</option>
+            <option value="TEAM">Equipos</option>
           </select>
         </div>
       </div>

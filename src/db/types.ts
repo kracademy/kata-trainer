@@ -6,6 +6,7 @@ export type CompetitionType =
   | 'CONTINENTAL_CHAMPIONSHIP'
   | 'PREMIER_LEAGUE'
   | 'SERIES_A'
+  | 'WORLD_CUP'
   | 'OTHER';
 
 export type Continent = 'EUROPE' | 'PANAMERICA' | 'ASIA' | 'AFRICA' | 'OCEANIA' | 'WORLD';
@@ -49,6 +50,8 @@ export interface Competition {
   sportDataUrl?: string;
   source?: string;
   notes?: string;
+  /** Vídeos candidatos del canal de YouTube de la WKF (pestaña Live) para precargar en Catalogar. */
+  candidateVideos?: { id: string; title: string }[];
 }
 
 export interface Category {
@@ -57,6 +60,8 @@ export interface Category {
   gender: 'FEMALE' | 'MALE';
   discipline: 'KATA'; // KUMITE en el futuro
   ageGroup: 'SENIOR' | 'U21';
+  /** Kata individual o Team Kata. */
+  format?: 'INDIVIDUAL' | 'TEAM';
   sportDataCatId?: number; // catid estable: 36 = Female Kata, 37 = Male Kata
 }
 
