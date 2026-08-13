@@ -211,7 +211,8 @@ nav.bottom a {
   letter-spacing: 0.01em;
 }
 nav.bottom a.active { color: var(--blue); }
-nav.bottom a .ico { font-size: 1.3rem; line-height: 1; }
+nav.bottom a .ico { line-height: 0; }
+nav.bottom a .ico svg { display: block; }
 
 /* Reproductor */
 .player-wrap {
