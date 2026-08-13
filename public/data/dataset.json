@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T18:55:21.419Z",
+  "generatedAt": "2026-08-13T19:04:32.597Z",
   "competitions": [
     {
       "id": "ekf-senior-championships-2026-frankfurt",
@@ -34,44 +34,12 @@
       "source": "SportData SET Online (extraído 2026-08-13)",
       "candidateVideos": [
         {
-          "id": "li0wI6_AR1E",
-          "title": "Karate One Premier League Leshan 2026 | Day 1 – Tatami 3 - Quarterfinals and Semifinals"
-        },
-        {
-          "id": "kwVhzJEu8pM",
-          "title": "Karate One Premier League Leshan 2026 | Day 1 – Tatami 4 - Quarterfinals and Semifinals"
-        },
-        {
-          "id": "f2ItygcPkEc",
-          "title": "Karate One Premier League Leshan 2026 | Day 2 – Tatami 1 |  Quarterfinals"
-        },
-        {
-          "id": "mhvv88q3klI",
-          "title": "Karate One Premier League Leshan 2026 | Day 2 – Tatami 2 |  Quarterfinals and Semifinals"
-        },
-        {
-          "id": "OWHw3WjNYNo",
-          "title": "Karate One Premier League Leshan 2026 | Day 2 – Tatami 3  |  Quarterfinals and Semifinals"
-        },
-        {
-          "id": "AC9uSDZdxXs",
-          "title": "Karate One Premier League Leshan 2026 | Day 2 – Tatami 4 |  Quarterfinals"
-        },
-        {
           "id": "kWOckPtNl3Q",
           "title": "Karate One Premier League Leshan 2026 | FINALS - Afternoon session"
         },
         {
           "id": "jJCHFQdpf04",
           "title": "Karate One Premier League Leshan 2026 | FINALS - Morning session"
-        },
-        {
-          "id": "YVAmCVrX2PE",
-          "title": "Karate One Premier League Leshan 2026 | Competition Draw"
-        },
-        {
-          "id": "0hUDoy1u4ww",
-          "title": "Karate One Premier League Leshan 2026 | Day 1 – Tatami 1"
         }
       ]
     },
@@ -92,38 +60,6 @@
         {
           "id": "LFOnrOugIkM",
           "title": "Karate One Premier League Rabat 2026 | FINALS - Morning session"
-        },
-        {
-          "id": "jj8XPXA3RyI",
-          "title": "Karate One Premier League Rabat 2026 | Competition Draw"
-        },
-        {
-          "id": "TOjZKwXc-ac",
-          "title": "Karate One Premier League Rabat 2026 | Day 1 – Tatami 1"
-        },
-        {
-          "id": "vdqEHiY94IQ",
-          "title": "Karate One Premier League Rabat 2026 | Day 1 – Tatami 2"
-        },
-        {
-          "id": "3AsVaul23o4",
-          "title": "Karate One Premier League Rabat 2026 | Day 1 – Tatami 3"
-        },
-        {
-          "id": "SV_8agLryxM",
-          "title": "Karate One Premier League Rabat 2026 | Day 1 – Tatami 3"
-        },
-        {
-          "id": "jBGGFf_Cy1Q",
-          "title": "Karate One Premier League Rabat 2026 | Day 2 – Tatami 1"
-        },
-        {
-          "id": "WO81bcgjLOY",
-          "title": "Karate One Premier League Rabat 2026 | Day 2 – Tatami 2"
-        },
-        {
-          "id": "d2PCTturmpY",
-          "title": "Karate One Premier League Rabat 2026 | Day 2 – Tatami 3"
         }
       ]
     },
@@ -144,38 +80,6 @@
         {
           "id": "cKv0N1v17qI",
           "title": "Karate One Premier League Rome 2026 | FINALS - Morning Session"
-        },
-        {
-          "id": "iZk8SSsPEa0",
-          "title": "Karate One Premier League Rome 2026 | Competition Draw"
-        },
-        {
-          "id": "HG3f6hzRdKA",
-          "title": "Karate One Premier League Rome 2026 | Day 1 – Tatami 1"
-        },
-        {
-          "id": "6r6IfFMAlmw",
-          "title": "Karate One Premier League Rome 2026 | Day 1 – Tatami 2"
-        },
-        {
-          "id": "6F2lCYVDrow",
-          "title": "Karate One Premier League Rome 2026 | Day 1 – Tatami 3"
-        },
-        {
-          "id": "y4KmOsJoSQs",
-          "title": "Karate One Premier League Rome 2026 | Day 1 – Tatami 4"
-        },
-        {
-          "id": "dsMfaXWoMag",
-          "title": "Karate One Premier League Rome 2026 | Day 2 – Tatami 1"
-        },
-        {
-          "id": "hQQGAAZNIa0",
-          "title": "Karate One Premier League Rome 2026 | Day 2 – Tatami 2"
-        },
-        {
-          "id": "O4eB_jDo7_c",
-          "title": "Karate One Premier League Rome 2026 | Day 2 – Tatami 3"
         }
       ]
     },
@@ -190,28 +94,28 @@
       "source": "SportData SET Online (extraído 2026-08-13)",
       "candidateVideos": [
         {
-          "id": "GmyPwkuWYHA",
-          "title": "Karate One Series A Coruña 2026 | Day 1 – Tatami 1"
+          "id": "XQoGCvrIezk",
+          "title": "Karate One Series A Coruña 2026 | Day 3 – Tatami 1"
         },
         {
-          "id": "gbP9k3AenJE",
-          "title": "Karate One Series A Coruña 2026 | Day 1 – Tatami 2"
+          "id": "8NrYmdjVRh0",
+          "title": "Karate One Series A Coruña 2026 | Day 3 – Tatami 2"
         },
         {
-          "id": "PqFvn5jNFAk",
-          "title": "Karate One Series A Coruña 2026 | Day 1 – Tatami 3"
+          "id": "ji28KF15WhU",
+          "title": "Karate One Series A Coruña 2026 | Day 3 – Tatami 3"
         },
         {
-          "id": "HtskbKx1jfI",
-          "title": "Karate One Series A Coruña 2026 | Day 1 – Tatami 4"
+          "id": "Z5UhXcuPx9c",
+          "title": "Karate One Series A Coruña 2026 | Day 3 – Tatami 4"
         },
         {
-          "id": "omdJEU_Gn2U",
-          "title": "Karate One Series A Coruña 2026 | Day 1 – Tatami 5"
+          "id": "-RRgy0QDDaY",
+          "title": "Karate One Series A Coruña 2026 | Day 3 – Tatami 5"
         },
         {
-          "id": "RV2jcuoK1ic",
-          "title": "Karate One Series A Coruña 2026 | Day 1 – Tatami 6"
+          "id": "O6M7zYIaRAQ",
+          "title": "Karate One Series A Coruña 2026 | Day 3 – Tatami 6"
         },
         {
           "id": "pnHZK12TRuI",
@@ -220,14 +124,6 @@
         {
           "id": "CPUfg06JQmI",
           "title": "Karate One Series A Coruña 2026 | Day 2 – Tatami 2"
-        },
-        {
-          "id": "-kJBtmasnOQ",
-          "title": "Karate One Series A Coruña 2026 | Day 2 – Tatami 3"
-        },
-        {
-          "id": "7pXzbnp3PiY",
-          "title": "Karate One Series A Coruña 2026 | Day 2 – Tatami 4"
         }
       ]
     },
@@ -242,20 +138,20 @@
       "source": "SportData SET Online (extraído 2026-08-13)",
       "candidateVideos": [
         {
-          "id": "vM2BNdh_7RI",
-          "title": "Karate One Series A Guadalajara 2026 | Day 1 - Tatami 1"
+          "id": "MxpQi2PvZu8",
+          "title": "Karate One Series A Guadalajara 2026 | Day 3 - Tatami 1"
         },
         {
-          "id": "EL4BU_1L7n0",
-          "title": "Karate One Series A Guadalajara 2026 | Day 1 - Tatami 2"
+          "id": "Qy40g4zVPq8",
+          "title": "Karate One Series A Guadalajara 2026 | Day 3 - Tatami 2"
         },
         {
-          "id": "6FYzEYo9JMg",
-          "title": "Karate One Series A Guadalajara 2026 | Day 1 - Tatami 3"
+          "id": "aRIAmTFjgOg",
+          "title": "Karate One Series A Guadalajara 2026 | Day 3 - Tatami 3"
         },
         {
-          "id": "BmbovVY4k00",
-          "title": "Karate One Series A Guadalajara 2026 | Day 1 - Tatami 4"
+          "id": "v7HjX_DGiB8",
+          "title": "Karate One Series A Guadalajara 2026 | Day 3 - Tatami 4"
         },
         {
           "id": "SICwW9gxupM",
@@ -272,14 +168,6 @@
         {
           "id": "2By9e2ou7bQ",
           "title": "Karate One Series A Guadalajara 2026 | Day 2 - Tatami 4"
-        },
-        {
-          "id": "MxpQi2PvZu8",
-          "title": "Karate One Series A Guadalajara 2026 | Day 3 - Tatami 1"
-        },
-        {
-          "id": "Qy40g4zVPq8",
-          "title": "Karate One Series A Guadalajara 2026 | Day 3 - Tatami 2"
         }
       ]
     },

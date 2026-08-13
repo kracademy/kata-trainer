@@ -39,8 +39,11 @@ export function filterPerformances(perfs: Performance[], f: TrainFilters, ctx: C
     if (f.year !== 'ALL' && String(ctx.compYearById.get(p.competitionId)) !== f.year) return false;
     if (f.gender !== 'ALL' && ctx.genderByCategoryId.get(p.categoryId) !== f.gender) return false;
     if (f.format !== 'ALL' && (ctx.formatByCategoryId.get(p.categoryId) ?? 'INDIVIDUAL') !== f.format) return false;
+    // Por defecto ('ALL') solo encuentros de medalla; otras rondas solo si se piden explícitamente.
+    if (f.round === 'ALL' && !['FINAL', 'BRONZE_1', 'BRONZE_2'].includes(p.roundType)) return false;
     if (f.round === 'FINAL' && p.roundType !== 'FINAL') return false;
     if (f.round === 'BRONZE' && p.roundType !== 'BRONZE_1' && p.roundType !== 'BRONZE_2') return false;
+    if (f.round === 'OTHER' && p.roundType !== 'OTHER') return false;
     const t = analyzePerformance(ctx.attemptsByPerf.get(p.id) ?? []);
     if (f.status === 'NEVER' && t.everAttempted) return false;
     if (f.status === 'FAILED' && !(t.failedFirst && !t.learned)) return false;

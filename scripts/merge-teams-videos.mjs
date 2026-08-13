@@ -115,10 +115,14 @@ for (const comp of comps.values()) {
     return sl.includes(year) && tokens.some((tok) => sl.includes(tok));
   });
   if (!cands.length) continue;
-  const score = (s) => (/final|medal/i.test(s.t) ? 0 : 1);
-  comp.candidateVideos = cands
-    .sort((a, b) => score(a) - score(b) || a.t.localeCompare(b.t))
-    .slice(0, 10)
+  // Las medal matches están en las emisiones etiquetadas FINALS / MEDALS / MEDAL / BRONZE:
+  // si existen, solo ofrecemos esas; el resto de tatamis solo como último recurso.
+  // 'FINALS' como palabra (no Quarterfinals/Semifinals), MEDAL(S), BRONZE...
+  const medal = cands.filter((s) => /(?:^|[^a-z])finals?(?:[^a-z]|$)|medal|bronze|bronce/i.test(s.t));
+  const day = (s) => +(s.t.match(/day\s*(\d)/i)?.[1] ?? 0);
+  comp.candidateVideos = (medal.length ? medal : cands)
+    .sort((a, b) => (medal.length ? a.t.localeCompare(b.t) : day(b) - day(a) || a.t.localeCompare(b.t)))
+    .slice(0, 8)
     .map((s) => ({ id: s.id, title: s.t.replace(/^LIVE\s*🔴\s*/, '') }));
   matchedComps++;
 }
