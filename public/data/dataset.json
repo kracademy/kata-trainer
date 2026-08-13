@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T22:17:42.003Z",
+  "generatedAt": "2026-08-13T22:34:33.190Z",
   "competitions": [
     {
       "id": "ekf-senior-championships-2026-frankfurt",
@@ -17,7 +17,8 @@
           "id": "-9ni3k7cloQ",
           "title": "[WKF] EKF Frankfurt 2026 Finals Day Highlights | Best Moments of the European Karate Champi"
         }
-      ]
+      ],
+      "dateStart": "2026-05-20"
     },
     {
       "id": "karate-one-premier-league-istanbul-2026",
@@ -45,7 +46,8 @@
           "id": "RH8ucT2JJKA",
           "title": "[Aspire karate ] Moto Kazumasa - All Katas - Karate 1 Premier League Istanbul 2026 (Silver Medal)"
         }
-      ]
+      ],
+      "dateStart": "2026-01-23"
     },
     {
       "id": "karate-one-premier-league-leshan-2026",
@@ -97,7 +99,8 @@
           "id": "EwSrcpDFD8A",
           "title": "[Karate Univers] Kazumasa Moto - Gankaku (Final Premier League Istanbul 2026)"
         }
-      ]
+      ],
+      "dateStart": "2026-04-10"
     },
     {
       "id": "karate-one-premier-league-rabat-2026",
@@ -149,7 +152,8 @@
           "id": "ZTZjczVuoyA",
           "title": "[Sensei Kingsle] Ken Okamoto 🇯🇵 (Empi) VS Comanescu Petru 🇷🇴  (Gankaku) Male Kata K-1 Premier Leag"
         }
-      ]
+      ],
+      "dateStart": "2026-06-12"
     },
     {
       "id": "karate-one-premier-league-rome-2026",
@@ -201,7 +205,8 @@
           "id": "l4CqHVyUURg",
           "title": "[Sensei Kingsle] Kazumasa Moto 🇯🇵 (Sochin) VS Neto Artur 🇵🇹 (Anan Dai) Male Kata Group Phase Rome "
         }
-      ]
+      ],
+      "dateStart": "2026-03-13"
     },
     {
       "id": "karate-one-series-a-a-coruna-2026",
@@ -245,7 +250,8 @@
           "id": "CPUfg06JQmI",
           "title": "Karate One Series A Coruña 2026 | Day 2 – Tatami 2"
         }
-      ]
+      ],
+      "dateStart": "2026-04-24"
     },
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -289,7 +295,8 @@
           "id": "2By9e2ou7bQ",
           "title": "Karate One Series A Guadalajara 2026 | Day 2 - Tatami 4"
         }
-      ]
+      ],
+      "dateStart": "2026-07-17"
     },
     {
       "id": "karate-one-series-a-tbilisi-2026",
@@ -313,7 +320,8 @@
           "id": "m8ZubWu0m94",
           "title": "[WKF] 2026 Karate One - Series A Tbilisi | Sunday - FINALS! |"
         }
-      ]
+      ],
+      "dateStart": "2026-01-09"
     },
     {
       "id": "the-22nd-asian-senior-championship-2026-bali-indonesia",
@@ -330,7 +338,8 @@
           "id": "BazkyrKls8o",
           "title": "[Joe Carlo] ONO MAHO (JPN) vs LAU MO SEUNG (HKG) FINAL MATCH FEMALE KATA AKF 2026 BALI🇮🇩"
         }
-      ]
+      ],
+      "dateStart": "2026-06-18"
     },
     {
       "id": "31st-mediterranean-championships-2025-guadalajara",
@@ -354,7 +363,8 @@
           "id": "ecxD0melaUA",
           "title": "[KarateNews] Senior Team Kata Female Final | Spain A vs Spain B | Guadalajara 2025"
         }
-      ]
+      ],
+      "dateStart": "2025-09-12"
     },
     {
       "id": "ekf-senior-championships-2025-yerevan",
@@ -399,7 +409,8 @@
           "id": "DXpaWwVKjDM",
           "title": "[KarateNews] Yerevan 2025 // Semifinal TEAM MALE KATA: SPAIN"
         }
-      ]
+      ],
+      "dateStart": "2025-05-07"
     },
     {
       "id": "karate1-premier-league-cairo-2025",
@@ -419,7 +430,8 @@
           "id": "4OBiBRl7LsQ",
           "title": "[WKF] Karate1 CAIRO: SUNDAY - FINALS & BRONZE MEDALS - Morning Session | WORLD KARATE FEDER"
         }
-      ]
+      ],
+      "dateStart": "2025-04-18"
     },
     {
       "id": "karate1-premier-league-hangzhou-2025",
@@ -435,7 +447,8 @@
           "id": "LBcGdFs27pI",
           "title": "[WKF] Karate1 Hangzhou: SUNDAY - FINALS & BRONZE MEDALS - Afternoon Session | WORLD KARATE "
         }
-      ]
+      ],
+      "dateStart": "2025-03-14"
     },
     {
       "id": "karate1-premier-league-paris-2025",
@@ -463,7 +476,8 @@
           "id": "ogl6qcHTL2Y",
           "title": "[WKF] HIGHLIGHTS from the Kata finals of Karate 1 Premiere League Paris 2024 | WORLD KARATE"
         }
-      ]
+      ],
+      "dateStart": "2025-01-24"
     },
     {
       "id": "karate1-premier-league-rabat-2025",
@@ -499,7 +513,8 @@
           "id": "HvE7GTkV_Ds",
           "title": "[KarateNews] 2025 K1 Rabat // quarter final Female kata D'ONOFRIO TERRYANA (ITALY) vs MISHIMA KIRI"
         }
-      ]
+      ],
+      "dateStart": "2025-05-30"
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025",
@@ -519,7 +534,8 @@
           "id": "UB7t_d5Jj_I",
           "title": "[Karate360] Otsuki Eiji vs Ken Okamoto - Karate 1 Series A Kuala Lumpur Male Kata Final Match"
         }
-      ]
+      ],
+      "dateStart": "2025-10-03"
     },
     {
       "id": "karate1-series-a-larnaca-2025",
@@ -543,7 +559,8 @@
           "id": "8NFnxYh6BcQ",
           "title": "[Cobra Karate m] Female KATA (JPN🇯🇵).  Final of KARATE 1 series A LARNACA 2025 #karate #japankarate "
         }
-      ]
+      ],
+      "dateStart": "2025-02-14"
     },
     {
       "id": "karate1-series-a-salzburg-2025",
@@ -571,7 +588,8 @@
           "id": "R0uXGlSl4mI",
           "title": "[Salzburger Kar] Karate 1 Final Kata Male Salzburg 2019"
         }
-      ]
+      ],
+      "dateStart": "2025-09-05"
     },
     {
       "id": "karate1-series-a-tbilisi-2025",
@@ -607,7 +625,8 @@
           "id": "h6Km8HJM00Y",
           "title": "[Ricca Torres] Indonesia Female Team Kata | WKF Series A Tbilisi 2025 | Bronze Medal Match"
         }
-      ]
+      ],
+      "dateStart": "2025-01-10"
     },
     {
       "id": "the-21st-asian-senior-championship-2025-tashkent-uzbekistan",
@@ -652,7 +671,8 @@
           "id": "XFfGNNTUc48",
           "title": "[OSH TV] FINAL Assel Kanay (KAZ) Vs Sarara Shimada (JPN) - 22nd AKF Asian Senior Championship "
         }
-      ]
+      ],
+      "dateStart": "2025-05-23"
     },
     {
       "id": "wkf-worlds-2025-cairo",
@@ -718,7 +738,8 @@
           "id": "ogl6qcHTL2Y",
           "title": "[World Karate Feder] HIGHLIGHTS from the Kata finals of Karate 1 Premiere League Paris 2024 | WORLD KARATE"
         }
-      ]
+      ],
+      "dateStart": "2024-04-25"
     },
     {
       "id": "30th-mediterranean-championships-2024-olbia-sardinia",
@@ -762,7 +783,8 @@
           "id": "ogl6qcHTL2Y",
           "title": "[World Karate Feder] HIGHLIGHTS from the Kata finals of Karate 1 Premiere League Paris 2024 | WORLD KARATE"
         }
-      ]
+      ],
+      "dateStart": "2024-09-20"
     },
     {
       "id": "ekf-senior-championships-2024-zadar",
@@ -783,7 +805,8 @@
           "id": "CoQnO6bVhqY",
           "title": "[PUNJAB KARATE ] FINAL WOMEN'S TEAM KATA (SPAIN) Vs (ITALY)EKF SENIOR CHAMPIONSHIPS ZADAR@YouTube @kar"
         }
-      ]
+      ],
+      "dateStart": "2024-05-08"
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024",
@@ -828,7 +851,8 @@
           "id": "NQ4Rb1G9hFo",
           "title": "[Sahand Eslami] karate world cup spain pamplona 2024 / Iran team kata unsu #karate #worldcup #team #j"
         }
-      ]
+      ],
+      "dateStart": "2024-11-22"
     },
     {
       "id": "karate1-premier-league-antalya-2024",
@@ -852,7 +876,8 @@
           "id": "j96KvtjLeBU",
           "title": "[Valeria Shulga] Karate1 ANTALYA   FINALS / Male  KATA/  WORLD KARATE FEDERATION 1"
         }
-      ]
+      ],
+      "dateStart": "2024-03-15"
     },
     {
       "id": "karate1-premier-league-cairo-2024",
@@ -884,7 +909,8 @@
           "id": "n_oKRjSCNPU",
           "title": "[SPORT KARATE -] FINAL FEMALE KATA IN CAIRO KARATE PREMIER LEAGUE 2024 | PAPUREN VS SUPARINPEI @SportK"
         }
-      ]
+      ],
+      "dateStart": "2024-04-19"
     },
     {
       "id": "karate1-premier-league-casablanca-2024",
@@ -912,7 +938,8 @@
           "id": "Z1YBBVm-zHQ",
           "title": "[حسين الأميل - ] Karate1 CASABLANCA | FINALS | Male Kata RYUJI Moto VS KAKERU NISHIYAMAWORLD KARATE FE"
         }
-      ]
+      ],
+      "dateStart": "2024-05-31"
     },
     {
       "id": "karate1-premier-league-paris-2024",
@@ -944,7 +971,8 @@
           "id": "ozLrLAlxB0A",
           "title": "[Valeria Shulga] Karate1 PARIS | FINALS | KATA MALE | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2024-01-26"
     },
     {
       "id": "karate1-series-a-athens-2024",
@@ -960,7 +988,8 @@
           "id": "8aYBjFka3Y4",
           "title": "[WKF] Karate 1 Athens | FINALS | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2024-01-12"
     },
     {
       "id": "karate1-series-a-larnaca-2024",
@@ -984,7 +1013,8 @@
           "id": "AQzNhvy7yog",
           "title": "[WKF] Karate1 LARNACA - FINALS SUNDAY | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2024-02-16"
     },
     {
       "id": "karate1-series-a-salzburg-2024",
@@ -1028,7 +1058,8 @@
           "id": "GabGUn49wg4",
           "title": "[GankSu Karate ] Taily Helvetia Kata Gankaku Karate1 Series A Salzburg 2024 female kata finals"
         }
-      ]
+      ],
+      "dateStart": "2024-09-13"
     },
     {
       "id": "the-20th-asian-senior-championship-2024-hangzhou-china",
@@ -1053,7 +1084,8 @@
           "id": "ncOK4QMWnE8",
           "title": "[fighterchamsic] FINAL MALE KATA 20th Asian Senior Karate Championship 2024"
         }
-      ]
+      ],
+      "dateStart": "2024-09-20"
     },
     {
       "id": "29th-mediterranean-championships-2023-rades",
@@ -1097,7 +1129,8 @@
           "id": "ZLGRMY4q1YE",
           "title": "[WKO SHINKYOKUS] 【新極真会】 European KARATE Championship 2023 Men's KATA Final 　SHINKYOKUSHINKAI KARATE"
         }
-      ]
+      ],
+      "dateStart": "2023-05-19"
     },
     {
       "id": "ekf-senior-championships-2023-guadalajara",
@@ -1142,7 +1175,8 @@
           "id": "sG0pf4jkMDk",
           "title": "[RandomName] Final Para-Karate - 54th European Senior Karate Championships || Spain - Guadalajara"
         }
-      ]
+      ],
+      "dateStart": "2023-03-22"
     },
     {
       "id": "karate1-premier-league-cairo-2023",
@@ -1166,7 +1200,8 @@
           "id": "RP5kNdi-v4I",
           "title": "[WKF] Karate1 CAIRO | Bronze Medals | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2023-01-27"
     },
     {
       "id": "karate1-premier-league-dublin-2023",
@@ -1194,7 +1229,8 @@
           "id": "dzmHDykMuiU",
           "title": "[Karate The Bes] Enes Ozdemir (TUR) | BRONZE WINNER KATA MALE - Karate1 Premier League Dublin 2023"
         }
-      ]
+      ],
+      "dateStart": "2023-09-08"
     },
     {
       "id": "karate1-premier-league-fukuoka-2023",
@@ -1218,7 +1254,8 @@
           "id": "0LFKuEt-CzA",
           "title": "[Valeria Shulga] Karate1 FUKUOKA | Bronze Medals |Kata| WORLD KARATE FEDERATION 1"
         }
-      ]
+      ],
+      "dateStart": "2023-06-09"
     },
     {
       "id": "karate1-premier-league-rabat-2023",
@@ -1262,7 +1299,8 @@
           "id": "6FWfCncrzvY",
           "title": "[KarateNews] K1 Rabat 2026 // MALE KATA - SEMI-FINAL : OHATA Kotaro (JPN) vs TORRES GUTIERREZ Arie"
         }
-      ]
+      ],
+      "dateStart": "2023-05-12"
     },
     {
       "id": "karate1-series-a-athens-2023",
@@ -1294,7 +1332,8 @@
           "id": "Ir1F7DX0eZ4",
           "title": "[Binayalimbu] AKIYOSHI YUTO JPN Vs FUNADA AOI JPN Final Male Kata Athens Karate 1 Series A 2023"
         }
-      ]
+      ],
+      "dateStart": "2023-01-13"
     },
     {
       "id": "karate1-series-a-konya-2023",
@@ -1330,7 +1369,8 @@
           "id": "GRpdpTc2vVM",
           "title": "[KarateNews] 2022 Konya // final Cadet Kata Male: ABU WAHIB JONAS (GER) vs TATSUMI UKYO (JPN)"
         }
-      ]
+      ],
+      "dateStart": "2023-03-10"
     },
     {
       "id": "karate1-series-a-larnaca-2023",
@@ -1374,7 +1414,8 @@
           "id": "BFBnidlzHY4",
           "title": "[Athletes For V] Female Kata Gold Medal Match   Karate1 Series A   Larnaca 2023"
         }
-      ]
+      ],
+      "dateStart": "2023-09-29"
     },
     {
       "id": "karate1-series-a-matosinhos-2023",
@@ -1414,7 +1455,8 @@
           "id": "JEe5BP4wrrU",
           "title": "[The Best Karat] Karate1 Matosinhos 2023 I Gold medal match kata male I"
         }
-      ]
+      ],
+      "dateStart": "2023-11-24"
     },
     {
       "id": "karate1-series-a-richmond-vancouver-2023",
@@ -1442,7 +1484,8 @@
           "id": "cUhLcVXUOgA",
           "title": "[david_medina_k] Francia VS Colombia. Male Team Kata. Bronze Medal Match. Karate1 Serie A Richmond."
         }
-      ]
+      ],
+      "dateStart": "2023-04-14"
     },
     {
       "id": "wkf-senior-world-championships-2023-budapest",
@@ -1459,7 +1502,8 @@
           "id": "vmebHgK13PQ",
           "title": "[WKF] Highlights First day of Finals - Karate Budapest 2023 | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2023-10-24"
     },
     {
       "id": "ekf-senior-championships-2022-gaziantep",
@@ -1504,7 +1548,8 @@
           "id": "8Q3HIaI96pA",
           "title": "[karate banana] Spain vs Turkey - Male Team Kata Final @ 2022 European Karate Championships"
         }
-      ]
+      ],
+      "dateStart": "2022-05-25"
     },
     {
       "id": "karate1-premier-league-baku-2022",
@@ -1544,7 +1589,8 @@
           "id": "Wk66U4tGRHo",
           "title": "[Kesatria Karat] Premier league 1 Baku 2022 || Semi Final Karate KATA Female || Hikaru Ono vs Shimizu "
         }
-      ]
+      ],
+      "dateStart": "2022-09-02"
     },
     {
       "id": "karate1-premier-league-fujairah-2022",
@@ -1576,7 +1622,8 @@
           "id": "_9byRIPLhxY",
           "title": "[Sharing Sport ] Karate 1 Fujairah 2022 Male Kata Final Moto Kazumasa (JPN) Ozdemir Enes (TUR)@sharing"
         }
-      ]
+      ],
+      "dateStart": "2022-02-18"
     },
     {
       "id": "karate1-premier-league-matosinhos-2022",
@@ -1608,7 +1655,8 @@
           "id": "8dBB0EHVcMw",
           "title": "[SHINNO KARATE] FINAL GOLD MEDAL FIMALE KATA MATOSINHOS WKF 2022"
         }
-      ]
+      ],
+      "dateStart": "2022-04-22"
     },
     {
       "id": "karate1-series-a-cairo-2022",
@@ -1636,7 +1684,8 @@
           "id": "K9hfmUZsxqI",
           "title": "[Karate Champio] Team kata Female final match | Karate 1 Series A Cairo 2022"
         }
-      ]
+      ],
+      "dateStart": "2022-06-10"
     },
     {
       "id": "karate1-series-a-jakarta-2022",
@@ -1668,7 +1717,8 @@
           "id": "2BhXoGQwQJk",
           "title": "[OSH TV] FINAL SULSEL VS DKI JAKARTA - KATA BEREGU PUTRA PON XX 2021"
         }
-      ]
+      ],
+      "dateStart": "2022-11-18"
     },
     {
       "id": "karate1-series-a-kocaeli-2022",
@@ -1700,7 +1750,8 @@
           "id": "CG1yKTdluYM",
           "title": "[Kuwait kata te] Final kata team series A Kocaeli - kuwait"
         }
-      ]
+      ],
+      "dateStart": "2022-09-23"
     },
     {
       "id": "karate1-series-a-pamplona-2022",
@@ -1716,7 +1767,8 @@
           "id": "uqBhx0K3avY",
           "title": "[Paulo Cesar Se] FINAL MALE & FEMALE KATA   KARATE 1 SERIES A PAMPLONA 2022   WKF KARATE KATA 2022  Ka"
         }
-      ]
+      ],
+      "dateStart": "2022-01-28"
     },
     {
       "id": "pkf-senior-championships-2022-curacao",
@@ -1761,7 +1813,8 @@
           "id": "uBIR1MCSWRk",
           "title": "[Zach Alex] Commonwealth Karate Championships 2022 - Male Kata Final"
         }
-      ]
+      ],
+      "dateStart": "2022-05-26"
     },
     {
       "id": "ekf-senior-championships-2021-porec",
@@ -1782,7 +1835,8 @@
           "id": "6jenNzNANRY",
           "title": "[Karate com Caf] EKF POREC 2021 - FINAL KATA - ALI SOFUOGLU x DAMIAN QUINTERO - Campeonato Europeu de "
         }
-      ]
+      ],
+      "dateStart": "2021-05-19"
     },
     {
       "id": "karate1-premier-league-cairo-2021",
@@ -1810,7 +1864,8 @@
           "id": "nt_lY5mfOrU",
           "title": "[WKF] Karate1 CAIRO | FINALS | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2021-09-03"
     },
     {
       "id": "karate1-premier-league-istanbul-2021",
@@ -1842,7 +1897,8 @@
           "id": "UjmBObxtzG8",
           "title": "[Sharing Sport ] Karate 1 Istanbul 2021 Bronze Team Kata TUR vs TUR"
         }
-      ]
+      ],
+      "dateStart": "2021-03-12"
     },
     {
       "id": "karate1-premier-league-lisbon-2021",
@@ -1886,7 +1942,8 @@
           "id": "GfVt4UlJhlc",
           "title": "[Super karate] karate final ( female kata ) Karate 1 Premier League Lisbon 2021 - olympics karate"
         }
-      ]
+      ],
+      "dateStart": "2021-04-30"
     },
     {
       "id": "karate1-premier-league-moscow-2021",
@@ -1906,7 +1963,8 @@
           "id": "ErRnCkhuiLo",
           "title": "[KarateSpot] HUSSAIN MOHAMMAD (KUW) vs BAKIROV VARISHAN (RUS) | Male kata final | Moscow karate un"
         }
-      ]
+      ],
+      "dateStart": "2021-10-01"
     },
     {
       "id": "mediterranean-championships-2021-limassol",
@@ -1950,7 +2008,8 @@
           "id": "qE18hRFs8V8",
           "title": "[TNT Sports] KARATE Femenino - KATA Final | Highlights | Juegos Olímpicos - Tokio 2020"
         }
-      ]
+      ],
+      "dateStart": "2021-10-22"
     },
     {
       "id": "pkf-senior-championships-2021-punta-del-este",
@@ -1995,7 +2054,8 @@
           "id": "IpM-wN_6Ftw",
           "title": "[Borut Močnik] EKF Junior, Cadet & U21 Championships 2021 - Tampere, 20.08.2021, Cadet Kata Male Gol"
         }
-      ]
+      ],
+      "dateStart": "2021-10-18"
     },
     {
       "id": "wkf-senior-world-championships-2021-dubai",
@@ -2036,7 +2096,8 @@
           "id": "JoZ-ujocB9M",
           "title": "[WKF] Karate Dubai 2021 | FEMALE TEAM KATA - Final Pool 2 | WORLD KARATE FEDERATION"
         }
-      ]
+      ],
+      "dateStart": "2021-11-16"
     }
   ],
   "categories": [

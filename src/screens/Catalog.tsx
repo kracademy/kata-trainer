@@ -40,8 +40,8 @@ export default function Catalog() {
       }))
       .sort(
         (a, b) =>
-          (a.comp?.year ?? 0) - (b.comp?.year ?? 0) ||
-          (a.comp?.sportDataEventId ?? 0) - (b.comp?.sportDataEventId ?? 0),
+          // más recientes primero, por fecha real del campeonato
+          (b.comp?.dateStart ?? `${b.comp?.year ?? 0}`).localeCompare(a.comp?.dateStart ?? `${a.comp?.year ?? 0}`),
       );
   }, [data.performances, data.compById, data.categoryById]);
 
