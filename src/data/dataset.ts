@@ -29,19 +29,36 @@ export async function syncDataset(): Promise<void> {
     await db.categories.bulkPut(ds.categories);
     await db.athletes.bulkPut(ds.athletes);
     await db.videos.bulkPut(ds.videos);
+    // Firmas de vídeo asignadas por el dataset (comp+cat+vídeo+tiempos → perf dueña):
+    // si un vídeo local coincide con la firma de OTRA actuación hermana, es una copia
+    // obsoleta (quedó pegada tras una re-extracción) y se descarta.
+    const ownerBySig = new Map<string, string>();
+    for (const p of ds.performances) {
+      if (p.videoId && p.startSeconds != null && p.endSeconds != null) {
+        ownerBySig.set(`${p.competitionId}|${p.categoryId}|${p.videoId}|${p.startSeconds}|${p.endSeconds}`, p.id);
+      }
+    }
     for (const perf of ds.performances) {
       const existing = await db.performances.get(perf.id);
-      // El vídeo local solo se conserva si el emparejamiento no ha cambiado en el dataset
-      // (si cambió, el vídeo local pertenece a otro bout y quedaría mal asignado).
       const samePair =
         existing &&
         existing.akaAthleteId === perf.akaAthleteId &&
         existing.aoAthleteId === perf.aoAthleteId;
+      let localVideo = samePair && !perf.videoId ? {
+        videoId: existing?.videoId,
+        startSeconds: existing?.startSeconds,
+        endSeconds: existing?.endSeconds,
+      } : undefined;
+      if (localVideo?.videoId != null && localVideo.startSeconds != null && localVideo.endSeconds != null) {
+        const sig = `${perf.competitionId}|${perf.categoryId}|${localVideo.videoId}|${localVideo.startSeconds}|${localVideo.endSeconds}`;
+        const owner = ownerBySig.get(sig);
+        if (owner && owner !== perf.id) localVideo = undefined; // copia obsoleta de otra actuación
+      }
       const merged: Performance = {
         ...perf,
-        videoId: perf.videoId ?? (samePair ? existing?.videoId : undefined),
-        startSeconds: perf.startSeconds ?? (samePair ? existing?.startSeconds : undefined),
-        endSeconds: perf.endSeconds ?? (samePair ? existing?.endSeconds : undefined),
+        videoId: perf.videoId ?? localVideo?.videoId,
+        startSeconds: perf.startSeconds ?? localVideo?.startSeconds,
+        endSeconds: perf.endSeconds ?? localVideo?.endSeconds,
         notes: perf.notes ?? existing?.notes,
       };
       merged.status = computeStatus(merged);

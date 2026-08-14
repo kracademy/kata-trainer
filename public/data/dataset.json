@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-14T08:46:09.231Z",
+  "generatedAt": "2026-08-14T11:53:59.031Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -12703,11 +12703,14 @@
       "kataAoNumber": 8,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1001&ver_info_action=catauslist",
       "officialScoreAka": 40.5,
       "officialScoreAo": 40.2,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "Bo7O23-JD-Q",
+      "startSeconds": 1613,
+      "endSeconds": 1973
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-female-kata_final",
@@ -12838,11 +12841,14 @@
       "kataAoNumber": 8,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1010&ver_info_action=catauslist",
       "officialScoreAka": 43.6,
       "officialScoreAo": 43.9,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "0jmCZF1QsE8",
+      "startSeconds": 1631,
+      "endSeconds": 2033
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-female-kata_bronze_1",
@@ -12858,11 +12864,14 @@
       "kataAoNumber": 92,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1010&ver_info_action=catauslist",
       "officialScoreAka": 40.4,
       "officialScoreAo": 41.9,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "0jmCZF1QsE8",
+      "startSeconds": 455,
+      "endSeconds": 837
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-female-kata_bronze_2",
@@ -12878,11 +12887,14 @@
       "kataAoNumber": 68,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1010&ver_info_action=catauslist",
       "officialScoreAka": 41.2,
       "officialScoreAo": 41.1,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "0jmCZF1QsE8",
+      "startSeconds": 1093,
+      "endSeconds": 1433
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-male-kata_final",
@@ -12898,11 +12910,14 @@
       "kataAoNumber": 9,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1010&ver_info_action=catauslist",
       "officialScoreAka": 43.4,
       "officialScoreAo": 44.7,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "8oCutEjASs8",
+      "startSeconds": 1693,
+      "endSeconds": 2087
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-male-kata_bronze_1",
@@ -12918,11 +12933,14 @@
       "kataAoNumber": 20,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1010&ver_info_action=catauslist",
       "officialScoreAka": 43.3,
       "officialScoreAo": 42.8,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "8oCutEjASs8",
+      "startSeconds": 275,
+      "endSeconds": 699
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-male-kata_bronze_2",
@@ -12938,11 +12956,14 @@
       "kataAoNumber": 92,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1010&ver_info_action=catauslist",
       "officialScoreAka": 42.4,
       "officialScoreAo": 43,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "8oCutEjASs8",
+      "startSeconds": 924,
+      "endSeconds": 1451
     },
     {
       "id": "karate1-series-a-salzburg-2025_senior-female-kata_final",
@@ -13138,11 +13159,14 @@
       "kataAoNumber": 8,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1068&ver_info_action=catauslist",
       "officialScoreAka": 41.6,
       "officialScoreAo": 40.6,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "8-0U7_dF03U",
+      "startSeconds": 195,
+      "endSeconds": 599
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-female-kata_bronze_2",
@@ -13178,11 +13202,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1068&ver_info_action=catauslist",
       "officialScoreAka": 42.4,
       "officialScoreAo": 42.8,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "8-0U7_dF03U",
+      "startSeconds": 1509,
+      "endSeconds": 1918
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-male-kata_bronze_2",
@@ -13218,13 +13245,16 @@
       "kataAoNumber": 68,
       "officialWinner": "AO",
       "officialResultType": "AKA_DISQUALIFIED",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1096&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 0,
         "ao": 5
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "z6529L74pLw",
+      "startSeconds": 2122,
+      "endSeconds": 2555
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-male-kata_final",
@@ -13240,13 +13270,16 @@
       "kataAoNumber": 68,
       "officialWinner": "AKA",
       "officialResultType": "AO_DISQUALIFIED",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1096&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 5,
         "ao": 0
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "z6529L74pLw",
+      "startSeconds": 2714,
+      "endSeconds": 3170
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-male-kata_bronze_1",
@@ -17822,11 +17855,14 @@
       "kataAoNumber": 1,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1068&ver_info_action=catauslist",
       "officialScoreAka": 40.8,
       "officialScoreAo": 42,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "wIQYtZaTZks",
+      "startSeconds": 1283,
+      "endSeconds": 1872
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-female-team-kata_bronze_1",
@@ -17882,11 +17918,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1068&ver_info_action=catauslist",
       "officialScoreAka": 40.8,
       "officialScoreAo": 43,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "wIQYtZaTZks",
+      "startSeconds": 2906,
+      "endSeconds": 3526
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-male-team-kata_bronze_2",
@@ -17922,13 +17961,16 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1096&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 2,
         "ao": 3
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "0pbMTQipoqE",
+      "startSeconds": 974,
+      "endSeconds": 1549
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-female-team-kata_bronze_1",
@@ -17988,13 +18030,16 @@
       "kataAoNumber": 86,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1096&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 4,
         "ao": 1
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "0pbMTQipoqE",
+      "startSeconds": 1781,
+      "endSeconds": 2407
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-male-team-kata_bronze_1",
@@ -18795,11 +18840,14 @@
       "kataAoNumber": 92,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=960&ver_info_action=catauslist",
       "officialScoreAka": 41.2,
       "officialScoreAo": 41.9,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "Avgc4x-NsFI",
+      "startSeconds": 219,
+      "endSeconds": 648
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-female-team-kata_bronze_2",
@@ -18944,11 +18992,14 @@
       "kataAoNumber": 15,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1001&ver_info_action=catauslist",
       "officialScoreAka": 40.5,
       "officialScoreAo": 43,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "Bo7O23-JD-Q",
+      "startSeconds": 2225,
+      "endSeconds": 2565
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-female-team-kata_bronze_2",
@@ -18987,11 +19038,14 @@
       "kataAoNumber": 8,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1005&ver_info_action=catauslist",
       "officialScoreAka": 42,
       "officialScoreAo": 42,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "4OBiBRl7LsQ",
+      "startSeconds": 1041,
+      "endSeconds": 1531
     },
     {
       "id": "karate1-series-a-salzburg-2025_senior-female-kata_bronze_1",
@@ -19149,13 +19203,16 @@
       "kataAoNumber": 9,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1096&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 4,
         "ao": 1
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "z6529L74pLw",
+      "startSeconds": 265,
+      "endSeconds": 682
     },
     {
       "id": "the-22nd-asian-senior-championship-2026-bali-indonesia_senior-female-kata_bronze_1",
@@ -20618,11 +20675,14 @@
       "kataAoNumber": 41,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=955&ver_info_action=catauslist",
       "officialScoreAka": 42.3,
       "officialScoreAo": 40.6,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "g3lefPtD-EM",
+      "startSeconds": 19150,
+      "endSeconds": 19545
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2025-bielsko-biala_u21-female-kata_bronze_1",
@@ -20678,11 +20738,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=955&ver_info_action=catauslist",
       "officialScoreAka": 41.5,
       "officialScoreAo": 41.2,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "g3lefPtD-EM",
+      "startSeconds": 19727,
+      "endSeconds": 20076
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2025-bielsko-biala_u21-male-kata_bronze_1",
@@ -20978,13 +21041,16 @@
       "kataAoNumber": 8,
       "officialWinner": "AO",
       "officialResultType": "AKA_DISQUALIFIED",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1091&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 0,
         "ao": 5
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "w_zlcVSVdBE",
+      "startSeconds": 19966,
+      "endSeconds": 20353
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2026-limassol_u21-female-kata_bronze_1",
@@ -21044,13 +21110,16 @@
       "kataAoNumber": 8,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=1091&ver_info_action=catauslist",
       "judgeVotes": {
         "aka": 4,
         "ao": 1
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces."
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "videoId": "w_zlcVSVdBE",
+      "startSeconds": 20598,
+      "endSeconds": 21022
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2026-limassol_u21-male-kata_bronze_1",
