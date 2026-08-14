@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-14T11:56:07.520Z",
+  "generatedAt": "2026-08-14T12:28:09.843Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -17147,11 +17147,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=890&ver_info_action=catauslist",
       "officialScoreAka": 43.2,
       "officialScoreAo": 46.6,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "b-2JIzFu4Oo",
+      "startSeconds": 1481,
+      "endSeconds": 2081
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024_senior-female-team-kata_bronze_1",
@@ -17167,11 +17170,14 @@
       "kataAoNumber": 1,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=890&ver_info_action=catauslist",
       "officialScoreAka": 41.9,
       "officialScoreAo": 43.4,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "b-2JIzFu4Oo",
+      "startSeconds": 366,
+      "endSeconds": 1006
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024_senior-male-team-kata_final",
@@ -17187,11 +17193,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=890&ver_info_action=catauslist",
       "officialScoreAka": 45.3,
       "officialScoreAo": 46.7,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "hUfTgZY1-yY",
+      "startSeconds": 1720,
+      "endSeconds": 2343
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024_senior-male-team-kata_bronze_1",
@@ -17207,11 +17216,14 @@
       "kataAoNumber": 67,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=890&ver_info_action=catauslist",
       "officialScoreAka": 42.7,
       "officialScoreAo": 45.2,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "hUfTgZY1-yY",
+      "startSeconds": 724,
+      "endSeconds": 1329
     },
     {
       "id": "the-20th-asian-senior-championship-2024-hangzhou-china_senior-female-team-kata_final",
@@ -17347,11 +17359,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=960&ver_info_action=catauslist",
       "officialScoreAka": 40.7,
       "officialScoreAo": 39.8,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "4075zuI-X70",
+      "startSeconds": 3003,
+      "endSeconds": 3644
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-female-team-kata_bronze_1",
@@ -17363,11 +17378,18 @@
       "aoAthleteId": "team-indonesia-ina",
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=960&ver_info_action=catauslist",
       "officialScoreAka": 40.7,
       "officialScoreAo": 39.7,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "LUviHpIv1Ew",
+      "startSeconds": 2084,
+      "endSeconds": 2672,
+      "kataAka": "Tomari Bassai",
+      "kataAkaNumber": 97,
+      "kataAo": "Anan",
+      "kataAoNumber": 1
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-team-kata_final",
@@ -17383,11 +17405,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=960&ver_info_action=catauslist",
       "officialScoreAka": 40.1,
       "officialScoreAo": 42.5,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "4075zuI-X70",
+      "startSeconds": 3844,
+      "endSeconds": 4450
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-team-kata_bronze_1",
@@ -17403,11 +17428,14 @@
       "kataAoNumber": 99,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=960&ver_info_action=catauslist",
       "officialScoreAka": 38.4,
       "officialScoreAo": 39,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "nie1jVH4ZC4",
+      "startSeconds": 2162,
+      "endSeconds": 2786
     },
     {
       "id": "karate1-series-a-larnaca-2025_senior-female-team-kata_final",

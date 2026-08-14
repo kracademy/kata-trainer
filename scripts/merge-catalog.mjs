@@ -26,6 +26,20 @@ for (const e of entries) {
 
 let applied = 0, skipped = 0;
 const report = [];
+
+// Solape casi-idéntico con el vídeo de una hermana en el dataset → copia obsoleta
+function isStaleOverlap(e) {
+  const p = perfById.get(e.performanceId);
+  for (const sib of ds.performances) {
+    if (sib.id === e.performanceId || sib.competitionId !== p.competitionId || sib.categoryId !== p.categoryId) continue;
+    if (sib.videoId !== e.videoId || sib.startSeconds == null) continue;
+    const overlap = Math.min(sib.endSeconds, e.endSeconds) - Math.max(sib.startSeconds, e.startSeconds);
+    const shorter = Math.min(sib.endSeconds - sib.startSeconds, e.endSeconds - e.startSeconds);
+    if (shorter > 0 && overlap / shorter > 0.8) return sib.id;
+  }
+  return null;
+}
+
 for (const [key, list] of groups) {
   let chosen = list;
   if (list.length > 1) {
@@ -39,6 +53,10 @@ for (const [key, list] of groups) {
   }
   for (const e of chosen) {
     const p = perfById.get(e.performanceId);
+    // si el dataset NO tiene ya este vídeo aquí y solapa >80% con el de una hermana → obsoleto
+    const alreadyOwns = p.videoId === e.videoId && p.startSeconds === e.startSeconds;
+    const staleOf = alreadyOwns ? null : isStaleOverlap(e);
+    if (staleOf) { skipped++; report.push(`solape obsoleto omitido: ${e.performanceId} (clip de ${staleOf})`); continue; }
     p.videoId = e.videoId; p.startSeconds = e.startSeconds; p.endSeconds = e.endSeconds; p.status = 'READY';
     applied++;
   }
