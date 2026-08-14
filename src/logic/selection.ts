@@ -8,6 +8,7 @@ export interface TrainFilters {
   competitionType: string; // 'ALL' | CompetitionType
   year: string; // 'ALL' | '2025'...
   gender: string; // 'ALL' | 'FEMALE' | 'MALE'
+  age: string; // 'ALL' | 'SENIOR' | 'U21'
   format: string; // 'ALL' | 'INDIVIDUAL' | 'TEAM'
   round: string; // 'ALL' | 'FINAL' | 'BRONZE'
   status: TrainStatusFilter;
@@ -18,6 +19,7 @@ export const DEFAULT_FILTERS: TrainFilters = {
   competitionType: 'ALL',
   year: 'ALL',
   gender: 'ALL',
+  age: 'ALL',
   format: 'ALL',
   round: 'ALL',
   status: 'ALL',
@@ -28,6 +30,7 @@ interface Ctx {
   compTypeById: Map<string, string>;
   compYearById: Map<string, number>;
   genderByCategoryId: Map<string, string>;
+  ageByCategoryId: Map<string, string>;
   formatByCategoryId: Map<string, string>;
   attemptsByPerf: Map<string, Attempt[]>;
 }
@@ -38,6 +41,7 @@ export function filterPerformances(perfs: Performance[], f: TrainFilters, ctx: C
     if (f.competitionType !== 'ALL' && ctx.compTypeById.get(p.competitionId) !== f.competitionType) return false;
     if (f.year !== 'ALL' && String(ctx.compYearById.get(p.competitionId)) !== f.year) return false;
     if (f.gender !== 'ALL' && ctx.genderByCategoryId.get(p.categoryId) !== f.gender) return false;
+    if (f.age !== 'ALL' && (ctx.ageByCategoryId.get(p.categoryId) ?? 'SENIOR') !== f.age) return false;
     if (f.format !== 'ALL' && (ctx.formatByCategoryId.get(p.categoryId) ?? 'INDIVIDUAL') !== f.format) return false;
     // Por defecto ('ALL') solo encuentros de medalla; otras rondas solo si se piden explícitamente.
     if (f.round === 'ALL' && !['FINAL', 'BRONZE_1', 'BRONZE_2'].includes(p.roundType)) return false;

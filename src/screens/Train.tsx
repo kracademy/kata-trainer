@@ -14,6 +14,7 @@ export default function Train() {
       compTypeById: new Map(data.competitions.map((c) => [c.id, c.competitionType as string])),
       compYearById: new Map(data.competitions.map((c) => [c.id, c.year])),
       genderByCategoryId: new Map(data.categories.map((c) => [c.id, c.gender as string])),
+      ageByCategoryId: new Map(data.categories.map((c) => [c.id, (c.ageGroup ?? 'SENIOR') as string])),
       formatByCategoryId: new Map(data.categories.map((c) => [c.id, (c.format ?? 'INDIVIDUAL') as string])),
       attemptsByPerf: data.attemptsByPerf,
     }),
@@ -68,6 +69,14 @@ export default function Train() {
             <option value="ALL">Todas</option>
             <option value="INDIVIDUAL">Individual</option>
             <option value="TEAM">Equipos</option>
+          </select>
+        </div>
+        <div style={{ flex: 1 }}>
+          <label>Edad</label>
+          <select value={filters.age} onChange={set('age')}>
+            <option value="ALL">Todas</option>
+            <option value="SENIOR">Senior</option>
+            <option value="U21">U21</option>
           </select>
         </div>
       </div>

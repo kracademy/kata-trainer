@@ -31,11 +31,17 @@ export async function syncDataset(): Promise<void> {
     await db.videos.bulkPut(ds.videos);
     for (const perf of ds.performances) {
       const existing = await db.performances.get(perf.id);
+      // El vídeo local solo se conserva si el emparejamiento no ha cambiado en el dataset
+      // (si cambió, el vídeo local pertenece a otro bout y quedaría mal asignado).
+      const samePair =
+        existing &&
+        existing.akaAthleteId === perf.akaAthleteId &&
+        existing.aoAthleteId === perf.aoAthleteId;
       const merged: Performance = {
         ...perf,
-        videoId: perf.videoId ?? existing?.videoId,
-        startSeconds: perf.startSeconds ?? existing?.startSeconds,
-        endSeconds: perf.endSeconds ?? existing?.endSeconds,
+        videoId: perf.videoId ?? (samePair ? existing?.videoId : undefined),
+        startSeconds: perf.startSeconds ?? (samePair ? existing?.startSeconds : undefined),
+        endSeconds: perf.endSeconds ?? (samePair ? existing?.endSeconds : undefined),
         notes: perf.notes ?? existing?.notes,
       };
       merged.status = computeStatus(merged);
