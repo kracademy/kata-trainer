@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-14T11:53:59.031Z",
+  "generatedAt": "2026-08-14T11:56:07.520Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -18840,14 +18840,11 @@
       "kataAoNumber": 92,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "READY",
+      "status": "VIDEO_MISSING",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=960&ver_info_action=catauslist",
       "officialScoreAka": 41.2,
       "officialScoreAo": 41.9,
-      "judgesCount": 5,
-      "videoId": "Avgc4x-NsFI",
-      "startSeconds": 219,
-      "endSeconds": 648
+      "judgesCount": 5
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-female-team-kata_bronze_2",
