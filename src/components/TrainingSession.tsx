@@ -6,7 +6,7 @@ import YouTubePlayer, { type YouTubePlayerHandle } from './YouTubePlayer';
 import type { CatalogData } from '../logic/useCatalog';
 import { roundLabel } from '../logic/format';
 
-type Phase = 'playing' | 'decision' | 'reveal';
+type Phase = 'playing' | 'interlude' | 'playingAo' | 'decision' | 'reveal';
 
 interface Props {
   queue: Performance[];
@@ -47,6 +47,16 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
   const judges = perf?.judgesCount ?? 5;
   const avgAka = useMemo(() => officialAverage(perf?.officialScoreAka, judges), [perf, judges]);
   const avgAo = useMemo(() => officialAverage(perf?.officialScoreAo, judges), [perf, judges]);
+
+  /** Modo separado: la actuación tiene sub-clips de AKA y AO catalogados. */
+  const split =
+    perf?.akaStartSeconds != null && perf?.akaEndSeconds != null &&
+    perf?.aoStartSeconds != null && perf?.aoEndSeconds != null;
+  // En modo separado: clip de AKA hasta el interludio; clip de AO desde entonces
+  // (decision/reveal mantienen el clip de AO para no re-montar el reproductor).
+  const onAkaClip = phase === 'playing' || phase === 'interlude';
+  const clipStart = !split ? perf?.startSeconds : onAkaClip ? perf?.akaStartSeconds : perf?.aoStartSeconds;
+  const clipEnd = !split ? perf?.endSeconds : onAkaClip ? perf?.akaEndSeconds : perf?.aoEndSeconds;
 
   if (!perf) {
     return (
@@ -114,10 +124,13 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
           <YouTubePlayer
             ref={playerRef}
             videoId={perf.videoId}
-            startSeconds={perf.startSeconds}
-            endSeconds={perf.endSeconds}
+            startSeconds={clipStart}
+            endSeconds={clipEnd}
             controls={false}
-            onEnded={() => phase === 'playing' && setPhase('decision')}
+            onEnded={() => {
+              if (phase === 'playing') setPhase(split ? 'interlude' : 'decision');
+              else if (phase === 'playingAo') setPhase('decision');
+            }}
             onError={() => setVideoError(true)}
           />
         )}
@@ -130,8 +143,9 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
             <button onClick={() => setPhase('decision')}>Ya lo he visto → decidir</button>
           </div>
         )}
-        {phase !== 'playing' && !videoError && (
+        {phase !== 'playing' && phase !== 'playingAo' && !videoError && (
           <div className="player-overlay">
+            {phase === 'interlude' && <p style={{ fontSize: '1.2rem', fontWeight: 800 }}><span style={{ color: '#ff6b62' }}>AKA</span> ha terminado</p>}
             {phase === 'decision' && <p style={{ fontSize: '1.3rem', fontWeight: 800 }}>¿Quién gana?</p>}
             {phase === 'reveal' && <p style={{ fontSize: '1.1rem' }}>{wasCorrect ? '✅' : '❌'} Resultado abajo</p>}
           </div>
@@ -141,28 +155,49 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
       {phase !== 'reveal' && (
         <div className="card perf-item" style={{ marginTop: 12 }}>
           <div className="meta">{comp?.name} · {cat?.name} · {roundLabel(perf.roundType)}</div>
-          <div className="who">
-            <span style={{ color: 'var(--aka)', fontWeight: 800 }}>AKA</span> {aka?.displayName}{' '}
+          <div className="who" style={split && phase === 'playingAo' ? { opacity: 0.45 } : undefined}>
+            <span style={{ color: 'var(--aka)', fontWeight: 800 }}>{split && phase === 'playing' ? '▶ ' : ''}AKA</span> {aka?.displayName}{' '}
             <span className="muted">({aka?.countryCode})</span>
             {perf.kataAka && <span className="muted"> — {perf.kataAka}</span>}
           </div>
-          <div className="who">
-            <span style={{ color: 'var(--ao)', fontWeight: 800 }}>AO</span> {ao?.displayName}{' '}
+          <div className="who" style={split && (phase === 'playing' || phase === 'interlude') ? { opacity: 0.45 } : undefined}>
+            <span style={{ color: 'var(--ao)', fontWeight: 800 }}>{split && phase === 'playingAo' ? '▶ ' : ''}AO</span> {ao?.displayName}{' '}
             <span className="muted">({ao?.countryCode})</span>
             {perf.kataAo && <span className="muted"> — {perf.kataAo}</span>}
           </div>
         </div>
       )}
 
-      {phase === 'playing' && (
+      {(phase === 'playing' || phase === 'playingAo') && (
         <div className="row">
           <button className="btn-secondary" style={{ flex: '0 0 30%' }} onClick={togglePause}>
             {paused ? '▶︎ Seguir' : '⏸ Pausa'}
           </button>
-          <button className="btn-primary" style={{ flex: 1, margin: '10px 0' }} onClick={() => setPhase('decision')}>
-            FINALIZAR ACTUACIÓN
+          <button
+            className="btn-primary"
+            style={{ flex: 1, margin: '10px 0' }}
+            onClick={() => setPhase(phase === 'playing' && split ? 'interlude' : 'decision')}
+          >
+            {phase === 'playing' && split ? 'FIN DE AKA' : 'FINALIZAR ACTUACIÓN'}
           </button>
         </div>
+      )}
+
+      {phase === 'interlude' && (
+        <>
+          <div className="card">
+            <label style={{ margin: '0 0 6px' }}>
+              Puntuación de <span style={{ color: 'var(--aka)', fontWeight: 800 }}>AKA</span> (opcional, media por juez 5.0–10.0)
+            </label>
+            <input type="text" inputMode="decimal" placeholder="p. ej. 8.6" value={scoreAka} onChange={(e) => setScoreAka(e.target.value)} />
+          </div>
+          <button
+            className="btn-primary"
+            onClick={() => { setPaused(false); setPhase('playingAo'); }}
+          >
+            🔵 VER ACTUACIÓN DE AO
+          </button>
+        </>
       )}
 
       {phase === 'decision' && (

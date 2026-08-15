@@ -44,9 +44,14 @@ export default function Library() {
   return (
     <>
       <h1>Biblioteca</h1>
-      <Link to="/catalogar">
-        <button className="btn-secondary">🛠️ Catalogar vídeos (PC)</button>
-      </Link>
+      <div className="row">
+        <Link to="/catalogar" style={{ flex: 1 }}>
+          <button className="btn-secondary" style={{ width: '100%' }}>🛠️ Catalogar vídeos (PC)</button>
+        </Link>
+        <Link to="/katas" style={{ flex: 1 }}>
+          <button className="btn-secondary" style={{ width: '100%' }}>🥋 Estudio de katas</button>
+        </Link>
+      </div>
 
       <input type="text" placeholder="Buscar atleta, país, kata, competición…" value={q} onChange={(e) => setQ(e.target.value)} />
       <div className="row" style={{ marginTop: 10 }}>

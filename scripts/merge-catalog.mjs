@@ -58,6 +58,9 @@ for (const [key, list] of groups) {
     const staleOf = alreadyOwns ? null : isStaleOverlap(e);
     if (staleOf) { skipped++; report.push(`solape obsoleto omitido: ${e.performanceId} (clip de ${staleOf})`); continue; }
     p.videoId = e.videoId; p.startSeconds = e.startSeconds; p.endSeconds = e.endSeconds; p.status = 'READY';
+    // sub-clips por atleta (autoría del usuario: siempre se aplican)
+    if (e.akaStartSeconds != null) { p.akaStartSeconds = e.akaStartSeconds; p.akaEndSeconds = e.akaEndSeconds; }
+    if (e.aoStartSeconds != null) { p.aoStartSeconds = e.aoStartSeconds; p.aoEndSeconds = e.aoEndSeconds; }
     // puntuaciones oficiales añadidas por el usuario (solo si el dataset no las tiene)
     if (e.officialScoreAka != null && p.officialScoreAka == null) {
       p.officialScoreAka = e.officialScoreAka;

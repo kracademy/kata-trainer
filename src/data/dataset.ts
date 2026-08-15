@@ -54,11 +54,17 @@ export async function syncDataset(): Promise<void> {
         const owner = ownerBySig.get(sig);
         if (owner && owner !== perf.id) localVideo = undefined; // copia obsoleta de otra actuación
       }
+      // Los sub-clips por atleta locales se conservan si el par no cambió y el vídeo sigue siendo el mismo
+      const keepSub = samePair && (perf.videoId ?? localVideo?.videoId) === existing?.videoId;
       const merged: Performance = {
         ...perf,
         videoId: perf.videoId ?? localVideo?.videoId,
         startSeconds: perf.startSeconds ?? localVideo?.startSeconds,
         endSeconds: perf.endSeconds ?? localVideo?.endSeconds,
+        akaStartSeconds: perf.akaStartSeconds ?? (keepSub ? existing?.akaStartSeconds : undefined),
+        akaEndSeconds: perf.akaEndSeconds ?? (keepSub ? existing?.akaEndSeconds : undefined),
+        aoStartSeconds: perf.aoStartSeconds ?? (keepSub ? existing?.aoStartSeconds : undefined),
+        aoEndSeconds: perf.aoEndSeconds ?? (keepSub ? existing?.aoEndSeconds : undefined),
         notes: perf.notes ?? existing?.notes,
       };
       merged.status = computeStatus(merged);

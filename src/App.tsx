@@ -5,6 +5,7 @@ import Library from './screens/Library';
 import ErrorsScreen from './screens/ErrorsScreen';
 import Stats from './screens/Stats';
 import Catalog from './screens/Catalog';
+import KataStudy from './screens/KataStudy';
 import Settings from './screens/Settings';
 
 /* Iconos estilo SF Symbols (trazo 1.7, currentColor) */
@@ -64,6 +65,7 @@ export default function App() {
           <Route path="/errores" element={<ErrorsScreen />} />
           <Route path="/estadisticas" element={<Stats />} />
           <Route path="/catalogar" element={<Catalog />} />
+          <Route path="/katas" element={<KataStudy />} />
           <Route path="/ajustes" element={<Settings />} />
         </Routes>
       </main>

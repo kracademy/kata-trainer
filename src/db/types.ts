@@ -121,6 +121,11 @@ export interface Performance {
   /** Segundos dentro del vídeo. */
   startSeconds?: number;
   endSeconds?: number;
+  /** Sub-clips por atleta (opcional): permiten entrenar AKA y AO por separado y el modo estudio de katas. */
+  akaStartSeconds?: number;
+  akaEndSeconds?: number;
+  aoStartSeconds?: number;
+  aoEndSeconds?: number;
 
   status: CatalogStatus;
   sportDataUrl?: string;
@@ -177,5 +182,10 @@ export interface CatalogExport {
     officialScoreAka?: number;
     officialScoreAo?: number;
     judgesCount?: number;
+    /** Sub-clips por atleta. */
+    akaStartSeconds?: number;
+    akaEndSeconds?: number;
+    aoStartSeconds?: number;
+    aoEndSeconds?: number;
   }[];
 }

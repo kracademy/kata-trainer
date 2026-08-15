@@ -19,6 +19,10 @@ export default function Catalog() {
   const [offAka, setOffAka] = useState('');
   const [offAo, setOffAo] = useState('');
   const [offJudges, setOffJudges] = useState('5');
+  const [akaIni, setAkaIni] = useState('');
+  const [akaFin, setAkaFin] = useState('');
+  const [aoIni, setAoIni] = useState('');
+  const [aoFin, setAoFin] = useState('');
   const [msg, setMsg] = useState('');
   const [showDone, setShowDone] = useState(false);
   const playerRef = useRef<YouTubePlayerHandle>(null);
@@ -61,6 +65,10 @@ export default function Catalog() {
     setOffAka(p?.officialScoreAka != null ? String(p.officialScoreAka) : '');
     setOffAo(p?.officialScoreAo != null ? String(p.officialScoreAo) : '');
     setOffJudges(String(p?.judgesCount ?? 5));
+    setAkaIni(p?.akaStartSeconds != null ? fmtTime(p.akaStartSeconds) : '');
+    setAkaFin(p?.akaEndSeconds != null ? fmtTime(p.akaEndSeconds) : '');
+    setAoIni(p?.aoStartSeconds != null ? fmtTime(p.aoStartSeconds) : '');
+    setAoFin(p?.aoEndSeconds != null ? fmtTime(p.aoEndSeconds) : '');
     setMsg('');
   }
 
@@ -101,6 +109,13 @@ export default function Catalog() {
       updated.officialScoreAo = nAo;
       updated.judgesCount = +offJudges || 5;
     }
+    // sub-clips por atleta (opcional, ambos tiempos del atleta o ninguno)
+    const aIni = parseTime(akaIni), aFin = parseTime(akaFin);
+    const oIni = parseTime(aoIni), oFin = parseTime(aoFin);
+    if (aIni != null && aFin != null && aFin > aIni) { updated.akaStartSeconds = aIni; updated.akaEndSeconds = aFin; }
+    else { delete updated.akaStartSeconds; delete updated.akaEndSeconds; }
+    if (oIni != null && oFin != null && oFin > oIni) { updated.aoStartSeconds = oIni; updated.aoEndSeconds = oFin; }
+    else { delete updated.aoStartSeconds; delete updated.aoEndSeconds; }
     updated.status = computeStatus(updated);
     await db.performances.put(updated);
     setMsg(`✅ Guardado (${fmtTime(start)} → ${fmtTime(end)}, duración ${fmtTime(end - start)}).`);
@@ -115,6 +130,8 @@ export default function Catalog() {
         startSeconds: p.startSeconds!,
         endSeconds: p.endSeconds!,
         ...(p.officialScoreAka != null ? { officialScoreAka: p.officialScoreAka, officialScoreAo: p.officialScoreAo, judgesCount: p.judgesCount } : {}),
+        ...(p.akaStartSeconds != null ? { akaStartSeconds: p.akaStartSeconds, akaEndSeconds: p.akaEndSeconds } : {}),
+        ...(p.aoStartSeconds != null ? { aoStartSeconds: p.aoStartSeconds, aoEndSeconds: p.aoEndSeconds } : {}),
       }));
     const out: CatalogExport = { schemaVersion: 1, exportedAt: new Date().toISOString(), entries };
     downloadJson(out, `kata-trainer-catalogo-${new Date().toISOString().slice(0, 10)}.json`);
@@ -202,6 +219,21 @@ export default function Catalog() {
                 <input type="text" readOnly value={start != null && end != null && end > start ? fmtTime(end - start) : '—'} />
               </div>
             </div>
+            <div className="card" style={{ marginTop: 12 }}>
+              <label style={{ margin: '0 0 6px' }}>Tiempos por atleta (opcional · entrena AKA y AO por separado + modo estudio)</label>
+              <div className="row" style={{ marginBottom: 8 }}>
+                <button className="btn-secondary" style={{ margin: 0, color: 'var(--aka)' }} onClick={() => mark(setAkaIni)}>🚩 AKA</button>
+                <button className="btn-secondary" style={{ margin: 0, color: 'var(--aka)' }} onClick={() => mark(setAkaFin)}>🏁 AKA</button>
+                <button className="btn-secondary" style={{ margin: 0, color: 'var(--ao)' }} onClick={() => mark(setAoIni)}>🚩 AO</button>
+                <button className="btn-secondary" style={{ margin: 0, color: 'var(--ao)' }} onClick={() => mark(setAoFin)}>🏁 AO</button>
+              </div>
+              <div className="row">
+                <input type="text" placeholder="Inicio AKA" value={akaIni} onChange={(e) => setAkaIni(e.target.value)} />
+                <input type="text" placeholder="Fin AKA" value={akaFin} onChange={(e) => setAkaFin(e.target.value)} />
+                <input type="text" placeholder="Inicio AO" value={aoIni} onChange={(e) => setAoIni(e.target.value)} />
+                <input type="text" placeholder="Fin AO" value={aoFin} onChange={(e) => setAoFin(e.target.value)} />
+              </div>
+            </div>
             {perf.officialScoreAka == null && (
               <div className="card" style={{ marginTop: 12 }}>
                 <label style={{ margin: '0 0 6px' }}>Puntuaciones oficiales (si se ven en el vídeo)</label>
@@ -265,7 +297,10 @@ export default function Catalog() {
                       ? <span className="badge ready">🟢 {fmtTime(p.startSeconds)} → {fmtTime(p.endSeconds)}</span>
                       : p.videoId
                         ? <span className="badge nodata">🎥 Vídeo asignado, faltan tiempos</span>
-                        : <span className="badge nodata">⚪ Sin vídeo</span>}
+                        : <span className="badge nodata">⚪ Sin vídeo</span>}{' '}
+                    {ready && (p.akaStartSeconds != null && p.aoStartSeconds != null
+                      ? <span className="badge ready">🎬 AKA/AO</span>
+                      : <span className="badge nodata">⏱ Sin tiempos AKA/AO</span>)}
                   </div>
                   <div className="who">
                     🔴 {aka?.displayName} <span className="muted">({aka?.countryCode})</span> vs 🔵 {ao?.displayName}{' '}
