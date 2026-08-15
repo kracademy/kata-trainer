@@ -189,9 +189,10 @@ nav.bottom {
   bottom: 0; left: 0; right: 0;
   height: calc(var(--nav-h) + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
-  background: rgba(249, 249, 251, 0.82);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  /* translúcida estilo Apple Music: el contenido se ve pasar por debajo */
+  background: rgba(249, 249, 251, 0.6);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
   border-top: 0.5px solid var(--separator);
   display: flex;
   justify-content: space-around;
@@ -290,6 +291,34 @@ a { color: var(--blue); text-decoration: none; }
 
 .progressbar { flex: 1; background: var(--bg-elevated-2); border-radius: 999px; height: 12px; overflow: hidden; }
 .progressbar > div { background: var(--blue); height: 100%; border-radius: 999px; }
+
+/* Chips de opción (resultado especial) */
+.chip {
+  flex: 1;
+  padding: 10px 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--label-2);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+.chip.sel { background: var(--aka); color: #fff; }
+
+/* Votos de los jueces destacados (sistema 2026) */
+.votes-big {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+}
+.votes-big b { font-size: 1.8rem; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; }
 
 .comp-header {
   display: flex;

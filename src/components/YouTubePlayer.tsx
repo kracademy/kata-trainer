@@ -37,6 +37,8 @@ interface Props {
   startSeconds?: number;
   endSeconds?: number;
   autoplay?: boolean;
+  /** false = sin barra de controles ni búsqueda (modo entrenamiento). */
+  controls?: boolean;
   /** Se dispara una vez cuando la reproducción alcanza endSeconds o el vídeo termina. */
   onEnded?: () => void;
   onError?: (code: number) => void;
@@ -47,7 +49,7 @@ interface Props {
  * Además del parámetro `end` nativo, hace polling de getCurrentTime como red de seguridad.
  */
 const YouTubePlayer = forwardRef<YouTubePlayerHandle, Props>(function YouTubePlayer(
-  { videoId, startSeconds, endSeconds, autoplay = true, onEnded, onError },
+  { videoId, startSeconds, endSeconds, autoplay = true, controls = true, onEnded, onError },
   ref,
 ) {
   const holderRef = useRef<HTMLDivElement>(null);
@@ -89,6 +91,10 @@ const YouTubePlayer = forwardRef<YouTubePlayerHandle, Props>(function YouTubePla
           rel: 0,
           playsinline: 1,
           modestbranding: 1,
+          controls: controls ? 1 : 0,
+          disablekb: controls ? 0 : 1,
+          fs: controls ? 1 : 0,
+          iv_load_policy: 3,
         },
         events: {
           onStateChange: (e: any) => {

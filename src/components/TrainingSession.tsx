@@ -11,18 +11,22 @@ type Phase = 'playing' | 'decision' | 'reveal';
 interface Props {
   queue: Performance[];
   data: CatalogData;
-  /** Ocultar competición y año durante el vídeo para evitar sesgos. */
-  hideContext?: boolean;
   onExit: () => void;
 }
 
 const SPECIALS: { value: OfficialResultType; label: string }[] = [
-  { value: 'AKA_DISQUALIFIED', label: 'AKA descalificado' },
-  { value: 'AO_DISQUALIFIED', label: 'AO descalificado' },
-  { value: 'BOTH_DISQUALIFIED', label: 'Ambos descalificados' },
+  { value: 'AKA_DISQUALIFIED', label: 'AKA desc.' },
+  { value: 'AO_DISQUALIFIED', label: 'AO desc.' },
+  { value: 'BOTH_DISQUALIFIED', label: 'Ambos desc.' },
 ];
 
-export default function TrainingSession({ queue, data, hideContext = true, onExit }: Props) {
+/** Acepta coma o punto decimal. */
+const num = (s: string): number | undefined => {
+  const v = parseFloat(s.replace(',', '.'));
+  return isNaN(v) ? undefined : v;
+};
+
+export default function TrainingSession({ queue, data, onExit }: Props) {
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('playing');
   const [selected, setSelected] = useState<Winner | null>(null);
@@ -31,6 +35,7 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
   const [scoreAo, setScoreAo] = useState('');
   const [wasCorrect, setWasCorrect] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [paused, setPaused] = useState(false);
   const playerRef = useRef<YouTubePlayerHandle>(null);
 
   const perf = queue[index];
@@ -56,8 +61,8 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
     if (!selected || !perf) return;
     const prior = await db.attempts.where('performanceId').equals(perf.id).count();
     const correct = selected === perf.officialWinner;
-    const uAka = scoreAka ? parseFloat(scoreAka) : undefined;
-    const uAo = scoreAo ? parseFloat(scoreAo) : undefined;
+    const uAka = num(scoreAka);
+    const uAo = num(scoreAo);
     await db.attempts.add({
       performanceId: perf.id,
       userId: LOCAL_USER_ID,
@@ -84,18 +89,23 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
     setScoreAka('');
     setScoreAo('');
     setVideoError(false);
+    setPaused(false);
+  }
+
+  function togglePause() {
+    if (paused) playerRef.current?.play();
+    else playerRef.current?.pause();
+    setPaused(!paused);
   }
 
   const winnerAthlete = perf.officialWinner === 'AKA' ? aka : ao;
   const winnerName = winnerAthlete ? `${winnerAthlete.displayName} (${winnerAthlete.countryCode})` : '';
+  const hasScores = perf.officialScoreAka != null || perf.officialScoreAo != null;
 
   return (
     <>
       <div className="muted" style={{ marginBottom: 8 }}>
         Actuación {index + 1} / {queue.length}
-        {!hideContext && comp ? ` · ${comp.name}` : ''}
-        {' · '}
-        {cat?.name}
         <button style={{ float: 'right', padding: '4px 10px', fontSize: '0.75rem' }} onClick={onExit}>Salir</button>
       </div>
 
@@ -106,6 +116,7 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
             videoId={perf.videoId}
             startSeconds={perf.startSeconds}
             endSeconds={perf.endSeconds}
+            controls={false}
             onEnded={() => phase === 'playing' && setPhase('decision')}
             onError={() => setVideoError(true)}
           />
@@ -122,19 +133,36 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
         {phase !== 'playing' && !videoError && (
           <div className="player-overlay">
             {phase === 'decision' && <p style={{ fontSize: '1.3rem', fontWeight: 800 }}>¿Quién gana?</p>}
-            {phase === 'reveal' && (
-              <p style={{ fontSize: '1.1rem' }}>
-                {wasCorrect ? '✅' : '❌'} Resultado abajo
-              </p>
-            )}
+            {phase === 'reveal' && <p style={{ fontSize: '1.1rem' }}>{wasCorrect ? '✅' : '❌'} Resultado abajo</p>}
           </div>
         )}
       </div>
 
+      {phase !== 'reveal' && (
+        <div className="card perf-item" style={{ marginTop: 12 }}>
+          <div className="meta">{comp?.name} · {cat?.name} · {roundLabel(perf.roundType)}</div>
+          <div className="who">
+            <span style={{ color: 'var(--aka)', fontWeight: 800 }}>AKA</span> {aka?.displayName}{' '}
+            <span className="muted">({aka?.countryCode})</span>
+            {perf.kataAka && <span className="muted"> — {perf.kataAka}</span>}
+          </div>
+          <div className="who">
+            <span style={{ color: 'var(--ao)', fontWeight: 800 }}>AO</span> {ao?.displayName}{' '}
+            <span className="muted">({ao?.countryCode})</span>
+            {perf.kataAo && <span className="muted"> — {perf.kataAo}</span>}
+          </div>
+        </div>
+      )}
+
       {phase === 'playing' && (
-        <button className="btn-primary" onClick={() => setPhase('decision')}>
-          FINALIZAR ACTUACIÓN
-        </button>
+        <div className="row">
+          <button className="btn-secondary" style={{ flex: '0 0 30%' }} onClick={togglePause}>
+            {paused ? '▶︎ Seguir' : '⏸ Pausa'}
+          </button>
+          <button className="btn-primary" style={{ flex: 1, margin: '10px 0' }} onClick={() => setPhase('decision')}>
+            FINALIZAR ACTUACIÓN
+          </button>
+        </div>
       )}
 
       {phase === 'decision' && (
@@ -148,29 +176,29 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
             </button>
           </div>
 
-          <details className="card">
-            <summary className="muted">Puntuación (opcional, media por juez 5.0–10.0)</summary>
-            <div className="row" style={{ marginTop: 10 }}>
+          <div className="card">
+            <label style={{ margin: '0 0 6px' }}>Puntuación (opcional, media por juez 5.0–10.0)</label>
+            <div className="row">
               <div style={{ flex: 1 }}>
-                <label>AKA</label>
-                <input type="number" step="0.1" min="5" max="10" inputMode="decimal" placeholder="p. ej. 8.6" value={scoreAka} onChange={(e) => setScoreAka(e.target.value)} />
+                <input type="text" inputMode="decimal" placeholder="AKA · p. ej. 8.6" value={scoreAka} onChange={(e) => setScoreAka(e.target.value)} />
               </div>
               <div style={{ flex: 1 }}>
-                <label>AO</label>
-                <input type="number" step="0.1" min="5" max="10" inputMode="decimal" placeholder="p. ej. 9.2" value={scoreAo} onChange={(e) => setScoreAo(e.target.value)} />
+                <input type="text" inputMode="decimal" placeholder="AO · p. ej. 9.2" value={scoreAo} onChange={(e) => setScoreAo(e.target.value)} />
               </div>
             </div>
-          </details>
-
-          <details className="card">
-            <summary className="muted">Resultado especial</summary>
-            {SPECIALS.map((s) => (
-              <label key={s.value} style={{ textTransform: 'none', display: 'flex', gap: 8, alignItems: 'center' }}>
-                <input type="radio" name="special" style={{ width: 'auto' }} checked={special === s.value} onChange={() => setSpecial(s.value)} />
-                {s.label}
-              </label>
-            ))}
-          </details>
+            <label style={{ margin: '14px 0 6px' }}>Resultado especial (opcional)</label>
+            <div className="row">
+              {SPECIALS.map((s) => (
+                <button
+                  key={s.value}
+                  className={`chip${special === s.value ? ' sel' : ''}`}
+                  onClick={() => setSpecial(special === s.value ? '' : s.value)}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <button className="btn-primary" disabled={!selected} onClick={confirmDecision}>
             CONFIRMAR
@@ -186,6 +214,15 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
               Oficial: 🏆 {perf.officialWinner} — {winnerName} · Tu decisión: {selected}
             </div>
           </div>
+
+          {perf.judgeVotes && (
+            <div className="votes-big">
+              <span style={{ color: 'var(--aka)' }}>AKA</span>
+              <b>{perf.judgeVotes.aka} – {perf.judgeVotes.ao}</b>
+              <span style={{ color: 'var(--ao)' }}>AO</span>
+              <span className="muted" style={{ fontSize: '0.75rem' }}>votos de los jueces</span>
+            </div>
+          )}
 
           <div className="card">
             <div className="muted">
@@ -214,14 +251,9 @@ export default function TrainingSession({ queue, data, hideContext = true, onExi
                 </tr>
               </tbody>
             </table>
-            {perf.judgeVotes && (
-              <p className="muted center" style={{ marginBottom: 0 }}>
-                Votos: AKA {perf.judgeVotes.aka} – {perf.judgeVotes.ao} AO
-              </p>
-            )}
             {perf.notes && <p className="muted" style={{ marginBottom: 0 }}>ℹ️ {perf.notes}</p>}
             <p className="muted center" style={{ marginBottom: 0 }}>
-              {(avgAka != null || avgAo != null) && <>Media por juez = total / {judges}</>}
+              {hasScores && <>Media por juez = total / {judges}</>}
               {perf.sportDataUrl && (
                 <> · <a href={perf.sportDataUrl} target="_blank" rel="noreferrer">SportData</a></>
               )}

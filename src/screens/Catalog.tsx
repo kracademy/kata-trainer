@@ -16,6 +16,9 @@ export default function Catalog() {
   const [videoId, setVideoId] = useState<string | undefined>();
   const [startTxt, setStartTxt] = useState('');
   const [endTxt, setEndTxt] = useState('');
+  const [offAka, setOffAka] = useState('');
+  const [offAo, setOffAo] = useState('');
+  const [offJudges, setOffJudges] = useState('5');
   const [msg, setMsg] = useState('');
   const [showDone, setShowDone] = useState(false);
   const playerRef = useRef<YouTubePlayerHandle>(null);
@@ -55,6 +58,9 @@ export default function Catalog() {
     setUrlInput(p?.videoId ? `https://www.youtube.com/watch?v=${p.videoId}` : '');
     setStartTxt(p?.startSeconds != null ? fmtTime(p.startSeconds) : '');
     setEndTxt(p?.endSeconds != null ? fmtTime(p.endSeconds) : '');
+    setOffAka(p?.officialScoreAka != null ? String(p.officialScoreAka) : '');
+    setOffAo(p?.officialScoreAo != null ? String(p.officialScoreAo) : '');
+    setOffJudges(String(p?.judgesCount ?? 5));
     setMsg('');
   }
 
@@ -87,6 +93,14 @@ export default function Catalog() {
       lastChecked: new Date().toISOString(),
     });
     const updated = { ...perf, videoId, startSeconds: start, endSeconds: end };
+    // puntuaciones oficiales vistas en el vídeo (opcional)
+    const nAka = parseFloat(offAka.replace(',', '.'));
+    const nAo = parseFloat(offAo.replace(',', '.'));
+    if (!isNaN(nAka) && !isNaN(nAo)) {
+      updated.officialScoreAka = nAka;
+      updated.officialScoreAo = nAo;
+      updated.judgesCount = +offJudges || 5;
+    }
     updated.status = computeStatus(updated);
     await db.performances.put(updated);
     setMsg(`✅ Guardado (${fmtTime(start)} → ${fmtTime(end)}, duración ${fmtTime(end - start)}).`);
@@ -95,7 +109,13 @@ export default function Catalog() {
   async function exportCatalog() {
     const entries = (await db.performances.toArray())
       .filter((p) => p.videoId && p.startSeconds != null && p.endSeconds != null)
-      .map((p) => ({ performanceId: p.id, videoId: p.videoId!, startSeconds: p.startSeconds!, endSeconds: p.endSeconds! }));
+      .map((p) => ({
+        performanceId: p.id,
+        videoId: p.videoId!,
+        startSeconds: p.startSeconds!,
+        endSeconds: p.endSeconds!,
+        ...(p.officialScoreAka != null ? { officialScoreAka: p.officialScoreAka, officialScoreAo: p.officialScoreAo, judgesCount: p.judgesCount } : {}),
+      }));
     const out: CatalogExport = { schemaVersion: 1, exportedAt: new Date().toISOString(), entries };
     downloadJson(out, `kata-trainer-catalogo-${new Date().toISOString().slice(0, 10)}.json`);
   }
@@ -119,6 +139,13 @@ export default function Catalog() {
             <span className="muted">({ao?.countryCode})</span>
           </div>
           <div className="meta">Katas: {perf.kataAka ?? '—'} / {perf.kataAo ?? '—'} · Ganador oficial: {perf.officialWinner}</div>
+          <div className="meta">
+            {perf.officialScoreAka != null
+              ? <span className="badge ready">Puntuaciones: {perf.officialScoreAka} – {perf.officialScoreAo}</span>
+              : perf.judgeVotes
+                ? <span className="badge nodata">Votos {perf.judgeVotes.aka}–{perf.judgeVotes.ao} · sin totales en SportData</span>
+                : <span className="badge missing">⚠️ Sin puntuaciones oficiales</span>}
+          </div>
           {perf.sportDataUrl && <a href={perf.sportDataUrl} target="_blank" rel="noreferrer">Ver en SportData</a>}
         </div>
 
@@ -175,6 +202,20 @@ export default function Catalog() {
                 <input type="text" readOnly value={start != null && end != null && end > start ? fmtTime(end - start) : '—'} />
               </div>
             </div>
+            {perf.officialScoreAka == null && (
+              <div className="card" style={{ marginTop: 12 }}>
+                <label style={{ margin: '0 0 6px' }}>Puntuaciones oficiales (si se ven en el vídeo)</label>
+                <div className="row">
+                  <input type="text" inputMode="decimal" placeholder="Total AKA" value={offAka} onChange={(e) => setOffAka(e.target.value)} />
+                  <input type="text" inputMode="decimal" placeholder="Total AO" value={offAo} onChange={(e) => setOffAo(e.target.value)} />
+                  <select value={offJudges} onChange={(e) => setOffJudges(e.target.value)} style={{ flex: '0 0 30%' }}>
+                    <option value="5">5 jueces</option>
+                    <option value="7">7 jueces</option>
+                    <option value="3">3 (70/30)</option>
+                  </select>
+                </div>
+              </div>
+            )}
             <button className="btn-primary" onClick={save}>GUARDAR</button>
           </>
         )}

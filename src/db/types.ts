@@ -173,5 +173,9 @@ export interface CatalogExport {
     videoId: string;
     startSeconds: number;
     endSeconds: number;
+    /** Puntuaciones oficiales vistas en el vídeo (cuando SportData no las publica). */
+    officialScoreAka?: number;
+    officialScoreAo?: number;
+    judgesCount?: number;
   }[];
 }

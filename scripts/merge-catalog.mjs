@@ -58,6 +58,13 @@ for (const [key, list] of groups) {
     const staleOf = alreadyOwns ? null : isStaleOverlap(e);
     if (staleOf) { skipped++; report.push(`solape obsoleto omitido: ${e.performanceId} (clip de ${staleOf})`); continue; }
     p.videoId = e.videoId; p.startSeconds = e.startSeconds; p.endSeconds = e.endSeconds; p.status = 'READY';
+    // puntuaciones oficiales añadidas por el usuario (solo si el dataset no las tiene)
+    if (e.officialScoreAka != null && p.officialScoreAka == null) {
+      p.officialScoreAka = e.officialScoreAka;
+      p.officialScoreAo = e.officialScoreAo;
+      p.judgesCount = e.judgesCount ?? 5;
+      report.push(`puntuaciones añadidas por el usuario: ${e.performanceId} (${e.officialScoreAka}–${e.officialScoreAo})`);
+    }
     applied++;
   }
 }
