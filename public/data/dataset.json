@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-16T08:35:46.440Z",
+  "generatedAt": "2026-08-16T16:27:15.771Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -6163,7 +6163,11 @@
       "startSeconds": 2176,
       "endSeconds": 2603,
       "status": "READY",
-      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063"
+      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063",
+      "akaStartSeconds": 2176,
+      "akaEndSeconds": 2374,
+      "aoStartSeconds": 2403,
+      "aoEndSeconds": 2603
     },
     {
       "id": "wkf-worlds-2025-cairo_senior-female-kata_bronze1",
@@ -6187,7 +6191,12 @@
       "startSeconds": 672,
       "endSeconds": 1154,
       "status": "READY",
-      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063"
+      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063",
+      "akaStartSeconds": 672,
+      "akaEndSeconds": 880,
+      "aoStartSeconds": 912,
+      "aoEndSeconds": 1154,
+      "closeResult": true
     },
     {
       "id": "wkf-worlds-2025-cairo_senior-female-kata_bronze2",
@@ -6211,7 +6220,11 @@
       "startSeconds": 1483,
       "endSeconds": 1856,
       "status": "READY",
-      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063"
+      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=36&verid=1063",
+      "akaStartSeconds": 1483,
+      "akaEndSeconds": 1654,
+      "aoStartSeconds": 1686,
+      "aoEndSeconds": 1856
     },
     {
       "id": "wkf-worlds-2025-cairo_senior-male-kata_final",
@@ -6235,7 +6248,11 @@
       "startSeconds": 53,
       "endSeconds": 496,
       "status": "READY",
-      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063"
+      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063",
+      "akaStartSeconds": 53,
+      "akaEndSeconds": 252,
+      "aoStartSeconds": 291,
+      "aoEndSeconds": 496
     },
     {
       "id": "wkf-worlds-2025-cairo_senior-male-kata_bronze1",
@@ -6259,7 +6276,11 @@
       "startSeconds": 385,
       "endSeconds": 810,
       "status": "READY",
-      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063"
+      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063",
+      "akaStartSeconds": 385,
+      "akaEndSeconds": 594,
+      "aoStartSeconds": 631,
+      "aoEndSeconds": 810
     },
     {
       "id": "wkf-worlds-2025-cairo_senior-male-kata_bronze2",
@@ -6283,7 +6304,11 @@
       "startSeconds": 1097,
       "endSeconds": 1448,
       "status": "READY",
-      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063"
+      "sportDataUrl": "https://www.sportdata.org/wkf/set-online/popup_mitschrift_main.php?popup_action=auslosungcatxml&catid=37&verid=1063",
+      "akaStartSeconds": 1097,
+      "akaEndSeconds": 1255,
+      "aoStartSeconds": 1284,
+      "aoEndSeconds": 1448
     },
     {
       "id": "karate1-premier-league-lisbon-2021_senior-female-kata_final",
@@ -12644,7 +12669,12 @@
       "judgesCount": 5,
       "videoId": "Bo7O23-JD-Q",
       "startSeconds": 8752,
-      "endSeconds": 9132
+      "endSeconds": 9132,
+      "akaStartSeconds": 8752,
+      "akaEndSeconds": 8909,
+      "aoStartSeconds": 8935,
+      "aoEndSeconds": 9132,
+      "closeResult": true
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-female-kata_bronze_1",
@@ -12687,7 +12717,12 @@
       "judgesCount": 5,
       "videoId": "Bo7O23-JD-Q",
       "startSeconds": 9388,
-      "endSeconds": 9758
+      "endSeconds": 9758,
+      "akaStartSeconds": 9388,
+      "akaEndSeconds": 9527,
+      "aoStartSeconds": 9557,
+      "aoEndSeconds": 9758,
+      "closeResult": true
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-male-kata_bronze_1",
@@ -12710,7 +12745,12 @@
       "judgesCount": 5,
       "videoId": "Bo7O23-JD-Q",
       "startSeconds": 1613,
-      "endSeconds": 1973
+      "endSeconds": 1973,
+      "akaStartSeconds": 1613,
+      "akaEndSeconds": 1779,
+      "aoStartSeconds": 1797,
+      "aoEndSeconds": 1973,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-female-kata_final",
@@ -12756,7 +12796,11 @@
       "judgesCount": 5,
       "videoId": "4OBiBRl7LsQ",
       "startSeconds": 363,
-      "endSeconds": 755
+      "endSeconds": 755,
+      "akaStartSeconds": 363,
+      "akaEndSeconds": 514,
+      "aoStartSeconds": 562,
+      "aoEndSeconds": 755
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-male-kata_final",
@@ -12848,7 +12892,12 @@
       "judgesCount": 5,
       "videoId": "0jmCZF1QsE8",
       "startSeconds": 1631,
-      "endSeconds": 2033
+      "endSeconds": 2033,
+      "akaStartSeconds": 1631,
+      "akaEndSeconds": 1814,
+      "aoStartSeconds": 1845,
+      "aoEndSeconds": 2033,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-female-kata_bronze_1",
@@ -12871,7 +12920,11 @@
       "judgesCount": 5,
       "videoId": "0jmCZF1QsE8",
       "startSeconds": 455,
-      "endSeconds": 837
+      "endSeconds": 837,
+      "akaStartSeconds": 455,
+      "akaEndSeconds": 563,
+      "aoStartSeconds": 596,
+      "aoEndSeconds": 837
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-female-kata_bronze_2",
@@ -12894,7 +12947,12 @@
       "judgesCount": 5,
       "videoId": "0jmCZF1QsE8",
       "startSeconds": 1093,
-      "endSeconds": 1433
+      "endSeconds": 1433,
+      "akaStartSeconds": 1093,
+      "akaEndSeconds": 1261,
+      "aoStartSeconds": 1291,
+      "aoEndSeconds": 1433,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-male-kata_final",
@@ -12917,7 +12975,11 @@
       "judgesCount": 5,
       "videoId": "8oCutEjASs8",
       "startSeconds": 1693,
-      "endSeconds": 2087
+      "endSeconds": 2087,
+      "akaStartSeconds": 1693,
+      "akaEndSeconds": 1852,
+      "aoStartSeconds": 1884,
+      "aoEndSeconds": 2087
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-male-kata_bronze_1",
@@ -12940,7 +13002,12 @@
       "judgesCount": 5,
       "videoId": "8oCutEjASs8",
       "startSeconds": 275,
-      "endSeconds": 699
+      "endSeconds": 699,
+      "akaStartSeconds": 275,
+      "akaEndSeconds": 476,
+      "aoStartSeconds": 496,
+      "aoEndSeconds": 699,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-male-kata_bronze_2",
@@ -12963,7 +13030,12 @@
       "judgesCount": 5,
       "videoId": "8oCutEjASs8",
       "startSeconds": 924,
-      "endSeconds": 1451
+      "endSeconds": 1451,
+      "akaStartSeconds": 924,
+      "akaEndSeconds": 1152,
+      "aoStartSeconds": 1180,
+      "aoEndSeconds": 1451,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-salzburg-2025_senior-female-kata_final",
@@ -13166,7 +13238,11 @@
       "judgesCount": 5,
       "videoId": "8-0U7_dF03U",
       "startSeconds": 195,
-      "endSeconds": 599
+      "endSeconds": 599,
+      "akaStartSeconds": 195,
+      "akaEndSeconds": 376,
+      "aoStartSeconds": 402,
+      "aoEndSeconds": 599
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-female-kata_bronze_2",
@@ -13209,7 +13285,12 @@
       "judgesCount": 5,
       "videoId": "8-0U7_dF03U",
       "startSeconds": 1509,
-      "endSeconds": 1918
+      "endSeconds": 1918,
+      "akaStartSeconds": 1509,
+      "akaEndSeconds": 1748,
+      "aoStartSeconds": 1776,
+      "aoEndSeconds": 1918,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-male-kata_bronze_2",
@@ -13254,7 +13335,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "z6529L74pLw",
       "startSeconds": 2122,
-      "endSeconds": 2555
+      "endSeconds": 2555,
+      "akaStartSeconds": 2122,
+      "akaEndSeconds": 2333,
+      "aoStartSeconds": 2356,
+      "aoEndSeconds": 2555
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-male-kata_final",
@@ -13279,7 +13364,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "z6529L74pLw",
       "startSeconds": 2714,
-      "endSeconds": 3170
+      "endSeconds": 3170,
+      "akaStartSeconds": 2714,
+      "akaEndSeconds": 2921,
+      "aoStartSeconds": 2941,
+      "aoEndSeconds": 3170
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-male-kata_bronze_1",
@@ -13763,7 +13852,7 @@
         "aka": 3,
         "ao": 4
       },
-      "notes": "Ganó AO 4–3, pero los miembros de la comisión de la EKF que estaban en el panel votaron a AKA.",
+      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "closeResult": true,
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 33185,
@@ -13774,7 +13863,8 @@
       "aoEndSeconds": 33653,
       "officialScoreAka": 60.1,
       "officialScoreAo": 60.9,
-      "judgesCount": 7
+      "judgesCount": 7,
+      "userNote": "EKF RC votó AKA (8.5)"
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-kata_final",
@@ -13799,7 +13889,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 33894,
-      "endSeconds": 34207
+      "endSeconds": 34207,
+      "akaStartSeconds": 33894,
+      "akaEndSeconds": 34023,
+      "aoStartSeconds": 34058,
+      "aoEndSeconds": 34207
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-kata_bronze_1",
@@ -13824,7 +13918,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 25335,
-      "endSeconds": 25711
+      "endSeconds": 25711,
+      "akaStartSeconds": 25335,
+      "akaEndSeconds": 25485,
+      "aoStartSeconds": 25515,
+      "aoEndSeconds": 25711,
+      "officialScoreAka": 56.7,
+      "officialScoreAo": 59.5,
+      "judgesCount": 7
     },
     {
       "id": "karate-one-premier-league-leshan-2026_senior-female-kata_final",
@@ -17666,7 +17767,11 @@
       "judgesCount": 5,
       "videoId": "WPjdb0mQ9a0",
       "startSeconds": 15102,
-      "endSeconds": 15709
+      "endSeconds": 15709,
+      "akaStartSeconds": 15102,
+      "akaEndSeconds": 15389,
+      "aoStartSeconds": 15426,
+      "aoEndSeconds": 15709
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-female-team-kata_bronze_1",
@@ -17709,7 +17814,12 @@
       "judgesCount": 5,
       "videoId": "WPjdb0mQ9a0",
       "startSeconds": 14190,
-      "endSeconds": 14794
+      "endSeconds": 14794,
+      "akaStartSeconds": 14190,
+      "akaEndSeconds": 14485,
+      "aoStartSeconds": 14528,
+      "aoEndSeconds": 14794,
+      "closeResult": true
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-male-team-kata_bronze_1",
@@ -17732,7 +17842,12 @@
       "judgesCount": 5,
       "videoId": "WPjdb0mQ9a0",
       "startSeconds": 0,
-      "endSeconds": 539
+      "endSeconds": 539,
+      "akaStartSeconds": 0,
+      "akaEndSeconds": 231,
+      "aoStartSeconds": 268,
+      "aoEndSeconds": 539,
+      "closeResult": true
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-male-team-kata_bronze_2",
@@ -17755,7 +17870,11 @@
       "judgesCount": 5,
       "videoId": "WPjdb0mQ9a0",
       "startSeconds": 863,
-      "endSeconds": 1510
+      "endSeconds": 1510,
+      "akaStartSeconds": 863,
+      "akaEndSeconds": 1167,
+      "aoStartSeconds": 1211,
+      "aoEndSeconds": 1510
     },
     {
       "id": "karate1-series-a-salzburg-2025_senior-female-team-kata_final",
@@ -17898,7 +18017,11 @@
       "judgesCount": 5,
       "videoId": "wIQYtZaTZks",
       "startSeconds": 1283,
-      "endSeconds": 1872
+      "endSeconds": 1872,
+      "akaStartSeconds": 1283,
+      "akaEndSeconds": 1583,
+      "aoStartSeconds": 1605,
+      "aoEndSeconds": 1872
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-female-team-kata_bronze_1",
@@ -17961,7 +18084,11 @@
       "judgesCount": 5,
       "videoId": "wIQYtZaTZks",
       "startSeconds": 2906,
-      "endSeconds": 3526
+      "endSeconds": 3526,
+      "akaStartSeconds": 2906,
+      "akaEndSeconds": 3202,
+      "aoStartSeconds": 3231,
+      "aoEndSeconds": 3526
     },
     {
       "id": "karate1-series-a-kuala-lumpur-2025_senior-male-team-kata_bronze_2",
@@ -18006,7 +18133,12 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "0pbMTQipoqE",
       "startSeconds": 974,
-      "endSeconds": 1549
+      "endSeconds": 1549,
+      "akaStartSeconds": 974,
+      "akaEndSeconds": 1239,
+      "aoStartSeconds": 1269,
+      "aoEndSeconds": 1549,
+      "closeResult": true
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-female-team-kata_bronze_1",
@@ -18075,7 +18207,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "0pbMTQipoqE",
       "startSeconds": 1781,
-      "endSeconds": 2407
+      "endSeconds": 2407,
+      "akaStartSeconds": 1781,
+      "akaEndSeconds": 2085,
+      "aoStartSeconds": 2122,
+      "aoEndSeconds": 2407
     },
     {
       "id": "karate-one-series-a-tbilisi-2026_senior-male-team-kata_bronze_1",
@@ -18408,7 +18544,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "NIVTd1tBLSQ",
       "startSeconds": 15548,
-      "endSeconds": 16152
+      "endSeconds": 16152,
+      "akaStartSeconds": 15548,
+      "akaEndSeconds": 15828,
+      "aoStartSeconds": 15866,
+      "aoEndSeconds": 16152,
+      "officialScoreAka": 56,
+      "officialScoreAo": 58.8,
+      "judgesCount": 7
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-female-team-kata_bronze_1",
@@ -18433,7 +18576,16 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "NIVTd1tBLSQ",
       "startSeconds": 2296,
-      "endSeconds": 2914
+      "endSeconds": 2914,
+      "akaStartSeconds": 2296,
+      "akaEndSeconds": 2574,
+      "aoStartSeconds": 2626,
+      "aoEndSeconds": 2914,
+      "closeResult": true,
+      "userNote": "WKF y EKF RC votaron AO (8.5)",
+      "officialScoreAka": 57.4,
+      "officialScoreAo": 57.5,
+      "judgesCount": 7
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-female-team-kata_bronze_2",
@@ -18458,7 +18610,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "NIVTd1tBLSQ",
       "startSeconds": 3197,
-      "endSeconds": 3792
+      "endSeconds": 3792,
+      "akaStartSeconds": 3197,
+      "akaEndSeconds": 3470,
+      "aoStartSeconds": 3502,
+      "aoEndSeconds": 3792,
+      "officialScoreAka": 36,
+      "officialScoreAo": 40,
+      "judgesCount": 5
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-team-kata_final",
@@ -18483,7 +18642,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "NIVTd1tBLSQ",
       "startSeconds": 14695,
-      "endSeconds": 15288
+      "endSeconds": 15288,
+      "akaStartSeconds": 14695,
+      "akaEndSeconds": 14984,
+      "aoStartSeconds": 15025,
+      "aoEndSeconds": 15288
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-team-kata_bronze_1",
@@ -18508,7 +18671,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "NIVTd1tBLSQ",
       "startSeconds": 502,
-      "endSeconds": 1121
+      "endSeconds": 1121,
+      "akaStartSeconds": 502,
+      "akaEndSeconds": 792,
+      "aoStartSeconds": 830,
+      "aoEndSeconds": 1121
     },
     {
       "id": "karate-one-series-a-guadalajara-2026_senior-female-team-kata_final",
@@ -19009,7 +19176,12 @@
       "judgesCount": 5,
       "videoId": "Bo7O23-JD-Q",
       "startSeconds": 908,
-      "endSeconds": 1384
+      "endSeconds": 1384,
+      "akaStartSeconds": 908,
+      "akaEndSeconds": 1160,
+      "aoStartSeconds": 1194,
+      "aoEndSeconds": 1384,
+      "closeResult": true
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-male-kata_bronze_2",
@@ -19032,7 +19204,11 @@
       "judgesCount": 5,
       "videoId": "Bo7O23-JD-Q",
       "startSeconds": 2225,
-      "endSeconds": 2565
+      "endSeconds": 2565,
+      "akaStartSeconds": 2225,
+      "akaEndSeconds": 2392,
+      "aoStartSeconds": 2428,
+      "aoEndSeconds": 2565
     },
     {
       "id": "ekf-senior-championships-2025-yerevan_senior-female-team-kata_bronze_2",
@@ -19055,7 +19231,11 @@
       "judgesCount": 5,
       "videoId": "WPjdb0mQ9a0",
       "startSeconds": 2709,
-      "endSeconds": 3301
+      "endSeconds": 3301,
+      "akaStartSeconds": 2709,
+      "akaEndSeconds": 2972,
+      "aoStartSeconds": 3014,
+      "aoEndSeconds": 3301
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-female-kata_bronze_2",
@@ -19245,7 +19425,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "z6529L74pLw",
       "startSeconds": 265,
-      "endSeconds": 682
+      "endSeconds": 682,
+      "akaStartSeconds": 265,
+      "akaEndSeconds": 473,
+      "aoStartSeconds": 499,
+      "aoEndSeconds": 682
     },
     {
       "id": "the-22nd-asian-senior-championship-2026-bali-indonesia_senior-female-kata_bronze_1",
@@ -19362,7 +19546,9 @@
       "akaStartSeconds": 24041,
       "akaEndSeconds": 24208,
       "aoStartSeconds": 24234,
-      "aoEndSeconds": 24465
+      "aoEndSeconds": 24465,
+      "closeResult": true,
+      "userNote": "EKF RC votó dividida"
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-female-kata_bronze_2",
@@ -19419,7 +19605,16 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 25908,
-      "endSeconds": 26295
+      "endSeconds": 26295,
+      "akaStartSeconds": 25908,
+      "akaEndSeconds": 26074,
+      "aoStartSeconds": 26107,
+      "aoEndSeconds": 26295,
+      "closeResult": true,
+      "userNote": "EKF RC votó AKA (8.3).",
+      "officialScoreAka": 41.5,
+      "officialScoreAo": 41.5,
+      "judgesCount": 5
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-team-kata_bronze_2",
@@ -19444,7 +19639,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "NIVTd1tBLSQ",
       "startSeconds": 1413,
-      "endSeconds": 2031
+      "endSeconds": 2031,
+      "akaStartSeconds": 1413,
+      "akaEndSeconds": 1699,
+      "aoStartSeconds": 1739,
+      "aoEndSeconds": 2031,
+      "officialScoreAka": 38.2,
+      "officialScoreAo": 40.8,
+      "judgesCount": 5
     },
     {
       "id": "karate-one-series-a-guadalajara-2026_senior-male-kata_bronze_1",
@@ -21100,7 +21302,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "w_zlcVSVdBE",
       "startSeconds": 19966,
-      "endSeconds": 20353
+      "endSeconds": 20353,
+      "akaStartSeconds": 19966,
+      "akaEndSeconds": 20124,
+      "aoStartSeconds": 20158,
+      "aoEndSeconds": 20353,
+      "officialScoreAka": 39.5,
+      "officialScoreAo": 42,
+      "judgesCount": 5
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2026-limassol_u21-female-kata_bronze_1",
@@ -21169,7 +21378,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "w_zlcVSVdBE",
       "startSeconds": 20598,
-      "endSeconds": 21022
+      "endSeconds": 21022,
+      "akaStartSeconds": 20598,
+      "akaEndSeconds": 20829,
+      "aoStartSeconds": 20861,
+      "aoEndSeconds": 21022,
+      "officialScoreAka": 42,
+      "officialScoreAo": 40,
+      "judgesCount": 5
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2026-limassol_u21-male-kata_bronze_1",
