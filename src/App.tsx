@@ -38,6 +38,14 @@ const I = {
       <rect x="16.4" y="4.5" width="3.6" height="15" rx="1" />
     </svg>
   ),
+  figure: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="4.6" r="2.1" />
+      <path d="M12 6.7v5.1" />
+      <path d="M12 8.4 5.6 6.9M12 8.4l6.4-1.5" />
+      <path d="M12 11.8l-4.2 4.6 1 4M12 11.8l3.4 2.4 4 .9" />
+    </svg>
+  ),
   gear: (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="3.1" />
@@ -49,6 +57,7 @@ const I = {
 const tabs = [
   { to: '/', ico: I.house, label: 'Inicio' },
   { to: '/entrenar', ico: I.play, label: 'Entrenar' },
+  { to: '/katas', ico: I.figure, label: 'Katas' },
   { to: '/biblioteca', ico: I.stack, label: 'Biblioteca' },
   { to: '/estadisticas', ico: I.chart, label: 'Stats' },
   { to: '/ajustes', ico: I.gear, label: 'Ajustes' },

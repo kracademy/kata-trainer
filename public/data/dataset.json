@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-14T12:28:09.843Z",
+  "generatedAt": "2026-08-16T08:35:46.440Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -13763,10 +13763,18 @@
         "aka": 3,
         "ao": 4
       },
-      "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
+      "notes": "Ganó AO 4–3, pero los miembros de la comisión de la EKF que estaban en el panel votaron a AKA.",
+      "closeResult": true,
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 33185,
-      "endSeconds": 33653
+      "endSeconds": 33653,
+      "akaStartSeconds": 33185,
+      "akaEndSeconds": 33389,
+      "aoStartSeconds": 33422,
+      "aoEndSeconds": 33653,
+      "officialScoreAka": 60.1,
+      "officialScoreAo": 60.9,
+      "judgesCount": 7
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-kata_final",
@@ -19350,7 +19358,11 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 24041,
-      "endSeconds": 24465
+      "endSeconds": 24465,
+      "akaStartSeconds": 24041,
+      "akaEndSeconds": 24208,
+      "aoStartSeconds": 24234,
+      "aoEndSeconds": 24465
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-female-kata_bronze_2",
@@ -19375,7 +19387,14 @@
       "notes": "Sistema 2026: ganador por mayoría de votos de 7 jueces.",
       "videoId": "R5FKQtq8FAY",
       "startSeconds": 24693,
-      "endSeconds": 25134
+      "endSeconds": 25134,
+      "akaStartSeconds": 24693,
+      "akaEndSeconds": 24884,
+      "aoStartSeconds": 24918,
+      "aoEndSeconds": 25134,
+      "officialScoreAka": 39.5,
+      "officialScoreAo": 41.6,
+      "judgesCount": 5
     },
     {
       "id": "ekf-senior-championships-2026-frankfurt_senior-male-kata_bronze_2",
@@ -20400,11 +20419,14 @@
       "kataAoNumber": 8,
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=885&ver_info_action=catauslist",
       "officialScoreAka": 43,
       "officialScoreAo": 42.5,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "TagY9pdOdug",
+      "startSeconds": 66,
+      "endSeconds": 472
     },
     {
       "id": "wkf-cadet-junior-and-u21-world-championships-2024-venice_u21-female-kata_bronze_1",
@@ -20460,11 +20482,14 @@
       "kataAoNumber": 9,
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
-      "status": "VIDEO_MISSING",
+      "status": "READY",
       "sportDataUrl": "https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=885&ver_info_action=catauslist",
       "officialScoreAka": 41.7,
       "officialScoreAo": 42.6,
-      "judgesCount": 5
+      "judgesCount": 5,
+      "videoId": "TagY9pdOdug",
+      "startSeconds": 684,
+      "endSeconds": 1110
     },
     {
       "id": "wkf-cadet-junior-and-u21-world-championships-2024-venice_u21-male-kata_bronze_1",

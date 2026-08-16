@@ -33,9 +33,12 @@ export async function syncDataset(): Promise<void> {
     // si un vídeo local coincide con la firma de OTRA actuación hermana, es una copia
     // obsoleta (quedó pegada tras una re-extracción) y se descarta.
     const ownerBySig = new Map<string, string>();
+    const clipsByGroup = new Map<string, { id: string; videoId: string; start: number; end: number }[]>();
     for (const p of ds.performances) {
       if (p.videoId && p.startSeconds != null && p.endSeconds != null) {
         ownerBySig.set(`${p.competitionId}|${p.categoryId}|${p.videoId}|${p.startSeconds}|${p.endSeconds}`, p.id);
+        const g = `${p.competitionId}|${p.categoryId}`;
+        (clipsByGroup.get(g) ?? clipsByGroup.set(g, []).get(g)!).push({ id: p.id, videoId: p.videoId, start: p.startSeconds, end: p.endSeconds });
       }
     }
     for (const perf of ds.performances) {
@@ -53,6 +56,16 @@ export async function syncDataset(): Promise<void> {
         const sig = `${perf.competitionId}|${perf.categoryId}|${localVideo.videoId}|${localVideo.startSeconds}|${localVideo.endSeconds}`;
         const owner = ownerBySig.get(sig);
         if (owner && owner !== perf.id) localVideo = undefined; // copia obsoleta de otra actuación
+        else {
+          // solape >80% con el clip de una hermana en el dataset → también copia obsoleta
+          const { videoId: lvId, startSeconds: lvStart, endSeconds: lvEnd } = localVideo;
+          for (const c of clipsByGroup.get(`${perf.competitionId}|${perf.categoryId}`) ?? []) {
+            if (c.id === perf.id || c.videoId !== lvId) continue;
+            const overlap = Math.min(c.end, lvEnd) - Math.max(c.start, lvStart);
+            const shorter = Math.min(c.end - c.start, lvEnd - lvStart);
+            if (shorter > 0 && overlap / shorter > 0.8) { localVideo = undefined; break; }
+          }
+        }
       }
       // Los sub-clips por atleta locales se conservan si el par no cambió y el vídeo sigue siendo el mismo
       const keepSub = samePair && (perf.videoId ?? localVideo?.videoId) === existing?.videoId;
@@ -66,6 +79,8 @@ export async function syncDataset(): Promise<void> {
         aoStartSeconds: perf.aoStartSeconds ?? (keepSub ? existing?.aoStartSeconds : undefined),
         aoEndSeconds: perf.aoEndSeconds ?? (keepSub ? existing?.aoEndSeconds : undefined),
         notes: perf.notes ?? existing?.notes,
+        closeResult: perf.closeResult ?? (samePair ? existing?.closeResult : undefined),
+        userNote: perf.userNote ?? (samePair ? existing?.userNote : undefined),
       };
       merged.status = computeStatus(merged);
       await db.performances.put(merged);

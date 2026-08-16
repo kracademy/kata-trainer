@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { db, LOCAL_USER_ID } from '../db/db';
 import type { OfficialResultType, Performance, Winner } from '../db/types';
-import { officialAverage } from '../db/types';
+import { isCloseResult, officialAverage } from '../db/types';
 import YouTubePlayer, { type YouTubePlayerHandle } from './YouTubePlayer';
 import type { CatalogData } from '../logic/useCatalog';
 import { roundLabel } from '../logic/format';
@@ -259,6 +259,12 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
             </div>
           )}
 
+          {isCloseResult(perf) && (
+            <div className="card" style={{ borderLeft: '4px solid #ff9500', padding: '10px 14px' }}>
+              ⚖️ <b>Resultado ajustado</b>{perf.judgeVotes ? ` (${perf.judgeVotes.aka}–${perf.judgeVotes.ao})` : ''} — no te ralles si votaste distinto: aquí también dudaron los jueces.
+            </div>
+          )}
+
           <div className="card">
             <div className="muted">
               {comp?.name} ({comp?.year}) · {cat?.name} · {roundLabel(perf.roundType)}
@@ -287,6 +293,7 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
               </tbody>
             </table>
             {perf.notes && <p className="muted" style={{ marginBottom: 0 }}>ℹ️ {perf.notes}</p>}
+            {perf.userNote && <p style={{ marginBottom: 0 }}>📝 {perf.userNote}</p>}
             <p className="muted center" style={{ marginBottom: 0 }}>
               {hasScores && <>Media por juez = total / {judges}</>}
               {perf.sportDataUrl && (

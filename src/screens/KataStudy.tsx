@@ -18,6 +18,15 @@ interface Execution {
   won: boolean;
 }
 
+/** 0 = oro (ganó la final), 1 = plata, 2 = bronce, 3 = perdió un bronce u otra ronda. */
+function medalRank(e: Execution): number {
+  if (e.perf.roundType === 'FINAL') return e.won ? 0 : 1;
+  if (e.perf.roundType === 'BRONZE_1' || e.perf.roundType === 'BRONZE_2') return e.won ? 2 : 3;
+  return 3;
+}
+
+const MEDAL: Record<number, string> = { 0: '🥇', 1: '🥈', 2: '🥉' };
+
 export default function KataStudy() {
   const data = useCatalog();
   const { performances, compById, categoryById, athleteById } = data;
@@ -64,9 +73,15 @@ export default function KataStudy() {
 
   const list = useMemo(() => {
     if (!selectedKata) return [];
+    // primero los oros (ganadores de la final: se presupone mejor kata), luego platas, bronces y el resto;
+    // dentro de cada grupo, los más recientes primero
     return executions
       .filter((e) => e.kata === selectedKata)
-      .sort((a, b) => (compById.get(b.perf.competitionId)?.dateStart ?? '').localeCompare(compById.get(a.perf.competitionId)?.dateStart ?? ''));
+      .sort(
+        (a, b) =>
+          medalRank(a) - medalRank(b) ||
+          (compById.get(b.perf.competitionId)?.dateStart ?? '').localeCompare(compById.get(a.perf.competitionId)?.dateStart ?? ''),
+      );
   }, [executions, selectedKata, compById]);
 
   if (playing) {
@@ -88,7 +103,7 @@ export default function KataStudy() {
           <div className="who">
             <span style={{ color: playing.side === 'AKA' ? 'var(--aka)' : 'var(--ao)', fontWeight: 800 }}>{playing.side}</span>{' '}
             {ath?.displayName} <span className="muted">({ath?.countryCode})</span>
-            {playing.won && ' 🏆'}
+            {MEDAL[medalRank(playing)] ? ` ${MEDAL[medalRank(playing)]}` : ''}
           </div>
           <div className="meta">{comp?.name} · {cat?.name} · {roundLabel(playing.perf.roundType)}</div>
           {!playing.isSubClip && (
@@ -115,7 +130,7 @@ export default function KataStudy() {
               <div className="who">
                 <span style={{ color: e.side === 'AKA' ? 'var(--aka)' : 'var(--ao)', fontWeight: 800 }}>{e.side}</span>{' '}
                 {ath?.displayName} <span className="muted">({ath?.countryCode})</span>
-                {e.won && ' 🏆'}
+                {MEDAL[medalRank(e)] ? ` ${MEDAL[medalRank(e)]}` : ''}
               </div>
               <div className="meta">
                 {comp?.name} · {cat?.name} · <span className="badge round">{roundLabel(e.perf.roundType)}</span>{' '}

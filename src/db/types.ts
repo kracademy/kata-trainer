@@ -127,9 +127,20 @@ export interface Performance {
   aoStartSeconds?: number;
   aoEndSeconds?: number;
 
+  /** Resultado ajustado/controvertido (marcado a mano o votos 4–3): se avisa en el reveal para no dudar de uno mismo. */
+  closeResult?: boolean;
+  /** Nota escrita por el usuario en Catalogar (independiente de `notes`, que las cura el dataset). */
+  userNote?: string;
+
   status: CatalogStatus;
   sportDataUrl?: string;
   notes?: string;
+}
+
+/** Votos con margen de 1 (4–3, 3–2…): resultado ajustado automático. */
+export function isCloseResult(p: Pick<Performance, 'closeResult' | 'judgeVotes'>): boolean {
+  if (p.closeResult) return true;
+  return p.judgeVotes != null && Math.abs(p.judgeVotes.aka - p.judgeVotes.ao) === 1;
 }
 
 /** Un intento del usuario sobre una Performance. */
@@ -187,5 +198,8 @@ export interface CatalogExport {
     akaEndSeconds?: number;
     aoStartSeconds?: number;
     aoEndSeconds?: number;
+    /** Resultado ajustado marcado a mano + nota que se muestra tras decidir. */
+    closeResult?: boolean;
+    note?: string;
   }[];
 }

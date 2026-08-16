@@ -23,6 +23,8 @@ export default function Catalog() {
   const [akaFin, setAkaFin] = useState('');
   const [aoIni, setAoIni] = useState('');
   const [aoFin, setAoFin] = useState('');
+  const [ajustado, setAjustado] = useState(false);
+  const [nota, setNota] = useState('');
   const [msg, setMsg] = useState('');
   const [showDone, setShowDone] = useState(false);
   const playerRef = useRef<YouTubePlayerHandle>(null);
@@ -69,6 +71,8 @@ export default function Catalog() {
     setAkaFin(p?.akaEndSeconds != null ? fmtTime(p.akaEndSeconds) : '');
     setAoIni(p?.aoStartSeconds != null ? fmtTime(p.aoStartSeconds) : '');
     setAoFin(p?.aoEndSeconds != null ? fmtTime(p.aoEndSeconds) : '');
+    setAjustado(p?.closeResult ?? false);
+    setNota(p?.userNote ?? '');
     setMsg('');
   }
 
@@ -116,6 +120,10 @@ export default function Catalog() {
     else { delete updated.akaStartSeconds; delete updated.akaEndSeconds; }
     if (oIni != null && oFin != null && oFin > oIni) { updated.aoStartSeconds = oIni; updated.aoEndSeconds = oFin; }
     else { delete updated.aoStartSeconds; delete updated.aoEndSeconds; }
+    // resultado ajustado + nota del usuario (se muestran en el reveal, tras decidir)
+    if (ajustado) updated.closeResult = true; else delete updated.closeResult;
+    const n = nota.trim();
+    if (n) updated.userNote = n; else delete updated.userNote;
     updated.status = computeStatus(updated);
     await db.performances.put(updated);
     setMsg(`✅ Guardado (${fmtTime(start)} → ${fmtTime(end)}, duración ${fmtTime(end - start)}).`);
@@ -132,6 +140,8 @@ export default function Catalog() {
         ...(p.officialScoreAka != null ? { officialScoreAka: p.officialScoreAka, officialScoreAo: p.officialScoreAo, judgesCount: p.judgesCount } : {}),
         ...(p.akaStartSeconds != null ? { akaStartSeconds: p.akaStartSeconds, akaEndSeconds: p.akaEndSeconds } : {}),
         ...(p.aoStartSeconds != null ? { aoStartSeconds: p.aoStartSeconds, aoEndSeconds: p.aoEndSeconds } : {}),
+        ...(p.closeResult ? { closeResult: true } : {}),
+        ...(p.userNote ? { note: p.userNote } : {}),
       }));
     const out: CatalogExport = { schemaVersion: 1, exportedAt: new Date().toISOString(), entries };
     downloadJson(out, `kata-trainer-catalogo-${new Date().toISOString().slice(0, 10)}.json`);
@@ -233,6 +243,19 @@ export default function Catalog() {
                 <input type="text" placeholder="Inicio AO" value={aoIni} onChange={(e) => setAoIni(e.target.value)} />
                 <input type="text" placeholder="Fin AO" value={aoFin} onChange={(e) => setAoFin(e.target.value)} />
               </div>
+            </div>
+            <div className="card" style={{ marginTop: 12 }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, margin: 0, cursor: 'pointer' }}>
+                <input type="checkbox" checked={ajustado} onChange={(e) => setAjustado(e.target.checked)} style={{ width: 'auto', margin: 0 }} />
+                ⚖️ Resultado ajustado (se avisará tras decidir: no dudes de ti)
+              </label>
+              <label style={{ margin: '12px 0 6px' }}>Nota (opcional, se muestra tras decidir)</label>
+              <input
+                type="text"
+                placeholder="p. ej. Los miembros de la comisión votaron a AKA"
+                value={nota}
+                onChange={(e) => setNota(e.target.value)}
+              />
             </div>
             {perf.officialScoreAka == null && (
               <div className="card" style={{ marginTop: 12 }}>
