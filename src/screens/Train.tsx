@@ -32,7 +32,7 @@ export default function Train() {
     setFilters((f) => ({ ...f, [k]: e.target.value }));
 
   return (
-    <div className="screen-fill">
+    <div className="screen-fill train">
       <h1>Entrenar</h1>
 
       <label>Competición</label>

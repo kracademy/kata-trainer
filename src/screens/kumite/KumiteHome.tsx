@@ -17,7 +17,7 @@ export default function KumiteHome() {
     <div className="screen-fill">
       <div className="mod-topbar">
         <h1 style={{ margin: 0 }}>Kumite</h1>
-        <button className="switch-btn" onClick={() => nav('/kata')}>⇄ Kata</button>
+        <button className="switch-btn" onClick={() => nav('/')}>‹ Módulos</button>
       </div>
 
       <div className="home-grid">

@@ -37,7 +37,7 @@ export default function KumiteTrain() {
   if (queue) return <KumiteSession queue={queue} onExit={() => setQueue(null)} />;
 
   return (
-    <div className="screen-fill">
+    <div className="screen-fill train">
       <h1>Entrenar</h1>
 
       <label>Situación a practicar</label>

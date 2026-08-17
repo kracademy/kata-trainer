@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
 import type { KumiteCall, KumiteSituation } from '../../db/types';
 import { KUMITE_CALL_LABELS, KUMITE_SITUATION_LABELS } from '../../db/types';
+import { TI } from '../../components/TileIcons';
 
 /** Stats específicas de kumite: aciertos por situación (agarres, jogai, mubobi…) y por decisión. */
 export default function KumiteStats() {
@@ -33,16 +35,16 @@ export default function KumiteStats() {
   const sitRows = [...bySituation.entries()].sort((a, b) => b[1].n - a[1].n);
   const callRows = [...byCall.entries()].sort((a, b) => b[1].n - a[1].n);
 
-  // Lo más importante siempre visible, aunque aún no haya intentos
-  const KEY: { s: KumiteSituation; emoji: string }[] = [
-    { s: 'AGARRE', emoji: '✊' },
-    { s: 'JOGAI', emoji: '🚪' },
-    { s: 'MUBOBI_CONTACTO', emoji: '💥' },
-    { s: 'EXAGERAR', emoji: '🎭' },
-    { s: 'SIMULAR', emoji: '🤕' },
-    { s: 'PROYECCION', emoji: '🤼' },
-    { s: 'EVITAR_COMBATE', emoji: '🏃' },
-    { s: 'PUNTUACION', emoji: '🎯' },
+  // Lo más importante siempre visible, aunque aún no haya intentos (iconos de línea + color)
+  const KEY: { s: KumiteSituation; icon: ReactNode; color: string }[] = [
+    { s: 'AGARRE', icon: TI.palm, color: '#ff9500' },
+    { s: 'JOGAI', icon: TI.exit, color: '#007aff' },
+    { s: 'MUBOBI_CONTACTO', icon: TI.burst, color: '#ff3b30' },
+    { s: 'EXAGERAR', icon: TI.mega, color: '#af52de' },
+    { s: 'SIMULAR', icon: TI.mask, color: '#ff2d55' },
+    { s: 'PROYECCION', icon: TI.rotate, color: '#34c759' },
+    { s: 'EVITAR_COMBATE', icon: TI.uturn, color: '#5856d6' },
+    { s: 'PUNTUACION', icon: TI.target, color: '#007aff' },
   ];
 
   return (
@@ -51,31 +53,36 @@ export default function KumiteStats() {
 
       <div className="grid2">
         <div className="stat-tile">
-          <div className="v">🎬 {clips.length}</div>
+          <span className="ic" style={{ color: '#007aff' }}>{TI.film}</span>
+          <div className="v">{clips.length}</div>
           <div className="l">Clips catalogados</div>
         </div>
         <div className="stat-tile">
-          <div className="v">📋 {total}</div>
+          <span className="ic" style={{ color: '#5856d6' }}>{TI.list}</span>
+          <div className="v">{total}</div>
           <div className="l">Intentos</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🎯 {pct(correct, total)}</div>
+          <span className="ic" style={{ color: '#34c759' }}>{TI.target}</span>
+          <div className={`v${total === 0 ? ' na' : ''}`}>{pct(correct, total)}</div>
           <div className="l">Aciertos</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🔥 {clips.filter((c) => c.polemic).length}</div>
+          <span className="ic" style={{ color: '#ff9500' }}>{TI.scale}</span>
+          <div className="v">{clips.filter((c) => c.polemic).length}</div>
           <div className="l">Polémicas</div>
         </div>
       </div>
 
       <h2>Lo importante</h2>
       <div className="grid2">
-        {KEY.map(({ s, emoji }) => {
+        {KEY.map(({ s, icon, color }) => {
           const e = bySituation.get(s);
           return (
             <div className="stat-tile" key={s}>
-              <div className="v">{emoji} {e ? pct(e.ok, e.n) : '—'}</div>
-              <div className="l">{KUMITE_SITUATION_LABELS[s]}{e ? ` · ${e.n} int.` : ' · sin intentos'}</div>
+              <span className="ic" style={{ color }}>{icon}</span>
+              <div className={`v${e ? '' : ' na'}`}>{e ? pct(e.ok, e.n) : '—'}</div>
+              <div className="l">{KUMITE_SITUATION_LABELS[s]}{e ? ` · ${e.n} int.` : ''}</div>
             </div>
           );
         })}

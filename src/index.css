@@ -1,9 +1,9 @@
 /* ── Kracademy Kata Trainer · estilo iOS claro ─────────────────────── */
 
 :root {
-  --bg: #f2f2f7;
-  --bg-elevated: #ffffff;
-  --bg-elevated-2: #e5e5ea;
+  --bg: #ffffff;
+  --bg-elevated: #f5f5f7; /* tarjetas gris muy claro sobre blanco, estilo Revolut */
+  --bg-elevated-2: #ececee;
   --bg-elevated-3: #d1d1d6;
   --separator: rgba(60, 60, 67, 0.15);
   --label: #000000;
@@ -33,19 +33,6 @@ body {
   overscroll-behavior-y: none;
 }
 
-/* Luz de color suave de fondo (estilo iOS 27): hace visible el cristal translúcido */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(52% 38% at 12% -6%, rgba(255, 59, 48, 0.14), transparent 70%),
-    radial-gradient(56% 42% at 92% 4%, rgba(0, 122, 255, 0.16), transparent 70%),
-    radial-gradient(70% 40% at 50% 108%, rgba(0, 122, 255, 0.10), transparent 70%),
-    var(--bg);
-}
 
 #root {
   max-width: 720px;
@@ -76,16 +63,12 @@ h2 {
   letter-spacing: 0.06em;
 }
 
-/* Tarjetas de cristal (translúcidas, estilo iOS 27) */
+/* Tarjetas: gris claro sólido sobre fondo blanco (estilo Revolut, legible siempre) */
 .card {
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: saturate(170%) blur(18px);
-  backdrop-filter: saturate(170%) blur(18px);
-  border: 0.5px solid rgba(255, 255, 255, 0.75);
-  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  border-radius: 20px;
   padding: 15px 16px;
   margin-bottom: 12px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
 /* Botones */
@@ -95,12 +78,9 @@ button {
   border-radius: var(--radius-sm);
   cursor: pointer;
   color: var(--blue);
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: saturate(170%) blur(14px);
-  backdrop-filter: saturate(170%) blur(14px);
+  background: var(--bg-elevated);
   padding: 11px 16px;
   font-weight: 500;
-  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.7), 0 3px 12px rgba(0, 0, 0, 0.05);
   transition: opacity 0.15s ease, transform 0.1s ease;
 }
 button:active { opacity: 0.55; transform: scale(0.985); }
@@ -127,7 +107,7 @@ button:disabled { opacity: 0.35; cursor: default; }
   font-size: 1rem;
   font-weight: 600;
   color: var(--blue);
-  background: rgba(255, 255, 255, 0.62);
+  background: var(--bg-elevated);
   border-radius: var(--radius);
   margin: 10px 0;
 }
@@ -148,16 +128,12 @@ button:disabled { opacity: 0.35; cursor: default; }
 .row { display: flex; gap: 10px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-/* Tiles de estadísticas (cristal) */
+/* Tiles de estadísticas (estilo Revolut: gris claro, número grande, icono de color) */
 .stat-tile {
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: saturate(170%) blur(18px);
-  backdrop-filter: saturate(170%) blur(18px);
-  border: 0.5px solid rgba(255, 255, 255, 0.75);
-  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  border-radius: 20px;
   padding: 18px 12px;
   text-align: center;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,6 +164,10 @@ button:disabled { opacity: 0.35; cursor: default; }
   min-height: calc(100dvh - var(--nav-h) - env(safe-area-inset-bottom) - env(safe-area-inset-top) - 44px);
 }
 .screen-fill .grow { flex: 1; min-height: 12px; }
+/* Entrenar: los filtros respiran y ocupan la pantalla del iPhone */
+.screen-fill.train label { margin-top: 20px; font-size: 0.82rem; }
+.screen-fill.train select { padding: 16px 14px; border-radius: var(--radius); }
+.screen-fill.train .row { gap: 12px; }
 .home-grid {
   flex: 1;
   display: grid;
@@ -201,16 +181,13 @@ button:disabled { opacity: 0.35; cursor: default; }
 select, input[type='text'], input[type='number'], input[type='url'], textarea {
   font: inherit;
   width: 100%;
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: saturate(170%) blur(14px);
-  backdrop-filter: saturate(170%) blur(14px);
+  background: var(--bg-elevated);
   color: var(--label);
-  border: 0.5px solid rgba(255, 255, 255, 0.75);
+  border: none;
   border-radius: var(--radius-sm);
   padding: 13px 14px;
   appearance: none;
   -webkit-appearance: none;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
 }
 select {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%238e8e93' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
@@ -240,12 +217,13 @@ nav.bottom {
   bottom: calc(env(safe-area-inset-bottom) + 12px);
   width: min(calc(100% - 22px), 520px);
   padding: 5px;
-  background: rgba(250, 250, 252, 0.55);
-  -webkit-backdrop-filter: saturate(180%) blur(28px);
-  backdrop-filter: saturate(180%) blur(28px);
-  border: 0.5px solid rgba(255, 255, 255, 0.75);
+  /* cápsula flotante casi opaca: mantiene el blur al pasar contenido pero siempre legible */
+  background: rgba(250, 250, 252, 0.88);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
+  border: 0.5px solid rgba(0, 0, 0, 0.06);
   border-radius: 999px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14), inset 0 0.5px 0 rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-around;
   z-index: 50;
@@ -381,12 +359,8 @@ nav.bottom a .ico svg { display: block; }
   gap: 6px;
   flex: 1;
   padding: 34px 16px;
-  background: rgba(255, 255, 255, 0.58);
-  -webkit-backdrop-filter: saturate(170%) blur(20px);
-  backdrop-filter: saturate(170%) blur(20px);
-  border: 0.5px solid rgba(255, 255, 255, 0.8);
+  background: var(--bg-elevated);
   border-radius: 26px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   color: var(--label);
 }
 .module-hero .mod-icon { line-height: 0; margin-bottom: 6px; }
@@ -397,7 +371,7 @@ nav.bottom a .ico svg { display: block; }
 /* Cabecera de módulo con botón de cambio rápido */
 .mod-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .switch-btn {
-  background: rgba(255, 255, 255, 0.62);
+  background: var(--bg-elevated);
   color: var(--blue);
   border-radius: 999px;
   padding: 9px 15px;
@@ -476,15 +450,11 @@ a { color: var(--blue); text-decoration: none; }
   align-items: baseline;
   justify-content: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: saturate(170%) blur(18px);
-  backdrop-filter: saturate(170%) blur(18px);
-  border: 0.5px solid rgba(255, 255, 255, 0.75);
-  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  border-radius: 20px;
   padding: 14px;
   margin-bottom: 12px;
   font-weight: 700;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 .votes-big b { font-size: 1.8rem; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; }
 

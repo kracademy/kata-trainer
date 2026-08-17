@@ -16,7 +16,7 @@ export default function Home() {
     <div className="screen-fill">
       <div className="mod-topbar">
         <h1 style={{ margin: 0 }}>Kata</h1>
-        <button className="switch-btn" onClick={() => nav('/kumite')}>⇄ Kumite</button>
+        <button className="switch-btn" onClick={() => nav('/')}>‹ Módulos</button>
       </div>
 
       <div className="home-grid">
