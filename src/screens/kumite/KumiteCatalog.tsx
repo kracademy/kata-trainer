@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
 import type { KumiteCall, KumiteClip, KumiteSide, KumiteSituation } from '../../db/types';
-import { KUMITE_CALL_LABELS, KUMITE_SITUATION_LABELS } from '../../db/types';
+import { KUMITE_CALL_LABELS, KUMITE_QUIZ_TEMPLATES, KUMITE_SITUATION_LABELS } from '../../db/types';
 import YouTubePlayer, { type YouTubePlayerHandle } from '../../components/YouTubePlayer';
 import { extractYouTubeId, fmtTime, parseTime } from '../../logic/format';
 import { downloadJson } from '../../logic/backup';
@@ -32,7 +32,10 @@ export default function KumiteCatalog() {
   const [explanation, setExplanation] = useState('');
   const [polemic, setPolemic] = useState(false);
   const [polemicNote, setPolemicNote] = useState('');
-  const [options, setOptions] = useState<{ text: string; correct: boolean }[]>([]);
+  const [quizAo, setQuizAo] = useState<{ text: string; correct: boolean }[]>([]);
+  const [quizAka, setQuizAka] = useState<{ text: string; correct: boolean }[]>([]);
+  const [timeTxt, setTimeTxt] = useState('');
+  const [atoshi, setAtoshi] = useState(false);
   const [msg, setMsg] = useState('');
   const playerRef = useRef<YouTubePlayerHandle>(null);
 
@@ -55,7 +58,10 @@ export default function KumiteCatalog() {
     setExplanation(c?.explanation ?? '');
     setPolemic(c?.polemic ?? false);
     setPolemicNote(c?.polemicNote ?? '');
-    setOptions(c?.options ?? []);
+    setQuizAo(c?.quizAo ?? []);
+    setQuizAka(c?.quizAka ?? []);
+    setTimeTxt(c?.timeRemaining ?? '');
+    setAtoshi(c?.atoShibaraku ?? false);
     setMsg('');
   }
 
@@ -94,7 +100,22 @@ export default function KumiteCatalog() {
   }
 
   function toggleSituation(s: KumiteSituation) {
-    setSituations((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
+    const adding = !situations.includes(s);
+    setSituations((prev) => (adding ? [...prev, s] : prev.filter((x) => x !== s)));
+    // al marcar la primera situación con el quiz vacío, precarga sus respuestas en las dos columnas
+    if (adding && quizAo.length === 0 && quizAka.length === 0) preloadQuiz([s]);
+  }
+
+  /** Precarga el quiz desde las plantillas de las situaciones (unión sin duplicados, "Nada" al final). */
+  function preloadQuiz(sits: KumiteSituation[]) {
+    const texts: string[] = [];
+    for (const s of sits) for (const t of KUMITE_QUIZ_TEMPLATES[s] ?? []) {
+      if (t !== 'Nada' && !texts.includes(t)) texts.push(t);
+    }
+    texts.push('Nada');
+    const opts = texts.map((text) => ({ text, correct: false }));
+    setQuizAo(opts);
+    setQuizAka(opts.map((o) => ({ ...o })));
   }
 
   async function save() {
@@ -108,9 +129,12 @@ export default function KumiteCatalog() {
       setMsg('Indica a quién afecta la decisión (AKA/AO).');
       return;
     }
-    const opts = options.map((o) => ({ ...o, text: o.text.trim() })).filter((o) => o.text);
-    if (opts.length > 0 && (opts.length < 2 || !opts.some((o) => o.correct))) {
-      setMsg('El quiz necesita al menos 2 opciones y alguna marcada como correcta (✓).');
+    const clean = (l: { text: string; correct: boolean }[]) => l.map((o) => ({ ...o, text: o.text.trim() })).filter((o) => o.text);
+    const qAo = clean(quizAo);
+    const qAka = clean(quizAka);
+    const hasQuiz = qAo.length > 0 || qAka.length > 0;
+    if (hasQuiz && (qAo.length < 2 || qAka.length < 2 || !qAo.some((o) => o.correct) || !qAka.some((o) => o.correct))) {
+      setMsg('El quiz necesita al menos 2 respuestas por columna y alguna correcta (✓) en AO y en AKA (marca "Nada" si a ese lado no le da nada).');
       return;
     }
     const clip: KumiteClip = {
@@ -130,7 +154,9 @@ export default function KumiteCatalog() {
       ...(explanation.trim() ? { explanation: explanation.trim() } : {}),
       ...(polemic ? { polemic: true } : {}),
       ...(polemic && polemicNote.trim() ? { polemicNote: polemicNote.trim() } : {}),
-      ...(opts.length >= 2 ? { options: opts } : {}),
+      ...(hasQuiz ? { quizAo: qAo, quizAka: qAka } : {}),
+      ...(timeTxt.trim() ? { timeRemaining: timeTxt.trim() } : {}),
+      ...(atoshi ? { atoShibaraku: true } : {}),
       createdAt: new Date().toISOString(),
     };
     await db.kumiteClips.put(clip);
@@ -214,50 +240,57 @@ export default function KumiteCatalog() {
             </div>
 
             <div className="card" style={{ marginTop: 12 }}>
+              <label style={{ margin: '0 0 6px' }}>⏱ Marcador (opcional)</label>
+              <div className="row" style={{ alignItems: 'center' }}>
+                <input type="text" placeholder="Tiempo restante, p. ej. 0:14" value={timeTxt} onChange={(e) => setTimeTxt(e.target.value)} />
+                <label style={{ display: 'flex', alignItems: 'center', gap: 6, margin: 0, cursor: 'pointer', flex: '0 0 auto' }}>
+                  <input type="checkbox" checked={atoshi} onChange={(e) => setAtoshi(e.target.checked)} style={{ width: 'auto', margin: 0 }} />
+                  Últimos 15 s (Ato Shibaraku)
+                </label>
+              </div>
+            </div>
+
+            <div className="card" style={{ marginTop: 12 }}>
               <label style={{ margin: '0 0 6px' }}>
-                🃏 Quiz (opcional): opciones de respuesta que verás BARAJADAS al entrenar. Pueden implicar a AKA, a AO
-                o a los dos. Marca con ✓ la(s) correcta(s).
+                🃏 Quiz: respuestas en orden fijo, "Nada" la última. Marca con ✓ la(s) correcta(s) de CADA columna
+                (si a un lado no le da nada, su correcta es "Nada").
               </label>
-              {options.map((o, i) => (
-                <div className="row" key={i} style={{ marginBottom: 6, alignItems: 'center' }}>
-                  <button
-                    className={`chip${o.correct ? ' sel' : ''}`}
-                    style={{ flex: '0 0 auto' }}
-                    onClick={() => setOptions(options.map((x, j) => (j === i ? { ...x, correct: !x.correct } : x)))}
-                    title="Marcar como correcta"
-                  >
-                    {o.correct ? '✓' : '·'}
-                  </button>
-                  <input
-                    type="text"
-                    placeholder={`Opción ${i + 1}, p. ej. Chui a AKA + Yuko a AO`}
-                    value={o.text}
-                    onChange={(e) => setOptions(options.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)))}
-                  />
-                  <button style={{ flex: '0 0 auto', padding: '8px 10px' }} onClick={() => setOptions(options.filter((_, j) => j !== i))}>
-                    ✕
-                  </button>
-                </div>
-              ))}
-              <div className="row">
-                <button className="btn-secondary" style={{ margin: 0 }} onClick={() => setOptions([...options, { text: '', correct: false }])}>
-                  ➕ Opción
-                </button>
-                <button
-                  className="btn-secondary"
-                  style={{ margin: 0 }}
-                  onClick={() =>
-                    setOptions([
-                      ...options,
-                      {
-                        text: `${side !== 'NONE' ? `${side}: ` : ''}${KUMITE_CALL_LABELS[call]}${detail.trim() ? ` (${detail.trim()})` : ''}`,
-                        correct: true,
-                      },
-                    ])
-                  }
-                >
-                  ➕ Usar la decisión real como opción ✓
-                </button>
+              <button className="btn-secondary" style={{ margin: '0 0 10px' }} onClick={() => preloadQuiz(situations)} disabled={situations.length === 0}>
+                ⚡ Precargar respuestas según la situación
+              </button>
+              <div className="row" style={{ alignItems: 'flex-start' }}>
+                {([
+                  { side: 'AO', list: quizAo, set: setQuizAo, color: 'var(--ao)' },
+                  { side: 'AKA', list: quizAka, set: setQuizAka, color: 'var(--aka)' },
+                ] as const).map(({ side: colSide, list, set, color }) => (
+                  <div key={colSide} style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ color, fontWeight: 800, marginBottom: 6, textAlign: 'center' }}>
+                      {colSide === 'AO' ? '🔵 AO' : '🔴 AKA'}
+                    </div>
+                    {list.map((o, i) => (
+                      <div className="row" key={i} style={{ marginBottom: 6, alignItems: 'center', gap: 4 }}>
+                        <button
+                          className={`chip${o.correct ? ' sel' : ''}`}
+                          style={{ flex: '0 0 auto' }}
+                          onClick={() => set(list.map((x, j) => (j === i ? { ...x, correct: !x.correct } : x)))}
+                          title="Marcar como correcta"
+                        >
+                          {o.correct ? '✓' : '·'}
+                        </button>
+                        <input
+                          type="text"
+                          value={o.text}
+                          placeholder={`Respuesta ${i + 1}`}
+                          onChange={(e) => set(list.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)))}
+                        />
+                        <button style={{ flex: '0 0 auto', padding: '8px 8px' }} onClick={() => set(list.filter((_, j) => j !== i))}>✕</button>
+                      </div>
+                    ))}
+                    <button className="btn-secondary" style={{ margin: 0, width: '100%' }} onClick={() => set([...list, { text: '', correct: false }])}>
+                      ➕
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
 

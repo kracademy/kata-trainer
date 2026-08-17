@@ -214,20 +214,18 @@ export interface CatalogExport {
 /** Situación de la acción (se pueden combinar varias en un clip). */
 export type KumiteSituation =
   | 'PUNTUACION' // ¿es Yuko/Waza-ari/Ippon válido?
-  | 'AGARRE' // agarre a 1 mano sin técnica inmediata / a 2 manos (salvo atrapar patada)
-  | 'CLINCH' // clinch, lucha, empujar, pecho contra pecho
+  | 'AGARRE' // agarres, clinch, empujar, pecho contra pecho, Wakarete
   | 'PROYECCION' // proyecciones y barridos (punto de pivote, agarre de pierna...)
   | 'JOGAI'
-  | 'MUBOBI'
+  | 'MUBOBI_CONTACTO' // mubobi / contacto excesivo / contacto en garganta
   | 'EXAGERAR' // exagerar el contacto recibido
   | 'SIMULAR' // simular una lesión
-  | 'CONTACTO' // contacto excesivo / contacto en garganta
   | 'TECNICA_PROHIBIDA' // ataques a brazos/piernas/ingle, mano abierta a la cara, codo/rodilla/cabeza, patear al caído
-  | 'EVITAR_COMBATE' // evitar combate / pasividad
-  | 'ATO_SHIBARAKU' // gestión de los últimos 15 segundos (pérdida de Senshu incluida)
-  | 'SENSHU' // concesión o anulación (Torimasen) de Senshu
+  | 'EVITAR_COMBATE' // evitar combate (huir, no dejar puntuar)
+  | 'PASIVIDAD' // pasividad (nadie intenta puntuar)
+  | 'VR' // revisión de vídeo: ¿dentro del Ato Shibaraku? ¿antes o después del final?
   | 'LESION' // gestión de lesión / regla de los 10 segundos
-  | 'ETIQUETA'; // conducta, desobedecer al árbitro, celebraciones
+  | 'ETIQUETA'; // descortés / Shikkaku
 
 /** Lo que da (o no da) el árbitro central tras la acción. */
 export type KumiteCall =
@@ -270,12 +268,17 @@ export interface KumiteClip {
   explanation?: string;
 
   /**
-   * Quiz preparado por el usuario al catalogar: opciones de respuesta en texto libre
-   * (pueden implicar a AKA, a AO o a los dos, p. ej. "Chui a AKA + Yuko a AO").
-   * En el entrenamiento se muestran BARAJADAS. Puede haber más de una correcta.
-   * Si un clip no tiene opciones, se entrena con el selector clásico (lado + decisión).
+   * Quiz de dos columnas preparado al catalogar: respuestas para AO (columna izquierda)
+   * y para AKA (columna derecha), en orden FIJO y con "Nada" como última opción.
+   * Se pueden marcar varias correctas por lado; al entrenar hay que responder a los dos lados.
+   * Si un clip no tiene quiz, se entrena con el selector clásico (lado + decisión).
    */
-  options?: { text: string; correct: boolean }[];
+  quizAo?: { text: string; correct: boolean }[];
+  quizAka?: { text: string; correct: boolean }[];
+
+  /** Marcador: tiempo restante visible (p. ej. "0:14") y si es dentro/cerca de los últimos 15 s. */
+  timeRemaining?: string;
+  atoShibaraku?: boolean;
 
   /** Situación polémica: se estudia en su propio apartado, no se mezcla con el entrenamiento normal. */
   polemic?: boolean;
@@ -293,27 +296,46 @@ export interface KumiteAttempt {
   /** Modo clásico (sin quiz). */
   selectedSide?: KumiteSide;
   selectedCall?: KumiteCall;
-  /** Modo quiz: texto de la opción elegida. */
-  selectedOption?: string;
+  /** Modo quiz: textos elegidos en cada columna. */
+  selectedAo?: string[];
+  selectedAka?: string[];
   isCorrect: boolean;
 }
 
 export const KUMITE_SITUATION_LABELS: Record<KumiteSituation, string> = {
   PUNTUACION: 'Puntuación',
-  AGARRE: 'Agarres',
-  CLINCH: 'Clinch / empujar',
+  AGARRE: 'Agarres / Clinch / Empujar / Wakarete',
   PROYECCION: 'Proyecciones y barridos',
   JOGAI: 'Jogai',
-  MUBOBI: 'Mubobi',
+  MUBOBI_CONTACTO: 'Mubobi / Contacto excesivo',
   EXAGERAR: 'Exagerar',
   SIMULAR: 'Simular lesión',
-  CONTACTO: 'Contacto excesivo',
   TECNICA_PROHIBIDA: 'Técnica prohibida',
-  EVITAR_COMBATE: 'Evitar combate / pasividad',
-  ATO_SHIBARAKU: 'Últimos 15 s',
-  SENSHU: 'Senshu / Torimasen',
+  EVITAR_COMBATE: 'Evitar combate',
+  PASIVIDAD: 'Pasividad',
+  VR: 'VR (revisión de vídeo)',
   LESION: 'Lesión / regla 10 s',
-  ETIQUETA: 'Conducta / etiqueta',
+  ETIQUETA: 'Descortés / Shikkaku',
+};
+
+/**
+ * Respuestas precargadas del quiz según la situación (se aplican a las dos columnas, AO y AKA).
+ * La última siempre es "Nada".
+ */
+export const KUMITE_QUIZ_TEMPLATES: Record<KumiteSituation, string[]> = {
+  PUNTUACION: ['Yuko', 'Waza-ari', 'Ippon', 'Nada'],
+  AGARRE: ['Agarre', 'Empujar', 'Wakarete', 'Nada'],
+  PROYECCION: ['Yuko', 'Ippon', 'Agarre', 'Contacto', 'Nada'],
+  JOGAI: ['Jogai', 'Agarre', 'Empujón', 'Nada'],
+  MUBOBI_CONTACTO: ['Contacto', 'Mubobi', 'Exagerar', 'Nada'],
+  EXAGERAR: ['Contacto', 'Mubobi', 'Exagerar', 'Nada'],
+  SIMULAR: ['Contacto', 'Mubobi', 'Simular', 'Nada'],
+  TECNICA_PROHIBIDA: ['Contacto', 'Técnica pasada', 'Nada'],
+  EVITAR_COMBATE: ['Evadir', 'Nada'],
+  PASIVIDAD: ['Pasividad', 'Nada'],
+  VR: ['Antes del Atoshi Baraku', 'Después del Atoshi Baraku', 'Antes del final', 'Después del final', 'Nada'],
+  LESION: ['Contacto', 'Mubobi', 'Exagerar', 'Simular', 'Nada'],
+  ETIQUETA: ['Descortés', 'Shikkaku', 'Nada'],
 };
 
 export const KUMITE_CALL_LABELS: Record<KumiteCall, string> = {

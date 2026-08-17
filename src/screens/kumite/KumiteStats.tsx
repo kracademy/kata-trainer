@@ -37,11 +37,11 @@ export default function KumiteStats() {
   const KEY: { s: KumiteSituation; emoji: string }[] = [
     { s: 'AGARRE', emoji: '✊' },
     { s: 'JOGAI', emoji: '🚪' },
-    { s: 'MUBOBI', emoji: '🛡️' },
+    { s: 'MUBOBI_CONTACTO', emoji: '💥' },
     { s: 'EXAGERAR', emoji: '🎭' },
     { s: 'SIMULAR', emoji: '🤕' },
-    { s: 'CONTACTO', emoji: '💥' },
     { s: 'PROYECCION', emoji: '🤼' },
+    { s: 'EVITAR_COMBATE', emoji: '🏃' },
     { s: 'PUNTUACION', emoji: '🎯' },
   ];
 

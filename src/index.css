@@ -286,20 +286,22 @@ nav.bottom a .ico svg { display: block; }
   text-align: center;
 }
 
-/* Opciones de quiz (kumite) */
+/* Quiz de kumite: dos columnas (AO izquierda, AKA derecha), orden fijo, multi-selección */
+.quiz-col-head { font-weight: 800; text-align: center; margin-bottom: 6px; }
 .quiz-opt {
   display: block;
   width: 100%;
-  text-align: left;
+  text-align: center;
   background: var(--bg-elevated-2);
   color: var(--label);
   border-radius: 12px;
-  padding: 13px 14px;
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  padding: 12px 8px;
+  margin-bottom: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
-.quiz-opt.sel { background: var(--blue); color: #fff; font-weight: 700; }
+.quiz-opt.ao.sel { background: var(--ao); color: #fff; }
+.quiz-opt.aka.sel { background: var(--aka); color: #fff; }
 .quiz-opt.reveal { cursor: default; }
 .quiz-opt.reveal.good { background: rgba(52, 199, 89, 0.16); color: #1d7a35; font-weight: 700; }
 .quiz-opt.reveal.bad { background: rgba(255, 59, 48, 0.13); color: #c3271b; }

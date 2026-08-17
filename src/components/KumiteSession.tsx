@@ -1,17 +1,12 @@
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { db } from '../db/db';
 import type { KumiteCall, KumiteClip, KumiteSide } from '../db/types';
 import { KUMITE_CALL_LABELS, KUMITE_SITUATION_LABELS } from '../db/types';
 import YouTubePlayer, { type YouTubePlayerHandle } from './YouTubePlayer';
 
-/** Baraja las opciones para que la correcta nunca esté siempre en la misma posición. */
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+/** ¿Los textos elegidos coinciden exactamente con los correctos? */
+function sameSet(selected: Set<number>, list: { text: string; correct: boolean }[]): boolean {
+  return list.every((o, i) => o.correct === selected.has(i));
 }
 
 type Phase = 'playing' | 'decision' | 'reveal';
@@ -30,7 +25,8 @@ export default function KumiteSession({ queue, onExit }: Props) {
   const [phase, setPhase] = useState<Phase>('playing');
   const [selSide, setSelSide] = useState<KumiteSide | null>(null);
   const [selCall, setSelCall] = useState<KumiteCall | null>(null);
-  const [selOpt, setSelOpt] = useState<number | null>(null);
+  const [selAo, setSelAo] = useState<Set<number>>(new Set());
+  const [selAka, setSelAka] = useState<Set<number>>(new Set());
   const [wasCorrect, setWasCorrect] = useState(false);
   const [showingReveal, setShowingReveal] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -41,12 +37,8 @@ export default function KumiteSession({ queue, onExit }: Props) {
 
   const clip = queue[index];
 
-  // Modo quiz: opciones preparadas al catalogar, barajadas en cada visualización.
-  const quizOptions = useMemo(
-    () => (clip?.options && clip.options.length >= 2 ? shuffle(clip.options) : null),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [clip?.id, index],
-  );
+  // Modo quiz: dos columnas (AO izquierda, AKA derecha) en orden fijo; hay que responder a los dos lados.
+  const quiz = clip?.quizAo && clip?.quizAka && clip.quizAo.length >= 2 && clip.quizAka.length >= 2;
 
   if (!clip) {
     return (
@@ -58,18 +50,20 @@ export default function KumiteSession({ queue, onExit }: Props) {
   }
 
   const neutral = selCall != null && NEUTRAL_CALLS.includes(selCall);
-  const canConfirm = quizOptions ? selOpt != null : selCall != null && (neutral || selSide != null);
+  // en el quiz hay que responder OBLIGATORIAMENTE a los dos lados (aunque sea "Nada")
+  const canConfirm = quiz ? selAo.size > 0 && selAka.size > 0 : selCall != null && (neutral || selSide != null);
 
   async function confirm() {
     if (!clip) return;
     let correct: boolean;
-    if (quizOptions) {
-      if (selOpt == null) return;
-      correct = quizOptions[selOpt].correct;
+    if (quiz) {
+      if (selAo.size === 0 || selAka.size === 0) return;
+      correct = sameSet(selAo, clip.quizAo!) && sameSet(selAka, clip.quizAka!);
       await db.kumiteAttempts.add({
         clipId: clip.id,
         attemptedAt: new Date().toISOString(),
-        selectedOption: quizOptions[selOpt].text,
+        selectedAo: [...selAo].map((i) => clip.quizAo![i].text),
+        selectedAka: [...selAka].map((i) => clip.quizAka![i].text),
         isCorrect: correct,
       });
     } else {
@@ -93,10 +87,19 @@ export default function KumiteSession({ queue, onExit }: Props) {
     setPhase('playing');
     setSelSide(null);
     setSelCall(null);
-    setSelOpt(null);
+    setSelAo(new Set());
+    setSelAka(new Set());
     setShowingReveal(false);
     setVideoError(false);
     setPlaying(false);
+  }
+
+  function toggleSel(side: 'AO' | 'AKA', i: number) {
+    const [sel, set] = side === 'AO' ? [selAo, setSelAo] : [selAka, setSelAka];
+    const next = new Set(sel);
+    if (next.has(i)) next.delete(i);
+    else next.add(i);
+    set(next);
   }
 
   function togglePause() {
@@ -146,9 +149,15 @@ export default function KumiteSession({ queue, onExit }: Props) {
         )}
       </div>
 
-      {clip.title && phase !== 'reveal' && (
+      {(clip.title || clip.timeRemaining || clip.atoShibaraku || clip.akaName || clip.aoName) && phase !== 'reveal' && (
         <div className="card perf-item" style={{ marginTop: 12 }}>
-          <div className="who">{clip.title}</div>
+          {clip.title && <div className="who">{clip.title}</div>}
+          {(clip.timeRemaining || clip.atoShibaraku) && (
+            <div className="who" style={{ color: '#b56000' }}>
+              ⏱ {clip.timeRemaining ? `Quedan ${clip.timeRemaining}` : ''}
+              {clip.atoShibaraku ? `${clip.timeRemaining ? ' · ' : ''}ÚLTIMOS 15 s (Ato Shibaraku)` : ''}
+            </div>
+          )}
           {(clip.akaName || clip.aoName) && (
             <div className="meta">
               {clip.akaName && <><span style={{ color: 'var(--aka)', fontWeight: 700 }}>AKA</span> {clip.akaName} </>}
@@ -181,25 +190,34 @@ export default function KumiteSession({ queue, onExit }: Props) {
         </>
       )}
 
-      {phase === 'decision' && quizOptions && (
+      {phase === 'decision' && quiz && (
         <>
           <div className="card">
-            <label style={{ margin: '0 0 8px' }}>Elige la decisión del árbitro central:</label>
-            {quizOptions.map((o, i) => (
-              <button
-                key={i}
-                className={`quiz-opt${selOpt === i ? ' sel' : ''}`}
-                onClick={() => setSelOpt(i)}
-              >
-                {o.text}
-              </button>
-            ))}
+            <label style={{ margin: '0 0 8px' }}>¿Qué da el árbitro central a cada uno? (elige en las dos columnas, aunque sea "Nada")</label>
+            <div className="row" style={{ alignItems: 'flex-start' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="quiz-col-head" style={{ color: 'var(--ao)' }}>🔵 AO</div>
+                {clip.quizAo!.map((o, i) => (
+                  <button key={i} className={`quiz-opt ao${selAo.has(i) ? ' sel' : ''}`} onClick={() => toggleSel('AO', i)}>
+                    {o.text}
+                  </button>
+                ))}
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="quiz-col-head" style={{ color: 'var(--aka)' }}>🔴 AKA</div>
+                {clip.quizAka!.map((o, i) => (
+                  <button key={i} className={`quiz-opt aka${selAka.has(i) ? ' sel' : ''}`} onClick={() => toggleSel('AKA', i)}>
+                    {o.text}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <button className="btn-primary" disabled={!canConfirm} onClick={confirm}>CONFIRMAR</button>
         </>
       )}
 
-      {phase === 'decision' && !quizOptions && (
+      {phase === 'decision' && !quiz && (
         <>
           <div className="card">
             <label style={{ margin: '0 0 6px' }}>¿A quién?</label>
@@ -226,7 +244,7 @@ export default function KumiteSession({ queue, onExit }: Props) {
             {wasCorrect ? '✅ ¡CORRECTO!' : '❌ FALLASTE'}
             <div className="sub">
               Real: {realLabel}{clip.decisionDetail ? ` — ${clip.decisionDetail}` : ''}
-              {!quizOptions && (
+              {!quiz && (
                 <>
                   <br />
                   Tú: {selSide && !neutral ? `${selSide} · ` : ''}{selCall ? KUMITE_CALL_LABELS[selCall] : ''}
@@ -235,13 +253,26 @@ export default function KumiteSession({ queue, onExit }: Props) {
             </div>
           </div>
 
-          {quizOptions && (
+          {quiz && (
             <div className="card">
-              {quizOptions.map((o, i) => (
-                <div key={i} className={`quiz-opt reveal${o.correct ? ' good' : selOpt === i ? ' bad' : ''}`}>
-                  {o.correct ? '✅ ' : selOpt === i ? '❌ ' : ''}{o.text}
+              <div className="row" style={{ alignItems: 'flex-start' }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div className="quiz-col-head" style={{ color: 'var(--ao)' }}>🔵 AO</div>
+                  {clip.quizAo!.map((o, i) => (
+                    <div key={i} className={`quiz-opt reveal${o.correct ? ' good' : selAo.has(i) ? ' bad' : ''}`}>
+                      {o.correct ? '✅ ' : selAo.has(i) ? '❌ ' : ''}{o.text}
+                    </div>
+                  ))}
                 </div>
-              ))}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div className="quiz-col-head" style={{ color: 'var(--aka)' }}>🔴 AKA</div>
+                  {clip.quizAka!.map((o, i) => (
+                    <div key={i} className={`quiz-opt reveal${o.correct ? ' good' : selAka.has(i) ? ' bad' : ''}`}>
+                      {o.correct ? '✅ ' : selAka.has(i) ? '❌ ' : ''}{o.text}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
