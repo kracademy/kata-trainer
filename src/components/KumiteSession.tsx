@@ -1,8 +1,18 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { db } from '../db/db';
 import type { KumiteCall, KumiteClip, KumiteSide } from '../db/types';
 import { KUMITE_CALL_LABELS, KUMITE_SITUATION_LABELS } from '../db/types';
 import YouTubePlayer, { type YouTubePlayerHandle } from './YouTubePlayer';
+
+/** Baraja las opciones para que la correcta nunca esté siempre en la misma posición. */
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 type Phase = 'playing' | 'decision' | 'reveal';
 
@@ -20,6 +30,7 @@ export default function KumiteSession({ queue, onExit }: Props) {
   const [phase, setPhase] = useState<Phase>('playing');
   const [selSide, setSelSide] = useState<KumiteSide | null>(null);
   const [selCall, setSelCall] = useState<KumiteCall | null>(null);
+  const [selOpt, setSelOpt] = useState<number | null>(null);
   const [wasCorrect, setWasCorrect] = useState(false);
   const [showingReveal, setShowingReveal] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -29,6 +40,13 @@ export default function KumiteSession({ queue, onExit }: Props) {
   const playerRef = useRef<YouTubePlayerHandle>(null);
 
   const clip = queue[index];
+
+  // Modo quiz: opciones preparadas al catalogar, barajadas en cada visualización.
+  const quizOptions = useMemo(
+    () => (clip?.options && clip.options.length >= 2 ? shuffle(clip.options) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [clip?.id, index],
+  );
 
   if (!clip) {
     return (
@@ -40,19 +58,32 @@ export default function KumiteSession({ queue, onExit }: Props) {
   }
 
   const neutral = selCall != null && NEUTRAL_CALLS.includes(selCall);
-  const canConfirm = selCall != null && (neutral || selSide != null);
+  const canConfirm = quizOptions ? selOpt != null : selCall != null && (neutral || selSide != null);
 
   async function confirm() {
-    if (!clip || selCall == null) return;
-    const side: KumiteSide = neutral ? 'NONE' : (selSide as KumiteSide);
-    const correct = selCall === clip.decisionCall && side === clip.decisionSide;
-    await db.kumiteAttempts.add({
-      clipId: clip.id,
-      attemptedAt: new Date().toISOString(),
-      selectedSide: side,
-      selectedCall: selCall,
-      isCorrect: correct,
-    });
+    if (!clip) return;
+    let correct: boolean;
+    if (quizOptions) {
+      if (selOpt == null) return;
+      correct = quizOptions[selOpt].correct;
+      await db.kumiteAttempts.add({
+        clipId: clip.id,
+        attemptedAt: new Date().toISOString(),
+        selectedOption: quizOptions[selOpt].text,
+        isCorrect: correct,
+      });
+    } else {
+      if (selCall == null) return;
+      const side: KumiteSide = neutral ? 'NONE' : (selSide as KumiteSide);
+      correct = selCall === clip.decisionCall && side === clip.decisionSide;
+      await db.kumiteAttempts.add({
+        clipId: clip.id,
+        attemptedAt: new Date().toISOString(),
+        selectedSide: side,
+        selectedCall: selCall,
+        isCorrect: correct,
+      });
+    }
     setWasCorrect(correct);
     setPhase('reveal');
   }
@@ -62,6 +93,7 @@ export default function KumiteSession({ queue, onExit }: Props) {
     setPhase('playing');
     setSelSide(null);
     setSelCall(null);
+    setSelOpt(null);
     setShowingReveal(false);
     setVideoError(false);
     setPlaying(false);
@@ -149,7 +181,25 @@ export default function KumiteSession({ queue, onExit }: Props) {
         </>
       )}
 
-      {phase === 'decision' && (
+      {phase === 'decision' && quizOptions && (
+        <>
+          <div className="card">
+            <label style={{ margin: '0 0 8px' }}>Elige la decisión del árbitro central:</label>
+            {quizOptions.map((o, i) => (
+              <button
+                key={i}
+                className={`quiz-opt${selOpt === i ? ' sel' : ''}`}
+                onClick={() => setSelOpt(i)}
+              >
+                {o.text}
+              </button>
+            ))}
+          </div>
+          <button className="btn-primary" disabled={!canConfirm} onClick={confirm}>CONFIRMAR</button>
+        </>
+      )}
+
+      {phase === 'decision' && !quizOptions && (
         <>
           <div className="card">
             <label style={{ margin: '0 0 6px' }}>¿A quién?</label>
@@ -176,10 +226,25 @@ export default function KumiteSession({ queue, onExit }: Props) {
             {wasCorrect ? '✅ ¡CORRECTO!' : '❌ FALLASTE'}
             <div className="sub">
               Real: {realLabel}{clip.decisionDetail ? ` — ${clip.decisionDetail}` : ''}
-              <br />
-              Tú: {selSide && !neutral ? `${selSide} · ` : ''}{selCall ? KUMITE_CALL_LABELS[selCall] : ''}
+              {!quizOptions && (
+                <>
+                  <br />
+                  Tú: {selSide && !neutral ? `${selSide} · ` : ''}{selCall ? KUMITE_CALL_LABELS[selCall] : ''}
+                </>
+              )}
             </div>
           </div>
+
+          {quizOptions && (
+            <div className="card">
+              {quizOptions.map((o, i) => (
+                <div key={i} className={`quiz-opt reveal${o.correct ? ' good' : selOpt === i ? ' bad' : ''}`}>
+                  {o.correct ? '✅ ' : selOpt === i ? '❌ ' : ''}{o.text}
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="card">
             <div className="meta">
               {clip.situations.map((s) => (

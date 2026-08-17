@@ -32,6 +32,7 @@ export default function KumiteCatalog() {
   const [explanation, setExplanation] = useState('');
   const [polemic, setPolemic] = useState(false);
   const [polemicNote, setPolemicNote] = useState('');
+  const [options, setOptions] = useState<{ text: string; correct: boolean }[]>([]);
   const [msg, setMsg] = useState('');
   const playerRef = useRef<YouTubePlayerHandle>(null);
 
@@ -54,6 +55,7 @@ export default function KumiteCatalog() {
     setExplanation(c?.explanation ?? '');
     setPolemic(c?.polemic ?? false);
     setPolemicNote(c?.polemicNote ?? '');
+    setOptions(c?.options ?? []);
     setMsg('');
   }
 
@@ -106,6 +108,11 @@ export default function KumiteCatalog() {
       setMsg('Indica a quién afecta la decisión (AKA/AO).');
       return;
     }
+    const opts = options.map((o) => ({ ...o, text: o.text.trim() })).filter((o) => o.text);
+    if (opts.length > 0 && (opts.length < 2 || !opts.some((o) => o.correct))) {
+      setMsg('El quiz necesita al menos 2 opciones y alguna marcada como correcta (✓).');
+      return;
+    }
     const clip: KumiteClip = {
       id: editingId ?? `k-${Date.now().toString(36)}-${Math.floor(Math.random() * 46656).toString(36)}`,
       videoId,
@@ -123,6 +130,7 @@ export default function KumiteCatalog() {
       ...(explanation.trim() ? { explanation: explanation.trim() } : {}),
       ...(polemic ? { polemic: true } : {}),
       ...(polemic && polemicNote.trim() ? { polemicNote: polemicNote.trim() } : {}),
+      ...(opts.length >= 2 ? { options: opts } : {}),
       createdAt: new Date().toISOString(),
     };
     await db.kumiteClips.put(clip);
@@ -203,6 +211,54 @@ export default function KumiteCatalog() {
               </select>
               <input type="text" placeholder="Detalle (opc.), p. ej. 2º Chui por agarre" value={detail} onChange={(e) => setDetail(e.target.value)} style={{ marginTop: 8 }} />
               <input type="text" placeholder="Explicación didáctica (se muestra tras decidir)" value={explanation} onChange={(e) => setExplanation(e.target.value)} style={{ marginTop: 8 }} />
+            </div>
+
+            <div className="card" style={{ marginTop: 12 }}>
+              <label style={{ margin: '0 0 6px' }}>
+                🃏 Quiz (opcional): opciones de respuesta que verás BARAJADAS al entrenar. Pueden implicar a AKA, a AO
+                o a los dos. Marca con ✓ la(s) correcta(s).
+              </label>
+              {options.map((o, i) => (
+                <div className="row" key={i} style={{ marginBottom: 6, alignItems: 'center' }}>
+                  <button
+                    className={`chip${o.correct ? ' sel' : ''}`}
+                    style={{ flex: '0 0 auto' }}
+                    onClick={() => setOptions(options.map((x, j) => (j === i ? { ...x, correct: !x.correct } : x)))}
+                    title="Marcar como correcta"
+                  >
+                    {o.correct ? '✓' : '·'}
+                  </button>
+                  <input
+                    type="text"
+                    placeholder={`Opción ${i + 1}, p. ej. Chui a AKA + Yuko a AO`}
+                    value={o.text}
+                    onChange={(e) => setOptions(options.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)))}
+                  />
+                  <button style={{ flex: '0 0 auto', padding: '8px 10px' }} onClick={() => setOptions(options.filter((_, j) => j !== i))}>
+                    ✕
+                  </button>
+                </div>
+              ))}
+              <div className="row">
+                <button className="btn-secondary" style={{ margin: 0 }} onClick={() => setOptions([...options, { text: '', correct: false }])}>
+                  ➕ Opción
+                </button>
+                <button
+                  className="btn-secondary"
+                  style={{ margin: 0 }}
+                  onClick={() =>
+                    setOptions([
+                      ...options,
+                      {
+                        text: `${side !== 'NONE' ? `${side}: ` : ''}${KUMITE_CALL_LABELS[call]}${detail.trim() ? ` (${detail.trim()})` : ''}`,
+                        correct: true,
+                      },
+                    ])
+                  }
+                >
+                  ➕ Usar la decisión real como opción ✓
+                </button>
+              </div>
             </div>
 
             <div className="card" style={{ marginTop: 12 }}>

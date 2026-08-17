@@ -33,6 +33,18 @@ export default function KumiteStats() {
   const sitRows = [...bySituation.entries()].sort((a, b) => b[1].n - a[1].n);
   const callRows = [...byCall.entries()].sort((a, b) => b[1].n - a[1].n);
 
+  // Lo más importante siempre visible, aunque aún no haya intentos
+  const KEY: { s: KumiteSituation; emoji: string }[] = [
+    { s: 'AGARRE', emoji: '✊' },
+    { s: 'JOGAI', emoji: '🚪' },
+    { s: 'MUBOBI', emoji: '🛡️' },
+    { s: 'EXAGERAR', emoji: '🎭' },
+    { s: 'SIMULAR', emoji: '🤕' },
+    { s: 'CONTACTO', emoji: '💥' },
+    { s: 'PROYECCION', emoji: '🤼' },
+    { s: 'PUNTUACION', emoji: '🎯' },
+  ];
+
   return (
     <>
       <h1>Stats</h1>
@@ -54,6 +66,19 @@ export default function KumiteStats() {
           <div className="v">🔥 {clips.filter((c) => c.polemic).length}</div>
           <div className="l">Polémicas</div>
         </div>
+      </div>
+
+      <h2>Lo importante</h2>
+      <div className="grid2">
+        {KEY.map(({ s, emoji }) => {
+          const e = bySituation.get(s);
+          return (
+            <div className="stat-tile" key={s}>
+              <div className="v">{emoji} {e ? pct(e.ok, e.n) : '—'}</div>
+              <div className="l">{KUMITE_SITUATION_LABELS[s]}{e ? ` · ${e.n} int.` : ' · sin intentos'}</div>
+            </div>
+          );
+        })}
       </div>
 
       <h2>Por situación</h2>

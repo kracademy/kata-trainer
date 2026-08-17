@@ -269,6 +269,14 @@ export interface KumiteClip {
   /** Explicación didáctica que se muestra tras decidir. */
   explanation?: string;
 
+  /**
+   * Quiz preparado por el usuario al catalogar: opciones de respuesta en texto libre
+   * (pueden implicar a AKA, a AO o a los dos, p. ej. "Chui a AKA + Yuko a AO").
+   * En el entrenamiento se muestran BARAJADAS. Puede haber más de una correcta.
+   * Si un clip no tiene opciones, se entrena con el selector clásico (lado + decisión).
+   */
+  options?: { text: string; correct: boolean }[];
+
   /** Situación polémica: se estudia en su propio apartado, no se mezcla con el entrenamiento normal. */
   polemic?: boolean;
   /** Por qué es polémica. */
@@ -282,8 +290,11 @@ export interface KumiteAttempt {
   id?: number;
   clipId: string;
   attemptedAt: string;
-  selectedSide: KumiteSide;
-  selectedCall: KumiteCall;
+  /** Modo clásico (sin quiz). */
+  selectedSide?: KumiteSide;
+  selectedCall?: KumiteCall;
+  /** Modo quiz: texto de la opción elegida. */
+  selectedOption?: string;
   isCorrect: boolean;
 }
 
