@@ -131,6 +131,8 @@ export interface Performance {
   closeResult?: boolean;
   /** Nota escrita por el usuario en Catalogar (independiente de `notes`, que las cura el dataset). */
   userNote?: string;
+  /** Encuentro que salió en exámenes EKF/WKF de otros años: entrenable aparte (incluso sin vídeo, de memoria). */
+  formerExam?: boolean;
 
   status: CatalogStatus;
   sportDataUrl?: string;
@@ -180,15 +182,16 @@ export interface DatasetFile {
   performances: Performance[];
 }
 
-/** Export de la pantalla Catalogar (PC → Claude → dataset). */
+/** Export de la pantalla Catalogar (PC → dataset publicado). */
 export interface CatalogExport {
   schemaVersion: number;
   exportedAt: string;
   entries: {
     performanceId: string;
-    videoId: string;
-    startSeconds: number;
-    endSeconds: number;
+    /** Ausentes cuando la entrada solo transporta marcas (formerExam, ajustado, nota) sin vídeo. */
+    videoId?: string;
+    startSeconds?: number;
+    endSeconds?: number;
     /** Puntuaciones oficiales vistas en el vídeo (cuando SportData no las publica). */
     officialScoreAka?: number;
     officialScoreAo?: number;
@@ -201,5 +204,124 @@ export interface CatalogExport {
     /** Resultado ajustado marcado a mano + nota que se muestra tras decidir. */
     closeResult?: boolean;
     note?: string;
+    formerExam?: boolean;
   }[];
+}
+
+// ============================= KUMITE =============================
+// Módulo Kumite Trainer: clips de situaciones arbitrales (reglas WKF 2026).
+
+/** Situación de la acción (se pueden combinar varias en un clip). */
+export type KumiteSituation =
+  | 'PUNTUACION' // ¿es Yuko/Waza-ari/Ippon válido?
+  | 'AGARRE' // agarre a 1 mano sin técnica inmediata / a 2 manos (salvo atrapar patada)
+  | 'CLINCH' // clinch, lucha, empujar, pecho contra pecho
+  | 'PROYECCION' // proyecciones y barridos (punto de pivote, agarre de pierna...)
+  | 'JOGAI'
+  | 'MUBOBI'
+  | 'EXAGERAR' // exagerar el contacto recibido
+  | 'SIMULAR' // simular una lesión
+  | 'CONTACTO' // contacto excesivo / contacto en garganta
+  | 'TECNICA_PROHIBIDA' // ataques a brazos/piernas/ingle, mano abierta a la cara, codo/rodilla/cabeza, patear al caído
+  | 'EVITAR_COMBATE' // evitar combate / pasividad
+  | 'ATO_SHIBARAKU' // gestión de los últimos 15 segundos (pérdida de Senshu incluida)
+  | 'SENSHU' // concesión o anulación (Torimasen) de Senshu
+  | 'LESION' // gestión de lesión / regla de los 10 segundos
+  | 'ETIQUETA'; // conducta, desobedecer al árbitro, celebraciones
+
+/** Lo que da (o no da) el árbitro central tras la acción. */
+export type KumiteCall =
+  | 'NO_ACTION' // sigue el combate / no da nada
+  | 'YUKO'
+  | 'WAZA_ARI'
+  | 'IPPON'
+  | 'CHUI'
+  | 'HANSOKU_CHUI'
+  | 'HANSOKU'
+  | 'SHIKKAKU'
+  | 'WAKARETE'
+  | 'TSUZUKETE' // aviso informal de actividad
+  | 'SENSHU_TORIMASEN'; // anulación del Senshu
+
+export type KumiteSide = 'AKA' | 'AO' | 'NONE';
+
+/** Un clip de kumite: la acción hasta el YAME y, opcionalmente, la señalización real después. */
+export interface KumiteClip {
+  id: string; // uuid corto
+  videoId: string;
+  /** Acción: desde antes de la situación hasta justo cuando el árbitro para (sin ver la decisión). */
+  startSeconds: number;
+  endSeconds: number;
+  /** Opcional: hasta dónde seguir reproduciendo tras decidir, para ver la señalización real. */
+  revealEndSeconds?: number;
+
+  title?: string; // p. ej. 'Agarre y ura mawashi'
+  competitionName?: string;
+  akaName?: string;
+  aoName?: string;
+
+  situations: KumiteSituation[];
+  /** Decisión real del árbitro central. */
+  decisionSide: KumiteSide; // a quién afecta (quien puntúa o quien es sancionado)
+  decisionCall: KumiteCall;
+  /** Detalle libre, p. ej. '2º Chui por agarre' o 'Yuko gyaku tsuki chudan'. */
+  decisionDetail?: string;
+  /** Explicación didáctica que se muestra tras decidir. */
+  explanation?: string;
+
+  /** Situación polémica: se estudia en su propio apartado, no se mezcla con el entrenamiento normal. */
+  polemic?: boolean;
+  /** Por qué es polémica. */
+  polemicNote?: string;
+
+  createdAt: string; // ISO
+}
+
+/** Intento del usuario sobre un clip de kumite. */
+export interface KumiteAttempt {
+  id?: number;
+  clipId: string;
+  attemptedAt: string;
+  selectedSide: KumiteSide;
+  selectedCall: KumiteCall;
+  isCorrect: boolean;
+}
+
+export const KUMITE_SITUATION_LABELS: Record<KumiteSituation, string> = {
+  PUNTUACION: 'Puntuación',
+  AGARRE: 'Agarres',
+  CLINCH: 'Clinch / empujar',
+  PROYECCION: 'Proyecciones y barridos',
+  JOGAI: 'Jogai',
+  MUBOBI: 'Mubobi',
+  EXAGERAR: 'Exagerar',
+  SIMULAR: 'Simular lesión',
+  CONTACTO: 'Contacto excesivo',
+  TECNICA_PROHIBIDA: 'Técnica prohibida',
+  EVITAR_COMBATE: 'Evitar combate / pasividad',
+  ATO_SHIBARAKU: 'Últimos 15 s',
+  SENSHU: 'Senshu / Torimasen',
+  LESION: 'Lesión / regla 10 s',
+  ETIQUETA: 'Conducta / etiqueta',
+};
+
+export const KUMITE_CALL_LABELS: Record<KumiteCall, string> = {
+  NO_ACTION: 'Nada / sigue',
+  YUKO: 'Yuko',
+  WAZA_ARI: 'Waza-ari',
+  IPPON: 'Ippon',
+  CHUI: 'Chui',
+  HANSOKU_CHUI: 'Hansoku-Chui',
+  HANSOKU: 'Hansoku',
+  SHIKKAKU: 'Shikkaku',
+  WAKARETE: 'Wakarete',
+  TSUZUKETE: 'Tsuzukete (aviso)',
+  SENSHU_TORIMASEN: 'Senshu Torimasen',
+};
+
+/** Export/dataset del módulo Kumite. */
+export interface KumiteDatasetFile {
+  schemaVersion: number;
+  generatedAt: string;
+  clips: KumiteClip[];
 }

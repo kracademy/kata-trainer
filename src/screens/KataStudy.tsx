@@ -31,13 +31,16 @@ export default function KataStudy() {
   const data = useCatalog();
   const { performances, compById, categoryById, athleteById } = data;
   const [q, setQ] = useState('');
+  const [fmt, setFmt] = useState<'INDIVIDUAL' | 'TEAM'>('INDIVIDUAL');
   const [selectedKata, setSelectedKata] = useState<string | null>(null);
   const [playing, setPlaying] = useState<Execution | null>(null);
+  const [playerKey, setPlayerKey] = useState(0);
 
   const executions = useMemo(() => {
     const out: Execution[] = [];
     for (const p of performances) {
       if (!p.videoId) continue;
+      if ((categoryById.get(p.categoryId)?.format ?? 'INDIVIDUAL') !== fmt) continue;
       if (p.kataAka) {
         out.push({
           perf: p, side: 'AKA', athleteId: p.akaAthleteId, kata: p.kataAka,
@@ -56,7 +59,7 @@ export default function KataStudy() {
       }
     }
     return out;
-  }, [performances]);
+  }, [performances, categoryById, fmt]);
 
   const kataStats = useMemo(() => {
     const m = new Map<string, { total: number; subClips: number }>();
@@ -93,12 +96,16 @@ export default function KataStudy() {
         <h1>{playing.kata}</h1>
         <div className="player-wrap">
           <YouTubePlayer
+            key={playerKey}
             videoId={playing.perf.videoId!}
             startSeconds={playing.start}
             endSeconds={playing.end}
             controls={true}
           />
         </div>
+        <button className="btn-secondary" style={{ marginTop: 10 }} onClick={() => setPlayerKey((k) => k + 1)}>
+          ↻ Recargar vídeo (si se queda en negro)
+        </button>
         <div className="card perf-item" style={{ marginTop: 12 }}>
           <div className="who">
             <span style={{ color: playing.side === 'AKA' ? 'var(--aka)' : 'var(--ao)', fontWeight: 800 }}>{playing.side}</span>{' '}
@@ -150,6 +157,14 @@ export default function KataStudy() {
         Todas las ejecuciones de cada kata en el dataset. Los clips por atleta se marcan en{' '}
         <Link to="/catalogar">Catalogar</Link>.
       </p>
+      <div className="row" style={{ marginBottom: 10 }}>
+        <button className={`chip${fmt === 'INDIVIDUAL' ? ' sel' : ''}`} onClick={() => { setFmt('INDIVIDUAL'); setSelectedKata(null); }}>
+          Individual
+        </button>
+        <button className={`chip${fmt === 'TEAM' ? ' sel' : ''}`} onClick={() => { setFmt('TEAM'); setSelectedKata(null); }}>
+          Equipos
+        </button>
+      </div>
       <input type="text" placeholder="Buscar kata… p. ej. Ohan Dai" value={q} onChange={(e) => setQ(e.target.value)} />
       <h2>{filteredKatas.length} katas</h2>
       {filteredKatas.map(([kata, s]) => (

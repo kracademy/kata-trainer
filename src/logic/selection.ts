@@ -36,15 +36,23 @@ interface Ctx {
 }
 
 export function filterPerformances(perfs: Performance[], f: TrainFilters, ctx: Ctx): Performance[] {
+  // Modo especial: encuentros marcados como Former Exam EKF/WKF (se incluyen aunque no tengan
+  // vídeo, para repasarlos de memoria; y sin restringir a rondas de medalla).
+  const examMode = f.competitionType === 'FORMER_EXAM';
   return perfs.filter((p) => {
-    if (p.status !== 'READY') return false;
-    if (f.competitionType !== 'ALL' && ctx.compTypeById.get(p.competitionId) !== f.competitionType) return false;
+    if (examMode) {
+      if (!p.formerExam) return false;
+      if (p.status !== 'READY' && p.akaAthleteId == null) return false; // sin datos no se puede ni de memoria
+    } else {
+      if (p.status !== 'READY') return false;
+      if (f.competitionType !== 'ALL' && ctx.compTypeById.get(p.competitionId) !== f.competitionType) return false;
+    }
     if (f.year !== 'ALL' && String(ctx.compYearById.get(p.competitionId)) !== f.year) return false;
     if (f.gender !== 'ALL' && ctx.genderByCategoryId.get(p.categoryId) !== f.gender) return false;
     if (f.age !== 'ALL' && (ctx.ageByCategoryId.get(p.categoryId) ?? 'SENIOR') !== f.age) return false;
     if (f.format !== 'ALL' && (ctx.formatByCategoryId.get(p.categoryId) ?? 'INDIVIDUAL') !== f.format) return false;
     // Por defecto ('ALL') solo encuentros de medalla; otras rondas solo si se piden explícitamente.
-    if (f.round === 'ALL' && !['FINAL', 'BRONZE_1', 'BRONZE_2'].includes(p.roundType)) return false;
+    if (!examMode && f.round === 'ALL' && !['FINAL', 'BRONZE_1', 'BRONZE_2'].includes(p.roundType)) return false;
     if (f.round === 'FINAL' && p.roundType !== 'FINAL') return false;
     if (f.round === 'BRONZE' && p.roundType !== 'BRONZE_1' && p.roundType !== 'BRONZE_2') return false;
     if (f.round === 'OTHER' && p.roundType !== 'OTHER') return false;

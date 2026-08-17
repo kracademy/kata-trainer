@@ -1,7 +1,8 @@
 import { db } from '../db/db';
-import type { CatalogStatus, DatasetFile, Performance } from '../db/types';
+import type { CatalogStatus, DatasetFile, KumiteDatasetFile, Performance } from '../db/types';
 
 const DATASET_URL = `${import.meta.env.BASE_URL}data/dataset.json`;
+const KUMITE_DATASET_URL = `${import.meta.env.BASE_URL}data/kumite-dataset.json`;
 
 export function computeStatus(p: Pick<Performance, 'videoId' | 'startSeconds' | 'endSeconds' | 'akaAthleteId'>): CatalogStatus {
   if (!p.akaAthleteId) return 'MISSING_DATA';
@@ -81,9 +82,26 @@ export async function syncDataset(): Promise<void> {
         notes: perf.notes ?? existing?.notes,
         closeResult: perf.closeResult ?? (samePair ? existing?.closeResult : undefined),
         userNote: perf.userNote ?? (samePair ? existing?.userNote : undefined),
+        formerExam: perf.formerExam ?? (samePair ? existing?.formerExam : undefined),
       };
       merged.status = computeStatus(merged);
       await db.performances.put(merged);
     }
   });
+
+  await syncKumiteDataset();
+}
+
+/** Fusiona el dataset de kumite publicado; los clips locales que aún no están en el dataset se conservan. */
+async function syncKumiteDataset(): Promise<void> {
+  let ds: KumiteDatasetFile;
+  try {
+    const res = await fetch(KUMITE_DATASET_URL, { cache: 'no-cache' });
+    if (!res.ok) return;
+    ds = (await res.json()) as KumiteDatasetFile;
+  } catch {
+    return;
+  }
+  if (!Array.isArray(ds.clips)) return;
+  await db.kumiteClips.bulkPut(ds.clips);
 }

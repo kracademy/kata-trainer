@@ -35,7 +35,10 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
   const [scoreAo, setScoreAo] = useState('');
   const [wasCorrect, setWasCorrect] = useState(false);
   const [videoError, setVideoError] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [rate, setRate] = useState(1);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [playerKey, setPlayerKey] = useState(0);
   const playerRef = useRef<YouTubePlayerHandle>(null);
 
   const perf = queue[index];
@@ -99,13 +102,19 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
     setScoreAka('');
     setScoreAo('');
     setVideoError(false);
-    setPaused(false);
+    setPlaying(false);
+    setFullscreen(false);
   }
 
+  /** Play/pausa propio según el estado REAL del reproductor (también arranca si el autoplay fue bloqueado). */
   function togglePause() {
-    if (paused) playerRef.current?.play();
-    else playerRef.current?.pause();
-    setPaused(!paused);
+    if (playing) playerRef.current?.pause();
+    else playerRef.current?.play();
+  }
+
+  function changeRate(r: number) {
+    setRate(r);
+    playerRef.current?.setRate(r);
   }
 
   const winnerAthlete = perf.officialWinner === 'AKA' ? aka : ao;
@@ -119,15 +128,29 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
         <button style={{ float: 'right', padding: '4px 10px', fontSize: '0.75rem' }} onClick={onExit}>Salir</button>
       </div>
 
-      <div className="player-wrap">
-        {perf.videoId && !videoError && (
+      {!perf.videoId && phase !== 'reveal' && (
+        <div className="card center" style={{ padding: '18px 14px' }}>
+          🧠 <b>Sin vídeo</b> — decide de memoria con la información de abajo.
+          {phase === 'playing' && (
+            <button className="btn-primary" style={{ marginTop: 12 }} onClick={() => setPhase('decision')}>DECIDIR</button>
+          )}
+        </div>
+      )}
+
+      {perf.videoId && (
+      <div className={`player-wrap${fullscreen ? ' fs' : ''}`}>
+        {!videoError && (
           <YouTubePlayer
+            key={playerKey}
             ref={playerRef}
             videoId={perf.videoId}
             startSeconds={clipStart}
             endSeconds={clipEnd}
             controls={false}
+            playbackRate={rate}
+            onPlayingChange={setPlaying}
             onEnded={() => {
+              setFullscreen(false);
               if (phase === 'playing') setPhase(split ? 'interlude' : 'decision');
               else if (phase === 'playingAo') setPhase('decision');
             }}
@@ -140,7 +163,21 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
             <a href={`https://www.youtube.com/watch?v=${perf.videoId}&t=${Math.floor(perf.startSeconds ?? 0)}s`} target="_blank" rel="noreferrer">
               Abrir en YouTube
             </a>
+            <button onClick={() => { setVideoError(false); setPlayerKey((k) => k + 1); }}>↻ Reintentar</button>
             <button onClick={() => setPhase('decision')}>Ya lo he visto → decidir</button>
+          </div>
+        )}
+        {(phase === 'playing' || phase === 'playingAo') && !videoError && (
+          <button className="fs-btn" onClick={() => setFullscreen(!fullscreen)} aria-label="Pantalla completa">
+            {fullscreen ? '✕' : '⤢'}
+          </button>
+        )}
+        {fullscreen && (phase === 'playing' || phase === 'playingAo') && (
+          <div className="fs-controls">
+            <button onClick={togglePause}>{playing ? '⏸' : '▶︎'}</button>
+            <button onClick={() => { setFullscreen(false); setPhase(phase === 'playing' && split ? 'interlude' : 'decision'); }}>
+              {phase === 'playing' && split ? 'FIN DE AKA' : 'FINALIZAR'}
+            </button>
           </div>
         )}
         {phase !== 'playing' && phase !== 'playingAo' && !videoError && (
@@ -151,6 +188,7 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
           </div>
         )}
       </div>
+      )}
 
       {phase !== 'reveal' && (
         <div className="card perf-item" style={{ marginTop: 12 }}>
@@ -168,19 +206,32 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
         </div>
       )}
 
-      {(phase === 'playing' || phase === 'playingAo') && (
-        <div className="row">
-          <button className="btn-secondary" style={{ flex: '0 0 30%' }} onClick={togglePause}>
-            {paused ? '▶︎ Seguir' : '⏸ Pausa'}
-          </button>
-          <button
-            className="btn-primary"
-            style={{ flex: 1, margin: '10px 0' }}
-            onClick={() => setPhase(phase === 'playing' && split ? 'interlude' : 'decision')}
-          >
-            {phase === 'playing' && split ? 'FIN DE AKA' : 'FINALIZAR ACTUACIÓN'}
-          </button>
-        </div>
+      {(phase === 'playing' || phase === 'playingAo') && perf.videoId && (
+        <>
+          <div className="row">
+            <button className="btn-secondary" style={{ flex: '0 0 30%' }} onClick={togglePause}>
+              {playing ? '⏸ Pausa' : '▶︎ Reproducir'}
+            </button>
+            <button
+              className="btn-primary"
+              style={{ flex: 1, margin: '10px 0' }}
+              onClick={() => setPhase(phase === 'playing' && split ? 'interlude' : 'decision')}
+            >
+              {phase === 'playing' && split ? 'FIN DE AKA' : 'FINALIZAR ACTUACIÓN'}
+            </button>
+          </div>
+          <div className="row" style={{ alignItems: 'center' }}>
+            <span className="muted" style={{ fontSize: '0.8rem' }}>Velocidad</span>
+            {[1, 1.5, 2].map((r) => (
+              <button key={r} className={`chip${rate === r ? ' sel' : ''}`} onClick={() => changeRate(r)}>
+                x{r}
+              </button>
+            ))}
+            <button className="chip" onClick={() => setPlayerKey((k) => k + 1)} title="Recargar el vídeo si se queda en negro">
+              ↻
+            </button>
+          </div>
+        </>
       )}
 
       {phase === 'interlude' && (
@@ -193,7 +244,7 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
           </div>
           <button
             className="btn-primary"
-            onClick={() => { setPaused(false); setPhase('playingAo'); }}
+            onClick={() => setPhase('playingAo')}
           >
             🔵 VER ACTUACIÓN DE AO
           </button>

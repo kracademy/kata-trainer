@@ -12,8 +12,22 @@ export default function Home() {
 
   return (
     <>
-      <h1>KRACADEMY KATA TRAINER</h1>
+      <h1>KRACADEMY REFEREE TRAINER</h1>
 
+      <div className="grid2" style={{ marginBottom: 4 }}>
+        <button className="module-card" onClick={() => nav('/entrenar')}>
+          <span className="mod-emoji">🥋</span>
+          <span className="mod-name">KATA</span>
+          <span className="mod-sub">AKA vs AO</span>
+        </button>
+        <button className="module-card" onClick={() => nav('/kumite')}>
+          <span className="mod-emoji">🥊</span>
+          <span className="mod-name">KUMITE</span>
+          <span className="mod-sub">Decisiones del central</span>
+        </button>
+      </div>
+
+      <h2>Kata</h2>
       <div className="grid2">
         <div className="stat-tile">
           <div className="v">🔥 {currentStreak(attempts)}</div>

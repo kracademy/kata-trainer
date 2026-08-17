@@ -58,8 +58,8 @@ export default function Settings() {
       <h2>Datos</h2>
       <div className="card">
         <p className="muted">
-          El catálogo de actuaciones se publica con la app. Para añadir un campeonato nuevo, pídeselo a Claude
-          en un chat y aparecerá aquí tras la actualización.
+          El catálogo de actuaciones se publica con la app. Los campeonatos nuevos aparecen aquí
+          automáticamente tras cada actualización del dataset.
         </p>
         <button className="btn-secondary" onClick={async () => { await syncDataset(); setMsg('Dataset sincronizado.'); }}>
           🔄 Re-sincronizar dataset

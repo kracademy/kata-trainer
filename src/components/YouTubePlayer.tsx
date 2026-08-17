@@ -30,6 +30,7 @@ export interface YouTubePlayerHandle {
   pause(): void;
   play(): void;
   seekTo(seconds: number): void;
+  setRate(rate: number): void;
 }
 
 interface Props {
@@ -39,9 +40,13 @@ interface Props {
   autoplay?: boolean;
   /** false = sin barra de controles ni búsqueda (modo entrenamiento). */
   controls?: boolean;
+  /** Velocidad de reproducción (YouTube admite hasta 2x). */
+  playbackRate?: number;
   /** Se dispara una vez cuando la reproducción alcanza endSeconds o el vídeo termina. */
   onEnded?: () => void;
   onError?: (code: number) => void;
+  /** true cuando el vídeo está reproduciéndose de verdad (para botones play/pausa propios). */
+  onPlayingChange?: (playing: boolean) => void;
 }
 
 /**
@@ -49,16 +54,18 @@ interface Props {
  * Además del parámetro `end` nativo, hace polling de getCurrentTime como red de seguridad.
  */
 const YouTubePlayer = forwardRef<YouTubePlayerHandle, Props>(function YouTubePlayer(
-  { videoId, startSeconds, endSeconds, autoplay = true, controls = true, onEnded, onError },
+  { videoId, startSeconds, endSeconds, autoplay = true, controls = true, playbackRate, onEnded, onError, onPlayingChange },
   ref,
 ) {
   const holderRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
   const endedFiredRef = useRef(false);
-  const cbRef = useRef({ onEnded, onError });
-  cbRef.current = { onEnded, onError };
+  const cbRef = useRef({ onEnded, onError, onPlayingChange });
+  cbRef.current = { onEnded, onError, onPlayingChange };
   const endRef = useRef(endSeconds);
   endRef.current = endSeconds;
+  const rateRef = useRef(playbackRate);
+  rateRef.current = playbackRate;
 
   useImperativeHandle(ref, () => ({
     getCurrentTime: () => {
@@ -68,6 +75,7 @@ const YouTubePlayer = forwardRef<YouTubePlayerHandle, Props>(function YouTubePla
     pause: () => playerRef.current?.pauseVideo?.(),
     play: () => playerRef.current?.playVideo?.(),
     seekTo: (s: number) => playerRef.current?.seekTo?.(s, true),
+    setRate: (r: number) => playerRef.current?.setPlaybackRate?.(r),
   }));
 
   useEffect(() => {
@@ -97,8 +105,16 @@ const YouTubePlayer = forwardRef<YouTubePlayerHandle, Props>(function YouTubePla
           iv_load_policy: 3,
         },
         events: {
+          onReady: () => {
+            if (rateRef.current && rateRef.current !== 1) playerRef.current?.setPlaybackRate?.(rateRef.current);
+          },
           onStateChange: (e: any) => {
             if (e.data === YT.PlayerState.ENDED) fireEnded();
+            cbRef.current.onPlayingChange?.(e.data === YT.PlayerState.PLAYING);
+            // reafirmar la velocidad al arrancar (YouTube la resetea a veces al cargar)
+            if (e.data === YT.PlayerState.PLAYING && rateRef.current && rateRef.current !== 1) {
+              playerRef.current?.setPlaybackRate?.(rateRef.current);
+            }
           },
           onError: (e: any) => cbRef.current.onError?.(e.data),
         },

@@ -6,6 +6,9 @@ import ErrorsScreen from './screens/ErrorsScreen';
 import Stats from './screens/Stats';
 import Catalog from './screens/Catalog';
 import KataStudy from './screens/KataStudy';
+import KumiteHome from './screens/kumite/KumiteHome';
+import KumiteCatalog from './screens/kumite/KumiteCatalog';
+import KumitePolemics from './screens/kumite/KumitePolemics';
 import Settings from './screens/Settings';
 
 /* Iconos estilo SF Symbols (trazo 1.7, currentColor) */
@@ -39,11 +42,14 @@ const I = {
     </svg>
   ),
   figure: (
+    // karateka en zenkutsu-dachi con gyaku-tsuki (perfil, puño al frente)
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="4.6" r="2.1" />
-      <path d="M12 6.7v5.1" />
-      <path d="M12 8.4 5.6 6.9M12 8.4l6.4-1.5" />
-      <path d="M12 11.8l-4.2 4.6 1 4M12 11.8l3.4 2.4 4 .9" />
+      <circle cx="15.6" cy="4.9" r="2" />
+      <path d="M14.8 8.1 12 13.2" />
+      <path d="M14.8 8.1h6.6" />
+      <path d="M14.8 8.1l-3.6 2.6" />
+      <path d="M12 13.2l3.6 3-0.2 4.4" />
+      <path d="M12 13.2l-6.6 5.2" />
     </svg>
   ),
   gear: (
@@ -75,6 +81,9 @@ export default function App() {
           <Route path="/estadisticas" element={<Stats />} />
           <Route path="/catalogar" element={<Catalog />} />
           <Route path="/katas" element={<KataStudy />} />
+          <Route path="/kumite" element={<KumiteHome />} />
+          <Route path="/kumite/catalogar" element={<KumiteCatalog />} />
+          <Route path="/kumite/polemicas" element={<KumitePolemics />} />
           <Route path="/ajustes" element={<Settings />} />
         </Routes>
       </main>

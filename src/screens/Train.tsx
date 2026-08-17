@@ -43,6 +43,7 @@ export default function Train() {
         <option value="PREMIER_LEAGUE">Premier League</option>
         <option value="SERIES_A">Series A</option>
         <option value="WORLD_CUP">World Cup / Equipos</option>
+        <option value="FORMER_EXAM">🎓 Former Exams EKF/WKF</option>
       </select>
 
       <div className="row">

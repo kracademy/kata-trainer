@@ -225,6 +225,52 @@ nav.bottom a .ico svg { display: block; }
   overflow: hidden;
 }
 .player-wrap iframe, .player-wrap .yt-holder { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Pantalla completa propia (CSS, funciona también en la PWA de iOS) */
+.player-wrap.fs {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  aspect-ratio: auto;
+  border-radius: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.fs-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(20, 20, 24, 0.55);
+  color: #fff;
+  font-size: 1.15rem;
+  padding: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.player-wrap.fs .fs-btn { top: calc(10px + env(safe-area-inset-top)); }
+.fs-controls {
+  position: absolute;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.fs-controls button {
+  background: rgba(20, 20, 24, 0.55);
+  color: #fff;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 .player-overlay {
   position: absolute;
   inset: 0;
@@ -239,6 +285,22 @@ nav.bottom a .ico svg { display: block; }
   padding: 16px;
   text-align: center;
 }
+
+/* Tarjetas de módulo (Kata / Kumite) */
+.module-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 18px 10px;
+  background: var(--bg-elevated, #fff);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  color: var(--label);
+}
+.module-card .mod-emoji { font-size: 1.7rem; }
+.module-card .mod-name { font-weight: 800; letter-spacing: 0.06em; }
+.module-card .mod-sub { font-size: 0.72rem; color: var(--label-2); }
 
 /* Badges (pills iOS) */
 .badge {

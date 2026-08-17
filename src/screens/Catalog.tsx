@@ -84,10 +84,11 @@ export default function Catalog() {
     setMsg('');
   }
 
-  function mark(setter: (v: string) => void) {
+  function mark(setter: (v: string) => void, pauseAfter = false) {
     const t = playerRef.current?.getCurrentTime();
     if (t == null) { setMsg('El reproductor aún no está listo.'); return; }
     setter(fmtTime(t));
+    if (pauseAfter) playerRef.current?.pause();
     setMsg('');
   }
 
@@ -130,18 +131,18 @@ export default function Catalog() {
   }
 
   async function exportCatalog() {
+    const hasVideo = (p: Performance) => p.videoId && p.startSeconds != null && p.endSeconds != null;
     const entries = (await db.performances.toArray())
-      .filter((p) => p.videoId && p.startSeconds != null && p.endSeconds != null)
+      .filter((p) => hasVideo(p) || p.formerExam || p.closeResult || p.userNote)
       .map((p) => ({
         performanceId: p.id,
-        videoId: p.videoId!,
-        startSeconds: p.startSeconds!,
-        endSeconds: p.endSeconds!,
+        ...(hasVideo(p) ? { videoId: p.videoId!, startSeconds: p.startSeconds!, endSeconds: p.endSeconds! } : {}),
         ...(p.officialScoreAka != null ? { officialScoreAka: p.officialScoreAka, officialScoreAo: p.officialScoreAo, judgesCount: p.judgesCount } : {}),
         ...(p.akaStartSeconds != null ? { akaStartSeconds: p.akaStartSeconds, akaEndSeconds: p.akaEndSeconds } : {}),
         ...(p.aoStartSeconds != null ? { aoStartSeconds: p.aoStartSeconds, aoEndSeconds: p.aoEndSeconds } : {}),
         ...(p.closeResult ? { closeResult: true } : {}),
         ...(p.userNote ? { note: p.userNote } : {}),
+        ...(p.formerExam ? { formerExam: true } : {}),
       }));
     const out: CatalogExport = { schemaVersion: 1, exportedAt: new Date().toISOString(), entries };
     downloadJson(out, `kata-trainer-catalogo-${new Date().toISOString().slice(0, 10)}.json`);
@@ -174,6 +175,15 @@ export default function Catalog() {
                 : <span className="badge missing">⚠️ Sin puntuaciones oficiales</span>}
           </div>
           {perf.sportDataUrl && <a href={perf.sportDataUrl} target="_blank" rel="noreferrer">Ver en SportData</a>}
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '6px 0 0', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={perf.formerExam ?? false}
+              onChange={(e) => db.performances.update(perf.id, { formerExam: e.target.checked || undefined })}
+              style={{ width: 'auto', margin: 0 }}
+            />
+            🎓 Former Exam EKF/WKF (se guarda al instante; entrenable aparte, incluso sin vídeo)
+          </label>
         </div>
 
         {candidates.length > 0 && (
@@ -233,9 +243,9 @@ export default function Catalog() {
               <label style={{ margin: '0 0 6px' }}>Tiempos por atleta (opcional · entrena AKA y AO por separado + modo estudio)</label>
               <div className="row" style={{ marginBottom: 8 }}>
                 <button className="btn-secondary" style={{ margin: 0, color: 'var(--aka)' }} onClick={() => mark(setAkaIni)}>🚩 AKA</button>
-                <button className="btn-secondary" style={{ margin: 0, color: 'var(--aka)' }} onClick={() => mark(setAkaFin)}>🏁 AKA</button>
+                <button className="btn-secondary" style={{ margin: 0, color: 'var(--aka)' }} onClick={() => mark(setAkaFin, true)}>🏁 AKA</button>
                 <button className="btn-secondary" style={{ margin: 0, color: 'var(--ao)' }} onClick={() => mark(setAoIni)}>🚩 AO</button>
-                <button className="btn-secondary" style={{ margin: 0, color: 'var(--ao)' }} onClick={() => mark(setAoFin)}>🏁 AO</button>
+                <button className="btn-secondary" style={{ margin: 0, color: 'var(--ao)' }} onClick={() => mark(setAoFin, true)}>🏁 AO</button>
               </div>
               <div className="row">
                 <input type="text" placeholder="Inicio AKA" value={akaIni} onChange={(e) => setAkaIni(e.target.value)} />
@@ -285,7 +295,7 @@ export default function Catalog() {
       <p className="muted">
         En orden cronológico, agrupado por campeonato: busca la emisión en la pestaña <b>"Live"</b> del canal de
         YouTube de la WKF (o elige un vídeo candidato precargado) y marca inicio/fin de cada actuación. Al terminar,
-        exporta el catálogo y pásaselo a Claude.
+        exporta el catálogo para incorporarlo al dataset publicado.
       </p>
       <div className="row">
         <button className="btn-secondary" onClick={exportCatalog} disabled={doneCount === 0}>

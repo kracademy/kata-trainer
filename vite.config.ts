@@ -11,9 +11,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/apple-touch-icon.png'],
       manifest: {
-        name: 'Kracademy Kata Trainer',
-        short_name: 'Kata Trainer',
-        description: 'Entrenamiento de arbitraje de Kata WKF con vídeos reales',
+        name: 'Kracademy Referee Trainer',
+        short_name: 'Referee Trainer',
+        description: 'Entrenamiento de arbitraje WKF (Kata y Kumite) con vídeos reales',
         lang: 'es',
         display: 'standalone',
         orientation: 'portrait',

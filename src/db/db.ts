@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import type { Athlete, Attempt, Category, Competition, Performance, Video } from './types';
+import type { Athlete, Attempt, Category, Competition, KumiteAttempt, KumiteClip, Performance, Video } from './types';
 
 export const LOCAL_USER_ID = 'local-user';
 
@@ -10,6 +10,8 @@ export class KataTrainerDB extends Dexie {
   videos!: EntityTable<Video, 'id'>;
   performances!: EntityTable<Performance, 'id'>;
   attempts!: EntityTable<Attempt, 'id'>;
+  kumiteClips!: EntityTable<KumiteClip, 'id'>;
+  kumiteAttempts!: EntityTable<KumiteAttempt, 'id'>;
 
   constructor() {
     super('kata-trainer');
@@ -22,6 +24,10 @@ export class KataTrainerDB extends Dexie {
         'id, competitionId, categoryId, roundType, status, akaAthleteId, aoAthleteId, videoId',
       attempts:
         '++id, performanceId, userId, attemptedAt, isCorrectWinner, isFirstAttempt, [performanceId+userId]',
+    });
+    this.version(2).stores({
+      kumiteClips: 'id, videoId, decisionCall, createdAt',
+      kumiteAttempts: '++id, clipId, attemptedAt, isCorrect',
     });
   }
 }

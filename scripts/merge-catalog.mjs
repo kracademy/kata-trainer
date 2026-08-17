@@ -13,8 +13,17 @@ const ds = JSON.parse(readFileSync(datasetPath, 'utf8'));
 const perfById = new Map(ds.performances.map((p) => [p.id, p]));
 
 const sig = (e) => `${e.videoId}|${e.startSeconds}|${e.endSeconds}`;
-const entries = (catalog.entries || []).filter((e) => perfById.has(e.performanceId));
+const known = (catalog.entries || []).filter((e) => perfById.has(e.performanceId));
 const missing = (catalog.entries || []).filter((e) => !perfById.has(e.performanceId));
+// entradas sin vídeo: solo transportan marcas (formerExam, ajustado, nota)
+const flagsOnly = known.filter((e) => e.videoId == null);
+const entries = known.filter((e) => e.videoId != null);
+
+function applyFlags(e, p) {
+  if (e.closeResult) p.closeResult = true;
+  if (e.formerExam) p.formerExam = true;
+  if (e.note) { p.userNote = e.note; report.push(`nota del usuario: ${e.performanceId}`); }
+}
 
 // detectar firmas duplicadas dentro del mismo campeonato+categoría
 const groups = new Map();
@@ -61,9 +70,8 @@ for (const [key, list] of groups) {
     // sub-clips por atleta (autoría del usuario: siempre se aplican)
     if (e.akaStartSeconds != null) { p.akaStartSeconds = e.akaStartSeconds; p.akaEndSeconds = e.akaEndSeconds; }
     if (e.aoStartSeconds != null) { p.aoStartSeconds = e.aoStartSeconds; p.aoEndSeconds = e.aoEndSeconds; }
-    // resultado ajustado + nota del usuario (userNote, independiente de notes del dataset)
-    if (e.closeResult) p.closeResult = true;
-    if (e.note) { p.userNote = e.note; report.push(`nota del usuario: ${e.performanceId}`); }
+    // resultado ajustado + nota del usuario + former exam
+    applyFlags(e, p);
     // puntuaciones oficiales añadidas por el usuario (solo si el dataset no las tiene)
     if (e.officialScoreAka != null && p.officialScoreAka == null) {
       p.officialScoreAka = e.officialScoreAka;
@@ -74,6 +82,8 @@ for (const [key, list] of groups) {
     applied++;
   }
 }
+
+for (const e of flagsOnly) { applyFlags(e, perfById.get(e.performanceId)); applied++; }
 
 ds.generatedAt = new Date().toISOString();
 writeFileSync(datasetPath, JSON.stringify(ds, null, 2));
