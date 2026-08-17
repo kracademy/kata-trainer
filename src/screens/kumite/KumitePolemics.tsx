@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
 import type { KumiteClip } from '../../db/types';
@@ -49,7 +48,6 @@ export default function KumitePolemics() {
         Acciones cuya decisión generó debate. Se estudian aparte del entrenamiento normal, con la explicación de por
         qué son polémicas.
       </p>
-      <Link to="/kumite"><button className="btn-secondary">← Kumite Trainer</button></Link>
       <h2>{clips.length} situaciones</h2>
       {clips.map((c) => (
         <div className="card perf-item" key={c.id} onClick={() => setOpen(c)} style={{ cursor: 'pointer' }}>

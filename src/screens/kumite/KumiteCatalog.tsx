@@ -249,7 +249,7 @@ export default function KumiteCatalog() {
           ⬇️ Exportar ({clips.length})
         </button>
       </div>
-      <Link to="/kumite"><button className="btn-secondary">← Kumite Trainer</button></Link>
+      <Link to="/kumite/biblioteca"><button className="btn-secondary">← Biblioteca</button></Link>
 
       <h2>{clips.length} clips</h2>
       {sorted.map((c) => (

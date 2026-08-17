@@ -64,7 +64,7 @@ export default function Library() {
   return (
     <>
       <h1>Biblioteca</h1>
-      <Link to="/catalogar">
+      <Link to="/kata/catalogar">
         <button className="btn-secondary">🛠️ Catalogar vídeos (PC)</button>
       </Link>
 

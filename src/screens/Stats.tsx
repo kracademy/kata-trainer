@@ -56,7 +56,7 @@ export default function Stats() {
         </>
       )}
 
-      <Link to="/errores"><button className="btn-secondary">🔴 Ver mis errores</button></Link>
+      <Link to="/kata/errores"><button className="btn-secondary">🔴 Ver mis errores</button></Link>
     </>
   );
 }

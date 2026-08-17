@@ -155,7 +155,7 @@ export default function KataStudy() {
       <h1>Estudio de katas</h1>
       <p className="muted">
         Todas las ejecuciones de cada kata en el dataset. Los clips por atleta se marcan en{' '}
-        <Link to="/catalogar">Catalogar</Link>.
+        <Link to="/kata/catalogar">Catalogar</Link>.
       </p>
       <div className="row" style={{ marginBottom: 10 }}>
         <button className={`chip${fmt === 'INDIVIDUAL' ? ' sel' : ''}`} onClick={() => { setFmt('INDIVIDUAL'); setSelectedKata(null); }}>
