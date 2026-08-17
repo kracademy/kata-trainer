@@ -22,6 +22,14 @@ export default function Stats() {
 
   const months = monthlyEvolution(attempts);
 
+  /** '—' elegante cuando aún no hay datos, en lugar de '--%'. */
+  const Pct = ({ v, label }: { v: number | null | undefined; label: string }) => (
+    <div className="stat-tile">
+      <div className={`v${v == null ? ' na' : ''}`}>{v == null ? '—' : `${v}%`}</div>
+      <div className="l">{label}</div>
+    </div>
+  );
+
   return (
     <>
       <h1>Estadísticas</h1>
@@ -29,14 +37,14 @@ export default function Stats() {
       <div className="grid2">
         <div className="stat-tile"><div className="v">{attempts.length}</div><div className="l">Intentos totales</div></div>
         <div className="stat-tile"><div className="v">{attempted.length} / {ready.length}</div><div className="l">Actuaciones vistas</div></div>
-        <div className="stat-tile"><div className="v">{accuracy(firstAttempts) ?? '--'}%</div><div className="l">Primeros intentos</div></div>
-        <div className="stat-tile"><div className="v">{accuracy(later) ?? '--'}%</div><div className="l">Intentos posteriores</div></div>
-        <div className="stat-tile"><div className="v">{accuracy(lastNDays(attempts, 30)) ?? '--'}%</div><div className="l">Últimos 30 días</div></div>
+        <Pct v={accuracy(firstAttempts)} label="Primeros intentos" />
+        <Pct v={accuracy(later)} label="Intentos posteriores" />
+        <Pct v={accuracy(lastNDays(attempts, 30))} label="Últimos 30 días" />
         <div className="stat-tile"><div className="v">{pendingErrors(performances, attemptsByPerf).length}</div><div className="l">Errores pendientes</div></div>
-        <div className="stat-tile"><div className="v">{byRound(['FINAL']) ?? '--'}%</div><div className="l">Finales</div></div>
-        <div className="stat-tile"><div className="v">{byRound(['BRONZE_1', 'BRONZE_2']) ?? '--'}%</div><div className="l">Bronces</div></div>
-        <div className="stat-tile"><div className="v">{byGender('FEMALE') ?? '--'}%</div><div className="l">Female</div></div>
-        <div className="stat-tile"><div className="v">{byGender('MALE') ?? '--'}%</div><div className="l">Male</div></div>
+        <Pct v={byRound(['FINAL'])} label="Finales" />
+        <Pct v={byRound(['BRONZE_1', 'BRONZE_2'])} label="Bronces" />
+        <Pct v={byGender('FEMALE')} label="Female" />
+        <Pct v={byGender('MALE')} label="Male" />
       </div>
 
       {months.length > 0 && (

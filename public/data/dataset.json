@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-16T16:27:15.771Z",
+  "generatedAt": "2026-08-17T15:00:15.611Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -12098,7 +12098,12 @@
       "judgesCount": 5,
       "videoId": "7Cqxj75Jvx0",
       "startSeconds": 974,
-      "endSeconds": 1447
+      "endSeconds": 1447,
+      "akaStartSeconds": 974,
+      "akaEndSeconds": 1189,
+      "aoStartSeconds": 1219,
+      "aoEndSeconds": 1447,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-kata_final",
@@ -12121,7 +12126,12 @@
       "judgesCount": 5,
       "videoId": "7Cqxj75Jvx0",
       "startSeconds": 1668,
-      "endSeconds": 2027
+      "endSeconds": 2027,
+      "akaStartSeconds": 1668,
+      "akaEndSeconds": 1756,
+      "aoStartSeconds": 1787,
+      "aoEndSeconds": 2027,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-kata_bronze_1",
@@ -12144,7 +12154,11 @@
       "judgesCount": 5,
       "videoId": "Avgc4x-NsFI",
       "startSeconds": 218,
-      "endSeconds": 648
+      "endSeconds": 648,
+      "akaStartSeconds": 218,
+      "akaEndSeconds": 381,
+      "aoStartSeconds": 406,
+      "aoEndSeconds": 648
     },
     {
       "id": "karate1-series-a-larnaca-2025_senior-female-kata_final",
@@ -12167,7 +12181,12 @@
       "judgesCount": 5,
       "videoId": "WkOph8QOTfs",
       "startSeconds": 875,
-      "endSeconds": 1309
+      "endSeconds": 1309,
+      "akaStartSeconds": 875,
+      "akaEndSeconds": 1096,
+      "aoStartSeconds": 1127,
+      "aoEndSeconds": 1309,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-larnaca-2025_senior-female-kata_bronze_1",
@@ -12230,7 +12249,12 @@
       "judgesCount": 5,
       "videoId": "WkOph8QOTfs",
       "startSeconds": 2122,
-      "endSeconds": 2649
+      "endSeconds": 2649,
+      "akaStartSeconds": 2122,
+      "akaEndSeconds": 2380,
+      "aoStartSeconds": 2402,
+      "aoEndSeconds": 2649,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-larnaca-2025_senior-male-kata_bronze_1",
@@ -12273,7 +12297,11 @@
       "judgesCount": 5,
       "videoId": "e2CDIgD3hRY",
       "startSeconds": 2099,
-      "endSeconds": 2588
+      "endSeconds": 2588,
+      "akaStartSeconds": 2099,
+      "akaEndSeconds": 2298,
+      "aoStartSeconds": 2332,
+      "aoEndSeconds": 2588
     },
     {
       "id": "karate1-premier-league-paris-2025_senior-female-kata_bronze_1",
@@ -12296,7 +12324,11 @@
       "judgesCount": 5,
       "videoId": "e2CDIgD3hRY",
       "startSeconds": 543,
-      "endSeconds": 990
+      "endSeconds": 990,
+      "akaStartSeconds": 543,
+      "akaEndSeconds": 753,
+      "aoStartSeconds": 793,
+      "aoEndSeconds": 990
     },
     {
       "id": "karate1-premier-league-paris-2025_senior-female-kata_bronze_2",
@@ -12319,7 +12351,11 @@
       "judgesCount": 5,
       "videoId": "e2CDIgD3hRY",
       "startSeconds": 1314,
-      "endSeconds": 1745
+      "endSeconds": 1745,
+      "akaStartSeconds": 1314,
+      "akaEndSeconds": 1491,
+      "aoStartSeconds": 1522,
+      "aoEndSeconds": 1745
     },
     {
       "id": "karate1-premier-league-paris-2025_senior-male-kata_final",
@@ -12342,7 +12378,11 @@
       "judgesCount": 5,
       "videoId": "1aKMqZsZNBE",
       "startSeconds": 1678,
-      "endSeconds": 2159
+      "endSeconds": 2159,
+      "akaStartSeconds": 1678,
+      "akaEndSeconds": 1921,
+      "aoStartSeconds": 1952,
+      "aoEndSeconds": 2159
     },
     {
       "id": "karate1-premier-league-paris-2025_senior-male-kata_bronze_1",
@@ -12365,7 +12405,12 @@
       "judgesCount": 5,
       "videoId": "1aKMqZsZNBE",
       "startSeconds": 266,
-      "endSeconds": 679
+      "endSeconds": 679,
+      "akaStartSeconds": 266,
+      "akaEndSeconds": 430,
+      "aoStartSeconds": 459,
+      "aoEndSeconds": 679,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-paris-2025_senior-male-kata_bronze_2",
@@ -12388,7 +12433,11 @@
       "judgesCount": 5,
       "videoId": "1aKMqZsZNBE",
       "startSeconds": 975,
-      "endSeconds": 1368
+      "endSeconds": 1368,
+      "akaStartSeconds": 975,
+      "akaEndSeconds": 1168,
+      "aoStartSeconds": 1196,
+      "aoEndSeconds": 1368
     },
     {
       "id": "karate1-premier-league-hangzhou-2025_senior-female-kata_final",
@@ -12411,7 +12460,12 @@
       "judgesCount": 5,
       "videoId": "aPT4N9F62yI",
       "startSeconds": 1424,
-      "endSeconds": 1836
+      "endSeconds": 1836,
+      "akaStartSeconds": 1424,
+      "akaEndSeconds": 1621,
+      "aoStartSeconds": 1651,
+      "aoEndSeconds": 1836,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-hangzhou-2025_senior-female-kata_bronze_1",
@@ -12434,7 +12488,12 @@
       "judgesCount": 5,
       "videoId": "aPT4N9F62yI",
       "startSeconds": 9,
-      "endSeconds": 423
+      "endSeconds": 423,
+      "akaStartSeconds": 9,
+      "akaEndSeconds": 190,
+      "aoStartSeconds": 220,
+      "aoEndSeconds": 423,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-hangzhou-2025_senior-female-kata_bronze_2",
@@ -12457,7 +12516,11 @@
       "judgesCount": 5,
       "videoId": "aPT4N9F62yI",
       "startSeconds": 730,
-      "endSeconds": 1115
+      "endSeconds": 1115,
+      "akaStartSeconds": 730,
+      "akaEndSeconds": 893,
+      "aoStartSeconds": 927,
+      "aoEndSeconds": 1115
     },
     {
       "id": "karate1-premier-league-hangzhou-2025_senior-male-kata_final",
@@ -12480,7 +12543,11 @@
       "judgesCount": 5,
       "videoId": "LBcGdFs27pI",
       "startSeconds": 1639,
-      "endSeconds": 2055
+      "endSeconds": 2055,
+      "akaStartSeconds": 1639,
+      "akaEndSeconds": 1806,
+      "aoStartSeconds": 1841,
+      "aoEndSeconds": 2055
     },
     {
       "id": "karate1-premier-league-hangzhou-2025_senior-male-kata_bronze_1",
@@ -12503,7 +12570,11 @@
       "judgesCount": 5,
       "videoId": "LBcGdFs27pI",
       "startSeconds": 292,
-      "endSeconds": 658
+      "endSeconds": 658,
+      "akaStartSeconds": 292,
+      "akaEndSeconds": 435,
+      "aoStartSeconds": 467,
+      "aoEndSeconds": 658
     },
     {
       "id": "karate1-premier-league-hangzhou-2025_senior-male-kata_bronze_2",
@@ -12526,7 +12597,11 @@
       "judgesCount": 5,
       "videoId": "LBcGdFs27pI",
       "startSeconds": 929,
-      "endSeconds": 1380
+      "endSeconds": 1380,
+      "akaStartSeconds": 929,
+      "akaEndSeconds": 1168,
+      "aoStartSeconds": 1199,
+      "aoEndSeconds": 1380
     },
     {
       "id": "the-21st-asian-senior-championship-2025-tashkent-uzbekistan_senior-female-kata_final",
@@ -12773,7 +12848,12 @@
       "judgesCount": 5,
       "videoId": "4OBiBRl7LsQ",
       "startSeconds": 1829,
-      "endSeconds": 2262
+      "endSeconds": 2262,
+      "akaStartSeconds": 1829,
+      "akaEndSeconds": 2028,
+      "aoStartSeconds": 2073,
+      "aoEndSeconds": 2262,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-female-kata_bronze_1",
@@ -12823,7 +12903,11 @@
       "judgesCount": 5,
       "videoId": "pFAUMCGf_nc",
       "startSeconds": 1833,
-      "endSeconds": 2248
+      "endSeconds": 2248,
+      "akaStartSeconds": 1833,
+      "akaEndSeconds": 1989,
+      "aoStartSeconds": 2035,
+      "aoEndSeconds": 2248
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-male-kata_bronze_1",
@@ -12846,7 +12930,11 @@
       "judgesCount": 5,
       "videoId": "pFAUMCGf_nc",
       "startSeconds": 357,
-      "endSeconds": 779
+      "endSeconds": 779,
+      "akaStartSeconds": 357,
+      "akaEndSeconds": 565,
+      "aoStartSeconds": 599,
+      "aoEndSeconds": 779
     },
     {
       "id": "karate1-premier-league-cairo-2025_senior-male-kata_bronze_2",
@@ -12869,7 +12957,12 @@
       "judgesCount": 5,
       "videoId": "pFAUMCGf_nc",
       "startSeconds": 1052,
-      "endSeconds": 1552
+      "endSeconds": 1552,
+      "akaStartSeconds": 1052,
+      "akaEndSeconds": 1285,
+      "aoStartSeconds": 1333,
+      "aoEndSeconds": 1552,
+      "closeResult": true
     },
     {
       "id": "karate1-premier-league-rabat-2025_senior-female-kata_final",
@@ -17263,7 +17356,11 @@
       "judgesCount": 5,
       "videoId": "b-2JIzFu4Oo",
       "startSeconds": 1481,
-      "endSeconds": 2081
+      "endSeconds": 2081,
+      "akaStartSeconds": 1481,
+      "akaEndSeconds": 1767,
+      "aoStartSeconds": 1811,
+      "aoEndSeconds": 2081
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024_senior-female-team-kata_bronze_1",
@@ -17286,7 +17383,11 @@
       "judgesCount": 5,
       "videoId": "b-2JIzFu4Oo",
       "startSeconds": 366,
-      "endSeconds": 1006
+      "endSeconds": 1006,
+      "akaStartSeconds": 366,
+      "akaEndSeconds": 666,
+      "aoStartSeconds": 716,
+      "aoEndSeconds": 1006
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024_senior-male-team-kata_final",
@@ -17309,7 +17410,9 @@
       "judgesCount": 5,
       "videoId": "hUfTgZY1-yY",
       "startSeconds": 1720,
-      "endSeconds": 2343
+      "endSeconds": 2343,
+      "akaStartSeconds": 1720,
+      "akaEndSeconds": 2018
     },
     {
       "id": "karate-world-cup-national-team-championships-pamplona-2024_senior-male-team-kata_bronze_1",
@@ -17332,7 +17435,11 @@
       "judgesCount": 5,
       "videoId": "hUfTgZY1-yY",
       "startSeconds": 724,
-      "endSeconds": 1329
+      "endSeconds": 1329,
+      "akaStartSeconds": 724,
+      "akaEndSeconds": 986,
+      "aoStartSeconds": 1030,
+      "aoEndSeconds": 1329
     },
     {
       "id": "the-20th-asian-senior-championship-2024-hangzhou-china_senior-female-team-kata_final",
@@ -17475,7 +17582,11 @@
       "judgesCount": 5,
       "videoId": "4075zuI-X70",
       "startSeconds": 3003,
-      "endSeconds": 3644
+      "endSeconds": 3644,
+      "akaStartSeconds": 3003,
+      "akaEndSeconds": 3323,
+      "aoStartSeconds": 3351,
+      "aoEndSeconds": 3644
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-female-team-kata_bronze_1",
@@ -17498,7 +17609,11 @@
       "kataAka": "Tomari Bassai",
       "kataAkaNumber": 97,
       "kataAo": "Anan",
-      "kataAoNumber": 1
+      "kataAoNumber": 1,
+      "akaStartSeconds": 2084,
+      "akaEndSeconds": 2376,
+      "aoStartSeconds": 2415,
+      "aoEndSeconds": 2672
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-team-kata_final",
@@ -17521,7 +17636,11 @@
       "judgesCount": 5,
       "videoId": "4075zuI-X70",
       "startSeconds": 3844,
-      "endSeconds": 4450
+      "endSeconds": 4450,
+      "akaStartSeconds": 3844,
+      "akaEndSeconds": 4148,
+      "aoStartSeconds": 4192,
+      "aoEndSeconds": 4450
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-team-kata_bronze_1",
@@ -17544,7 +17663,11 @@
       "judgesCount": 5,
       "videoId": "nie1jVH4ZC4",
       "startSeconds": 2162,
-      "endSeconds": 2786
+      "endSeconds": 2786,
+      "akaStartSeconds": 2162,
+      "akaEndSeconds": 2458,
+      "aoStartSeconds": 2492,
+      "aoEndSeconds": 2786
     },
     {
       "id": "karate1-series-a-larnaca-2025_senior-female-team-kata_final",
@@ -19070,7 +19193,12 @@
       "judgesCount": 5,
       "videoId": "9iWu0R7MaNw",
       "startSeconds": 2073,
-      "endSeconds": 2674
+      "endSeconds": 2674,
+      "akaStartSeconds": 2073,
+      "akaEndSeconds": 2354,
+      "aoStartSeconds": 2390,
+      "aoEndSeconds": 2674,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-tbilisi-2025_senior-male-team-kata_bronze_2",
@@ -19093,7 +19221,11 @@
       "judgesCount": 5,
       "videoId": "VLHpE22PJi4",
       "startSeconds": 2105,
-      "endSeconds": 2727
+      "endSeconds": 2727,
+      "akaStartSeconds": 2105,
+      "akaEndSeconds": 2410,
+      "aoStartSeconds": 2442,
+      "aoEndSeconds": 2727
     },
     {
       "id": "karate1-series-a-larnaca-2025_senior-male-kata_bronze_2",
@@ -19258,7 +19390,12 @@
       "judgesCount": 5,
       "videoId": "4OBiBRl7LsQ",
       "startSeconds": 1041,
-      "endSeconds": 1531
+      "endSeconds": 1531,
+      "akaStartSeconds": 1041,
+      "akaEndSeconds": 1299,
+      "aoStartSeconds": 1330,
+      "aoEndSeconds": 1531,
+      "closeResult": true
     },
     {
       "id": "karate1-series-a-salzburg-2025_senior-female-kata_bronze_1",
@@ -20628,7 +20765,12 @@
       "judgesCount": 5,
       "videoId": "TagY9pdOdug",
       "startSeconds": 66,
-      "endSeconds": 472
+      "endSeconds": 472,
+      "akaStartSeconds": 66,
+      "akaEndSeconds": 247,
+      "aoStartSeconds": 273,
+      "aoEndSeconds": 472,
+      "closeResult": true
     },
     {
       "id": "wkf-cadet-junior-and-u21-world-championships-2024-venice_u21-female-kata_bronze_1",
@@ -20691,7 +20833,11 @@
       "judgesCount": 5,
       "videoId": "TagY9pdOdug",
       "startSeconds": 684,
-      "endSeconds": 1110
+      "endSeconds": 1110,
+      "akaStartSeconds": 684,
+      "akaEndSeconds": 921,
+      "aoStartSeconds": 945,
+      "aoEndSeconds": 1110
     },
     {
       "id": "wkf-cadet-junior-and-u21-world-championships-2024-venice_u21-male-kata_bronze_1",
@@ -20934,7 +21080,11 @@
       "judgesCount": 5,
       "videoId": "g3lefPtD-EM",
       "startSeconds": 19150,
-      "endSeconds": 19545
+      "endSeconds": 19545,
+      "akaStartSeconds": 19150,
+      "akaEndSeconds": 19387,
+      "aoStartSeconds": 19424,
+      "aoEndSeconds": 19545
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2025-bielsko-biala_u21-female-kata_bronze_1",
@@ -20997,7 +21147,12 @@
       "judgesCount": 5,
       "videoId": "g3lefPtD-EM",
       "startSeconds": 19727,
-      "endSeconds": 20076
+      "endSeconds": 20076,
+      "akaStartSeconds": 19727,
+      "akaEndSeconds": 19909,
+      "aoStartSeconds": 19938,
+      "aoEndSeconds": 20076,
+      "closeResult": true
     },
     {
       "id": "ekf-junior-cadet-u21-championships-2025-bielsko-biala_u21-male-kata_bronze_1",

@@ -1,6 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
+import { TI } from '../../components/TileIcons';
 
 export default function KumiteHome() {
   const nav = useNavigate();
@@ -10,29 +11,36 @@ export default function KumiteHome() {
   const trainable = clips.filter((c) => !c.polemic);
   const polemics = clips.length - trainable.length;
   const correct = attempts.filter((a) => a.isCorrect).length;
+  const bouts = new Set(clips.map((c) => c.videoId)).size;
 
   return (
-    <>
+    <div className="screen-fill">
       <div className="mod-topbar">
-        <h1 style={{ margin: 0 }}>🥊 KUMITE</h1>
+        <h1 style={{ margin: 0 }}>Kumite</h1>
         <button className="switch-btn" onClick={() => nav('/kata')}>⇄ Kata</button>
       </div>
 
-      <div className="grid2">
+      <div className="home-grid">
         <div className="stat-tile">
-          <div className="v">🎬 {trainable.length}</div>
+          <span className="ic" style={{ color: '#007aff' }}>{TI.film}</span>
+          <div className="v">{trainable.length}</div>
           <div className="l">Clips para entrenar</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🎯 {attempts.length ? Math.round((correct / attempts.length) * 100) : '--'}%</div>
-          <div className="l">Aciertos ({attempts.length} intentos)</div>
+          <span className="ic" style={{ color: '#34c759' }}>{TI.target}</span>
+          <div className={`v${attempts.length === 0 ? ' na' : ''}`}>
+            {attempts.length === 0 ? '—' : `${Math.round((correct / attempts.length) * 100)}%`}
+          </div>
+          <div className="l">Aciertos ({attempts.length})</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🔥 {polemics}</div>
-          <div className="l">Situaciones polémicas</div>
+          <span className="ic" style={{ color: '#ff9500' }}>{TI.scale}</span>
+          <div className={`v${polemics === 0 ? ' na' : ''}`}>{polemics}</div>
+          <div className="l">Polémicas</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🤼 {new Set(clips.map((c) => c.videoId)).size}</div>
+          <span className="ic" style={{ color: '#ff3b30' }}>{TI.duo}</span>
+          <div className={`v${bouts === 0 ? ' na' : ''}`}>{bouts}</div>
           <div className="l">Combates</div>
         </div>
       </div>
@@ -40,17 +48,16 @@ export default function KumiteHome() {
       <button className="btn-primary" onClick={() => nav('/kumite/entrenar')}>
         ENTRENAR
       </button>
-      <Link to="/kumite/polemicas">
-        <button className="btn-secondary">🔥 Situaciones polémicas {polemics > 0 ? `(${polemics})` : ''}</button>
-      </Link>
+      <button className="btn-secondary" onClick={() => nav('/kumite/polemicas')} disabled={polemics === 0}>
+        Situaciones polémicas {polemics > 0 ? `(${polemics})` : ''}
+      </button>
 
       {clips.length === 0 && (
         <div className="card muted">
           Aún no hay clips de kumite. En el ordenador, ve a <b>Biblioteca → Catalogar clips</b>: carga un vídeo de
-          YouTube, corta cada situación hasta el YAME (Yuko, agarres, Jogai, Mubobi, exagerar, simular…) y registra la
-          decisión real del árbitro central. Practica la decisión antes de verla.
+          YouTube, corta cada situación hasta el YAME y registra la decisión real del árbitro central.
         </div>
       )}
-    </>
+    </div>
   );
 }

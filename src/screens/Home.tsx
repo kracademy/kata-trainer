@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useCatalog } from '../logic/useCatalog';
 import { accuracy, currentStreak, pendingErrors } from '../logic/stats';
+import { TI } from '../components/TileIcons';
 
 export default function Home() {
   const nav = useNavigate();
@@ -9,29 +10,34 @@ export default function Home() {
   const ready = performances.filter((p) => p.status === 'READY');
   const firstAttempts = attempts.filter((a) => a.isFirstAttempt);
   const errors = pendingErrors(performances, attemptsByPerf);
+  const acc = accuracy(firstAttempts);
 
   return (
-    <>
+    <div className="screen-fill">
       <div className="mod-topbar">
-        <h1 style={{ margin: 0 }}>🥋 KATA</h1>
+        <h1 style={{ margin: 0 }}>Kata</h1>
         <button className="switch-btn" onClick={() => nav('/kumite')}>⇄ Kumite</button>
       </div>
 
-      <div className="grid2">
+      <div className="home-grid">
         <div className="stat-tile">
-          <div className="v">🔥 {currentStreak(attempts)}</div>
+          <span className="ic" style={{ color: '#ff9500' }}>{TI.flame}</span>
+          <div className="v">{currentStreak(attempts)}</div>
           <div className="l">Tu racha</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🎯 {accuracy(firstAttempts) ?? '--'}%</div>
+          <span className="ic" style={{ color: '#007aff' }}>{TI.target}</span>
+          <div className={`v${acc == null ? ' na' : ''}`}>{acc == null ? '—' : `${acc}%`}</div>
           <div className="l">Precisión 1er intento</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🎥 {ready.length}</div>
+          <span className="ic" style={{ color: '#34c759' }}>{TI.clapper}</span>
+          <div className="v">{ready.length}</div>
           <div className="l">Actuaciones listas</div>
         </div>
         <div className="stat-tile">
-          <div className="v">🔴 {errors.length}</div>
+          <span className="ic" style={{ color: '#ff3b30' }}>{TI.alert}</span>
+          <div className={`v${errors.length === 0 ? ' na' : ''}`}>{errors.length}</div>
           <div className="l">Errores pendientes</div>
         </div>
       </div>
@@ -40,7 +46,7 @@ export default function Home() {
         ENTRENAR
       </button>
       <button className="btn-secondary" onClick={() => nav('/kata/errores')} disabled={errors.length === 0}>
-        REPASAR ERRORES {errors.length > 0 ? `(${errors.length})` : ''}
+        Repasar errores {errors.length > 0 ? `(${errors.length})` : ''}
       </button>
 
       {ready.length === 0 && (
@@ -49,6 +55,6 @@ export default function Home() {
           asignar vídeos y marcar inicio/fin de cada actuación.
         </div>
       )}
-    </>
+    </div>
   );
 }

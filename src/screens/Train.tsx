@@ -32,7 +32,7 @@ export default function Train() {
     setFilters((f) => ({ ...f, [k]: e.target.value }));
 
   return (
-    <>
+    <div className="screen-fill">
       <h1>Entrenar</h1>
 
       <label>Competición</label>
@@ -111,6 +111,7 @@ export default function Train() {
         <option value="OLDEST">Más antiguas</option>
       </select>
 
+      <div className="grow" />
       <button
         className="btn-primary"
         disabled={eligible.length === 0}
@@ -121,6 +122,6 @@ export default function Train() {
       {eligible.length === 0 && (
         <p className="muted center">No hay actuaciones listas con estos filtros. Cataloga vídeos primero.</p>
       )}
-    </>
+    </div>
   );
 }

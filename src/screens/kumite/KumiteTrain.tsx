@@ -37,7 +37,7 @@ export default function KumiteTrain() {
   if (queue) return <KumiteSession queue={queue} onExit={() => setQueue(null)} />;
 
   return (
-    <>
+    <div className="screen-fill">
       <h1>Entrenar</h1>
 
       <label>Situación a practicar</label>
@@ -54,6 +54,7 @@ export default function KumiteTrain() {
         <option value="BOUT">Combate entero (clips en orden)</option>
       </select>
 
+      <div className="grow" />
       <button className="btn-primary" onClick={start} disabled={filtered.length === 0}>
         ENTRENAR ({filtered.length})
       </button>
@@ -64,6 +65,6 @@ export default function KumiteTrain() {
           hasta el YAME y registra la decisión real del árbitro central.
         </div>
       )}
-    </>
+    </div>
   );
 }
