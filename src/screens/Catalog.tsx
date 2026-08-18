@@ -9,6 +9,9 @@ import type { CatalogExport, Performance } from '../db/types';
 
 const ROUND_ORDER: Record<string, number> = { FINAL: 2, BRONZE_1: 0, BRONZE_2: 1, OTHER: 3 };
 
+const slug = (s: string) =>
+  s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 export default function Catalog() {
   const data = useCatalog();
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -28,6 +31,74 @@ export default function Catalog() {
   const [msg, setMsg] = useState('');
   const [showDone, setShowDone] = useState(false);
   const playerRef = useRef<YouTubePlayerHandle>(null);
+
+  // formulario "añadir encuentro" (exámenes EKF/WKF u otros bouts fuera del dataset)
+  const [adding, setAdding] = useState(false);
+  const [nComp, setNComp] = useState('');
+  const [nYear, setNYear] = useState('');
+  const [nCat, setNCat] = useState('senior-female-kata');
+  const [nAkaName, setNAkaName] = useState('');
+  const [nAkaCc, setNAkaCc] = useState('');
+  const [nAoName, setNAoName] = useState('');
+  const [nAoCc, setNAoCc] = useState('');
+  const [nKataA, setNKataA] = useState('');
+  const [nKataO, setNKataO] = useState('');
+  const [nRound, setNRound] = useState('FINAL');
+  const [nWinner, setNWinner] = useState<'AKA' | 'AO' | ''>('');
+  const [nTotA, setNTotA] = useState('');
+  const [nTotO, setNTotO] = useState('');
+  const [nJudges, setNJudges] = useState('5');
+
+  async function saveNew() {
+    const year = parseInt(nYear, 10);
+    if (!nComp.trim() || isNaN(year)) { setMsg('Falta el campeonato o el año.'); return; }
+    if (!nAkaName.trim() || !nAoName.trim() || nAkaCc.trim().length !== 3 || nAoCc.trim().length !== 3) {
+      setMsg('Faltan los atletas (nombre + código de país de 3 letras).');
+      return;
+    }
+    if (!nWinner) { setMsg('Marca el ganador oficial.'); return; }
+    const compId = `custom-${slug(nComp)}-${year}`;
+    await db.competitions.put({
+      id: compId,
+      name: nComp.trim(),
+      year,
+      dateStart: `${year}-01-01`,
+      competitionType: 'OTHER',
+      tier: 3,
+      source: 'añadido por el usuario',
+    });
+    const mkAthlete = async (name: string, cc: string) => {
+      const id = `custom-${slug(name)}-${slug(cc)}`;
+      await db.athletes.put({ id, displayName: name.trim().toUpperCase(), country: cc.trim().toUpperCase(), countryCode: cc.trim().toUpperCase() });
+      return id;
+    };
+    const akaId = await mkAthlete(nAkaName, nAkaCc);
+    const aoId = await mkAthlete(nAoName, nAoCc);
+    const perfId = `${compId}_${nCat}_${nRound.toLowerCase()}-${Date.now().toString(36)}`;
+    const tA = parseFloat(nTotA.replace(',', '.'));
+    const tO = parseFloat(nTotO.replace(',', '.'));
+    const newPerf: Performance = {
+      id: perfId,
+      competitionId: compId,
+      categoryId: nCat,
+      roundType: nRound as Performance['roundType'],
+      akaAthleteId: akaId,
+      aoAthleteId: aoId,
+      ...(nKataA.trim() ? { kataAka: nKataA.trim() } : {}),
+      ...(nKataO.trim() ? { kataAo: nKataO.trim() } : {}),
+      officialWinner: nWinner,
+      officialResultType: nWinner === 'AKA' ? 'AKA_WINS' : 'AO_WINS',
+      ...(!isNaN(tA) && !isNaN(tO) ? { officialScoreAka: tA, officialScoreAo: tO, judgesCount: +nJudges || 5 } : {}),
+      formerExam: true,
+      status: 'VIDEO_MISSING',
+    };
+    newPerf.status = computeStatus(newPerf);
+    await db.performances.put(newPerf);
+    setAdding(false);
+    setNComp(''); setNYear(''); setNAkaName(''); setNAkaCc(''); setNAoName(''); setNAoCc('');
+    setNKataA(''); setNKataO(''); setNWinner(''); setNTotA(''); setNTotO('');
+    open(perfId); // directamente al editor para asignarle vídeo y tiempos
+  }
 
   const perf = selectedId ? data.performances.find((p) => p.id === selectedId) : null;
 
@@ -145,7 +216,89 @@ export default function Catalog() {
         ...(p.formerExam ? { formerExam: true } : {}),
       }));
     const out: CatalogExport = { schemaVersion: 1, exportedAt: new Date().toISOString(), entries };
+    // encuentros creados a mano: viajan completos para incorporarlos al dataset
+    const customPerfs = (await db.performances.toArray()).filter((p) => p.competitionId.startsWith('custom-'));
+    if (customPerfs.length) {
+      out.custom = {
+        competitions: (await db.competitions.toArray()).filter((c) => c.id.startsWith('custom-')),
+        athletes: (await db.athletes.toArray()).filter((a) => a.id.startsWith('custom-')),
+        performances: customPerfs,
+      };
+    }
     downloadJson(out, `kata-trainer-catalogo-${new Date().toISOString().slice(0, 10)}.json`);
+  }
+
+  if (adding) {
+    return (
+      <>
+        <button onClick={() => setAdding(false)}>← Volver a la lista</button>
+        <h1 style={{ marginTop: 12, fontSize: '1.4rem' }}>Añadir encuentro</h1>
+        <p className="muted">
+          Para encuentros que no están en el dataset (p. ej. los de exámenes EKF/WKF de otros años). Se marca
+          automáticamente como 🎓 Former Exam y, al guardar, podrás asignarle el vídeo.
+        </p>
+
+        <label>Campeonato</label>
+        <div className="row">
+          <input type="text" placeholder="p. ej. EKF Senior Championships - Gaziantep" value={nComp} onChange={(e) => setNComp(e.target.value)} />
+          <input type="text" inputMode="numeric" placeholder="Año" value={nYear} onChange={(e) => setNYear(e.target.value)} style={{ flex: '0 0 26%' }} />
+        </div>
+
+        <label>Categoría</label>
+        <select value={nCat} onChange={(e) => setNCat(e.target.value)}>
+          {data.categories.map((c) => (
+            <option key={c.id} value={c.id}>{c.name}</option>
+          ))}
+        </select>
+
+        <label style={{ color: 'var(--aka)' }}>AKA (arriba del bracket)</label>
+        <div className="row">
+          <input type="text" placeholder="APELLIDOS NOMBRE" value={nAkaName} onChange={(e) => setNAkaName(e.target.value)} />
+          <input type="text" placeholder="ESP" maxLength={3} value={nAkaCc} onChange={(e) => setNAkaCc(e.target.value.toUpperCase())} style={{ flex: '0 0 22%' }} />
+        </div>
+        <input type="text" placeholder="Kata de AKA (opcional)" value={nKataA} onChange={(e) => setNKataA(e.target.value)} style={{ marginTop: 8 }} />
+
+        <label style={{ color: 'var(--ao)' }}>AO (abajo del bracket)</label>
+        <div className="row">
+          <input type="text" placeholder="APELLIDOS NOMBRE" value={nAoName} onChange={(e) => setNAoName(e.target.value)} />
+          <input type="text" placeholder="ITA" maxLength={3} value={nAoCc} onChange={(e) => setNAoCc(e.target.value.toUpperCase())} style={{ flex: '0 0 22%' }} />
+        </div>
+        <input type="text" placeholder="Kata de AO (opcional)" value={nKataO} onChange={(e) => setNKataO(e.target.value)} style={{ marginTop: 8 }} />
+
+        <div className="row">
+          <div style={{ flex: 1 }}>
+            <label>Ronda</label>
+            <select value={nRound} onChange={(e) => setNRound(e.target.value)}>
+              <option value="FINAL">Final</option>
+              <option value="BRONZE_1">Bronce 1</option>
+              <option value="BRONZE_2">Bronce 2</option>
+              <option value="OTHER">Otra ronda</option>
+            </select>
+          </div>
+          <div style={{ flex: 1 }}>
+            <label>Ganador oficial</label>
+            <div className="row">
+              <button className={`chip${nWinner === 'AKA' ? ' sel' : ''}`} onClick={() => setNWinner('AKA')}>🔴 AKA</button>
+              <button className={`chip${nWinner === 'AO' ? ' sel' : ''}`} onClick={() => setNWinner('AO')} style={nWinner === 'AO' ? { background: 'var(--ao)' } : undefined}>🔵 AO</button>
+            </div>
+          </div>
+        </div>
+
+        <label>Puntuaciones oficiales (opcional)</label>
+        <div className="row">
+          <input type="text" inputMode="decimal" placeholder="Total AKA" value={nTotA} onChange={(e) => setNTotA(e.target.value)} />
+          <input type="text" inputMode="decimal" placeholder="Total AO" value={nTotO} onChange={(e) => setNTotO(e.target.value)} />
+          <select value={nJudges} onChange={(e) => setNJudges(e.target.value)} style={{ flex: '0 0 30%' }}>
+            <option value="5">5 jueces</option>
+            <option value="7">7 jueces</option>
+            <option value="3">3 (70/30)</option>
+          </select>
+        </div>
+
+        <button className="btn-primary" onClick={saveNew}>GUARDAR Y ASIGNAR VÍDEO</button>
+        {msg && <div className="card" role="status">{msg}</div>}
+      </>
+    );
   }
 
   if (perf) {
@@ -297,6 +450,9 @@ export default function Catalog() {
         YouTube de la WKF (o elige un vídeo candidato precargado) y marca inicio/fin de cada actuación. Al terminar,
         exporta el catálogo para incorporarlo al dataset publicado.
       </p>
+      <button className="btn-primary" onClick={() => { setMsg(''); setAdding(true); }}>
+        ➕ AÑADIR ENCUENTRO (p. ej. Former Exam)
+      </button>
       <div className="row">
         <button className="btn-secondary" onClick={exportCatalog} disabled={doneCount === 0}>
           ⬇️ Exportar catálogo ({doneCount})

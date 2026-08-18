@@ -47,14 +47,14 @@ const I = {
     </svg>
   ),
   figure: (
-    // karateka en zenkutsu-dachi con gyaku-tsuki (perfil, puño al frente)
+    // karateka en shiko-dachi de frente, brazos extendidos con puños
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="15.6" cy="4.9" r="2" />
-      <path d="M14.8 8.1 12 13.2" />
-      <path d="M14.8 8.1h6.6" />
-      <path d="M14.8 8.1l-3.6 2.6" />
-      <path d="M12 13.2l3.6 3-0.2 4.4" />
-      <path d="M12 13.2l-6.6 5.2" />
+      <circle cx="12" cy="4.4" r="2" />
+      <path d="M12 6.4v4.8" />
+      <path d="M3.6 8.2h16.8" />
+      <path d="M3.6 7v2.4M20.4 7v2.4" />
+      <path d="M12 11.2 6.9 13.7l-.1 5.7" />
+      <path d="M12 11.2l5.1 2.5.1 5.7" />
     </svg>
   ),
   spar: (
@@ -66,11 +66,11 @@ const I = {
       <path d="M6.3 9.9 4 11.8" />
       <path d="M4.9 13.4l3.9 2.8-.3 4.2" />
       <path d="M4.9 13.4l-2.9 6" />
-      <circle cx="17.9" cy="5.9" r="1.8" />
-      <path d="M18.4 7.9l.9 5.3" />
-      <path d="M18.3 8.4l-2.6 2.3" />
-      <path d="M19.3 13.2l-1.6 6.4" />
-      <path d="M19.3 13.2l2.7 5.9" />
+      <circle cx="19.1" cy="5.7" r="1.8" />
+      <path d="M18.5 7.6l-1.1 5.5" />
+      <path d="M18.2 8.3l-2.9 2.2" />
+      <path d="M17.4 13.1l-1.7 6.3" />
+      <path d="M17.4 13.1l3.9 5.6" />
     </svg>
   ),
   gear: (

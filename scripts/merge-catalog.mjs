@@ -10,6 +10,23 @@ const here = dirname(fileURLToPath(import.meta.url));
 const datasetPath = join(here, '..', 'public', 'data', 'dataset.json');
 const catalog = JSON.parse(readFileSync(process.argv[2], 'utf8'));
 const ds = JSON.parse(readFileSync(datasetPath, 'utf8'));
+
+// encuentros creados a mano por el usuario (exámenes, etc.): upsert completo por id
+let customAdded = 0;
+if (catalog.custom) {
+  const upsert = (list, incoming) => {
+    const byId = new Map(list.map((x) => [x.id, x]));
+    for (const item of incoming ?? []) {
+      if (!byId.has(item.id)) customAdded++;
+      byId.set(item.id, item);
+    }
+    return [...byId.values()];
+  };
+  ds.competitions = upsert(ds.competitions, catalog.custom.competitions);
+  ds.athletes = upsert(ds.athletes, catalog.custom.athletes);
+  ds.performances = upsert(ds.performances, catalog.custom.performances);
+}
+
 const perfById = new Map(ds.performances.map((p) => [p.id, p]));
 
 const sig = (e) => `${e.videoId}|${e.startSeconds}|${e.endSeconds}`;
@@ -87,7 +104,7 @@ for (const e of flagsOnly) { applyFlags(e, perfById.get(e.performanceId)); appli
 
 ds.generatedAt = new Date().toISOString();
 writeFileSync(datasetPath, JSON.stringify(ds, null, 2));
-console.log(`aplicadas: ${applied}, duplicados omitidos: ${skipped}, ids no encontrados: ${missing.length}`);
+console.log(`aplicadas: ${applied}, duplicados omitidos: ${skipped}, ids no encontrados: ${missing.length}, custom nuevos: ${customAdded}`);
 missing.forEach((e) => console.log(' ? ', e.performanceId));
 report.forEach((s) => console.log(' - ', s));
 console.log('READY total:', ds.performances.filter((p) => p.status === 'READY').length);

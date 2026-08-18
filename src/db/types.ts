@@ -206,6 +206,12 @@ export interface CatalogExport {
     note?: string;
     formerExam?: boolean;
   }[];
+  /** Encuentros creados a mano por el usuario (p. ej. exámenes EKF/WKF que no están en el dataset). */
+  custom?: {
+    competitions: Competition[];
+    athletes: Athlete[];
+    performances: Performance[];
+  };
 }
 
 // ============================= KUMITE =============================
