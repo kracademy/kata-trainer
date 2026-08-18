@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-17T15:00:15.611Z",
+  "generatedAt": "2026-08-18T18:28:11.978Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -2818,6 +2818,16 @@
         }
       ],
       "dateStart": "2021-03-12"
+    },
+    {
+      "id": "former-exams-ekf-wkf",
+      "name": "Former Exams EKF/WKF",
+      "year": 2026,
+      "dateStart": "2026-12-31",
+      "competitionType": "OTHER",
+      "tier": 1,
+      "source": "Exámenes EKF/WKF recopilados por el usuario",
+      "notes": "Encuentros que han salido en exámenes de arbitraje (EKF 25, WKF 25-1, WKF 25-2, EKF 26)."
     }
   ],
   "categories": [
@@ -6112,6 +6122,189 @@
       "displayName": "ZOECHLING FLORIAN",
       "country": "Austria",
       "countryCode": "AUT"
+    },
+    {
+      "id": "exam-yaiza",
+      "displayName": "YAIZA",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-scordo-sandy-fra",
+      "displayName": "SCORDO SANDY",
+      "country": "FRA",
+      "countryCode": "FRA"
+    },
+    {
+      "id": "exam-madrid-equipo-esp",
+      "displayName": "MADRID (EQUIPO)",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-espana-equipo-esp",
+      "displayName": "ESPAÑA (EQUIPO)",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-gema",
+      "displayName": "GEMA",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-mota-bra",
+      "displayName": "MOTA",
+      "country": "BRA",
+      "countryCode": "BRA"
+    },
+    {
+      "id": "exam-japon-jpn",
+      "displayName": "JAPÓN",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-macedonia-mkd",
+      "displayName": "MACEDONIA",
+      "country": "MKD",
+      "countryCode": "MKD"
+    },
+    {
+      "id": "exam-moto-jpn",
+      "displayName": "MOTO",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-raul",
+      "displayName": "RAUL",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-brasil-bra",
+      "displayName": "BRASIL",
+      "country": "BRA",
+      "countryCode": "BRA"
+    },
+    {
+      "id": "exam-namibia-nam",
+      "displayName": "NAMIBIA",
+      "country": "NAM",
+      "countryCode": "NAM"
+    },
+    {
+      "id": "exam-atleta-a",
+      "displayName": "ATLETA A",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-atleta-b",
+      "displayName": "ATLETA B",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-kiyuna-ryo-jpn",
+      "displayName": "KIYUNA RYO",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-shimbaba-issei-jpn",
+      "displayName": "SHIMBABA ISSEI",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-tozaki-gakuji-usa",
+      "displayName": "TOZAKI GAKUJI",
+      "country": "USA",
+      "countryCode": "USA"
+    },
+    {
+      "id": "exam-torres-gutierrez-ariel-usa",
+      "displayName": "TORRES GUTIERREZ ARIEL",
+      "country": "USA",
+      "countryCode": "USA"
+    },
+    {
+      "id": "exam-cadete-a-venecia-2024",
+      "displayName": "CADETE A (VENECIA 2024)",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-cadete-b-venecia-2024",
+      "displayName": "CADETE B (VENECIA 2024)",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-vicente-para-karate",
+      "displayName": "VICENTE (PARA-KARATE)",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-eldar-para-karate",
+      "displayName": "ELDAR (PARA-KARATE)",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-uemura-jpn",
+      "displayName": "UEMURA",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-quintero-damian-esp",
+      "displayName": "QUINTERO DAMIAN",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-d-onofrio-terryana-ita",
+      "displayName": "D'ONOFRIO TERRYANA",
+      "country": "ITA",
+      "countryCode": "ITA"
+    },
+    {
+      "id": "exam-garcia-lozano-paola-esp",
+      "displayName": "GARCIA LOZANO PAOLA",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-khamis-egy",
+      "displayName": "KHAMIS",
+      "country": "EGY",
+      "countryCode": "EGY"
+    },
+    {
+      "id": "exam-kiri-jpn",
+      "displayName": "KIRI",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-estados-unidos-usa",
+      "displayName": "ESTADOS UNIDOS",
+      "country": "USA",
+      "countryCode": "USA"
     }
   ],
   "videos": [
@@ -21737,6 +21930,456 @@
       "officialScoreAka": 41,
       "officialScoreAo": 41,
       "judgesCount": 5
+    },
+    {
+      "id": "former-exams-ekf-wkf_01",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-female-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-yaiza",
+      "aoAthleteId": "exam-scordo-sandy-fra",
+      "kataAka": "Chatanyara Kushanku",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-1",
+          "order": 1
+        },
+        {
+          "exam": "WKF 25-2",
+          "order": 1
+        },
+        {
+          "exam": "EKF 26",
+          "order": 1
+        }
+      ],
+      "notes": "Vídeo antiguo (playlist): puede no estar disponible. Nombre de AKA y país por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "H-U7ojTyKBA"
+    },
+    {
+      "id": "former-exams-ekf-wkf_02",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-female-team-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-madrid-equipo-esp",
+      "aoAthleteId": "exam-espana-equipo-esp",
+      "kataAka": "Anan",
+      "kataAo": "Anan",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 6
+        },
+        {
+          "exam": "WKF 25-1",
+          "order": 6
+        },
+        {
+          "exam": "WKF 25-2",
+          "order": 2
+        },
+        {
+          "exam": "EKF 26",
+          "order": 2
+        }
+      ],
+      "notes": "Karate1 Pamplona · FINALS (canal WKF). Equipos: sexo de la categoría por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "ozp_rmJ4PWQ",
+      "startSeconds": 7303
+    },
+    {
+      "id": "former-exams-ekf-wkf_03",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-female-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-gema",
+      "aoAthleteId": "exam-mota-bra",
+      "kataAka": "Kushanku",
+      "kataAo": "Chatanyara Kushanku",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 1
+        },
+        {
+          "exam": "WKF 25-1",
+          "order": 8
+        },
+        {
+          "exam": "WKF 25-2",
+          "order": 3
+        },
+        {
+          "exam": "EKF 26",
+          "order": 4
+        }
+      ],
+      "notes": "Vídeo posiblemente no disponible (enlace youtu.be caído). Nombres completos por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "b2GHjcrtvsw",
+      "startSeconds": 46
+    },
+    {
+      "id": "former-exams-ekf-wkf_04",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-japon-jpn",
+      "aoAthleteId": "exam-macedonia-mkd",
+      "kataAka": "Anan Dai",
+      "kataAo": "Gojushiho Sho",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-2",
+          "order": 4
+        },
+        {
+          "exam": "EKF 26",
+          "order": 3
+        }
+      ],
+      "notes": "Sin vídeo en el documento: se entrena de memoria. Atletas y categoría por confirmar.",
+      "status": "VIDEO_MISSING"
+    },
+    {
+      "id": "former-exams-ekf-wkf_05",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-moto-jpn",
+      "aoAthleteId": "exam-raul",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 2
+        },
+        {
+          "exam": "WKF 25-1",
+          "order": 2
+        },
+        {
+          "exam": "WKF 25-2",
+          "order": 5
+        },
+        {
+          "exam": "EKF 26",
+          "order": 5
+        }
+      ],
+      "notes": "Vídeo posiblemente no disponible. Katas no anotados; nombres completos por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "b2GHjcrtvsw",
+      "startSeconds": 669
+    },
+    {
+      "id": "former-exams-ekf-wkf_06",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-brasil-bra",
+      "aoAthleteId": "exam-namibia-nam",
+      "kataAka": "Papuren",
+      "kataAo": "Gojushiho Sho",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-1",
+          "order": 5
+        },
+        {
+          "exam": "WKF 25-2",
+          "order": 6
+        },
+        {
+          "exam": "EKF 26",
+          "order": 6
+        }
+      ],
+      "notes": "Sin vídeo. Kata de AO anotado con duda (\"Gojushiho Sho?\"). Atletas y categoría por confirmar.",
+      "status": "VIDEO_MISSING"
+    },
+    {
+      "id": "former-exams-ekf-wkf_07",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-atleta-a",
+      "aoAthleteId": "exam-atleta-b",
+      "kataAka": "Gankaku",
+      "kataAo": "Gojushiho Sho",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-2",
+          "order": 8
+        },
+        {
+          "exam": "EKF 26",
+          "order": 9
+        }
+      ],
+      "notes": "Sin vídeo ni nombres en el documento: solo katas y ganador. Por completar.",
+      "status": "VIDEO_MISSING"
+    },
+    {
+      "id": "former-exams-ekf-wkf_08",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-kiyuna-ryo-jpn",
+      "aoAthleteId": "exam-shimbaba-issei-jpn",
+      "kataAka": "Sepai",
+      "kataAo": "Sepai",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-1",
+          "order": 10
+        },
+        {
+          "exam": "WKF 25-2",
+          "order": 10
+        },
+        {
+          "exam": "EKF 26",
+          "order": 10
+        }
+      ],
+      "notes": "48th All Japan Karate Championships 2020: dos actuaciones de vídeos distintos (AO tiene su propio vídeo).",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "uF4C1O-YOIU",
+      "aoVideoId": "UGT4YtJN0pM"
+    },
+    {
+      "id": "former-exams-ekf-wkf_09",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-tozaki-gakuji-usa",
+      "aoAthleteId": "exam-torres-gutierrez-ariel-usa",
+      "kataAka": "Anan",
+      "kataAo": "Gankaku",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-1",
+          "order": 3
+        },
+        {
+          "exam": "EKF 26",
+          "order": 7
+        }
+      ],
+      "notes": "PKF 2024 · Final Male Kata. AO tuvo un desequilibrio en Gankaku.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "Fbdc79xwiHE"
+    },
+    {
+      "id": "former-exams-ekf-wkf_10",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-cadete-a-venecia-2024",
+      "aoAthleteId": "exam-cadete-b-venecia-2024",
+      "kataAka": "Gankaku",
+      "kataAo": "Unsu",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "WKF 25-1",
+          "order": 4
+        },
+        {
+          "exam": "EKF 26",
+          "order": 8
+        }
+      ],
+      "notes": "WKF Cadet, Junior & U21 World Championships 2024 (Venecia) · bronces cadete, tatami 3. Atletas y categoría real (cadete) por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "ulm0OLmGkMY",
+      "startSeconds": 834
+    },
+    {
+      "id": "former-exams-ekf-wkf_11",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-vicente-para-karate",
+      "aoAthleteId": "exam-eldar-para-karate",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 3
+        }
+      ],
+      "notes": "EKF Championships · MEDAL BOUTS domingo. Para-Karate: la app no tiene categoría propia todavía. Apellidos por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "6I8h4CVHjTo",
+      "startSeconds": 17100
+    },
+    {
+      "id": "former-exams-ekf-wkf_12",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-moto-jpn",
+      "aoAthleteId": "exam-uemura-jpn",
+      "kataAka": "Gankaku",
+      "kataAo": "Kururunfa",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 4
+        }
+      ],
+      "notes": "Karate1 Leipzig 2017 · bronce. AO no hizo el saludo. Nombres completos por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "XdMuWde5pLk"
+    },
+    {
+      "id": "former-exams-ekf-wkf_13",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-shimbaba-issei-jpn",
+      "aoAthleteId": "exam-quintero-damian-esp",
+      "kataAka": "Suparinpei",
+      "kataAo": "Chatanyara Kushanku",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 5
+        }
+      ],
+      "notes": "Vídeo posiblemente no disponible. Identificación de los atletas por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "DM_SntM0zrc"
+    },
+    {
+      "id": "former-exams-ekf-wkf_14",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-female-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-d-onofrio-terryana-ita",
+      "aoAthleteId": "exam-garcia-lozano-paola-esp",
+      "kataAka": "Suparinpei",
+      "kataAo": "Chatanyara Kushanku",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 7
+        }
+      ],
+      "notes": "World Championships · bronces (sesión sábado mañana): dos actuaciones distintas del mismo directo emparejadas para el examen.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "_QZxXzNEI4o",
+      "startSeconds": 1439,
+      "akaStartSeconds": 1439,
+      "aoStartSeconds": 786
+    },
+    {
+      "id": "former-exams-ekf-wkf_15",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-khamis-egy",
+      "aoAthleteId": "exam-kiri-jpn",
+      "kataAka": "Unsu",
+      "kataAo": "Suparinpei",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 8
+        }
+      ],
+      "notes": "Karate1 Larnaca · FINALS. Nombres completos por confirmar.",
+      "status": "VIDEO_CATALOGUED",
+      "videoId": "EfTN5YQmETs",
+      "startSeconds": 40
+    },
+    {
+      "id": "former-exams-ekf-wkf_16",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-atleta-a",
+      "aoAthleteId": "exam-atleta-b",
+      "kataAka": "Oyadomari No Passai",
+      "kataAo": "Ohan Dai",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 9
+        }
+      ],
+      "notes": "Sin vídeo ni nombres: solo katas y ganador. Por completar.",
+      "status": "VIDEO_MISSING"
+    },
+    {
+      "id": "former-exams-ekf-wkf_17",
+      "competitionId": "former-exams-ekf-wkf",
+      "categoryId": "senior-male-kata",
+      "roundType": "OTHER",
+      "akaAthleteId": "exam-estados-unidos-usa",
+      "aoAthleteId": "exam-japon-jpn",
+      "kataAka": "Anan Dai",
+      "kataAo": "Anan Dai",
+      "officialWinner": "AO",
+      "officialResultType": "AO_WINS",
+      "formerExam": true,
+      "examAppearances": [
+        {
+          "exam": "EKF 25",
+          "order": 10
+        }
+      ],
+      "notes": "Sin vídeo. Atletas concretos por confirmar.",
+      "status": "VIDEO_MISSING"
     }
   ]
 }

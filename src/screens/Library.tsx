@@ -106,6 +106,14 @@ export default function Library() {
               <div className="card perf-item" key={p.id}>
                 <div className="meta">
                   {cat?.name} · <span className="badge round">{roundLabel(p.roundType)}</span>
+                  {p.examAppearances && p.examAppearances.length > 0 && (
+                    <>
+                      {' '}
+                      <span className="badge" style={{ background: 'rgba(0,122,255,0.12)', color: 'var(--blue)' }}>
+                        🎓 {p.examAppearances.length}× examen
+                      </span>
+                    </>
+                  )}
                   {isCloseResult(p) && (
                     <>
                       {' '}

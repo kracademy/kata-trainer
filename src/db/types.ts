@@ -133,6 +133,10 @@ export interface Performance {
   userNote?: string;
   /** Encuentro que salió en exámenes EKF/WKF de otros años: entrenable aparte (incluso sin vídeo, de memoria). */
   formerExam?: boolean;
+  /** En qué exámenes salió y en qué posición (p. ej. [{exam:'EKF 25', order:6}]). */
+  examAppearances?: { exam: string; order: number }[];
+  /** Vídeo distinto para la actuación de AO (en exámenes a veces cada atleta viene de un vídeo). */
+  aoVideoId?: string;
 
   status: CatalogStatus;
   sportDataUrl?: string;

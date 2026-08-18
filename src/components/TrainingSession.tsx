@@ -60,6 +60,8 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
   const onAkaClip = phase === 'playing' || phase === 'interlude';
   const clipStart = !split ? perf?.startSeconds : onAkaClip ? perf?.akaStartSeconds : perf?.aoStartSeconds;
   const clipEnd = !split ? perf?.endSeconds : onAkaClip ? perf?.akaEndSeconds : perf?.aoEndSeconds;
+  // en exámenes, la actuación de AO puede venir de otro vídeo
+  const clipVideo = (!onAkaClip && perf?.aoVideoId) || perf?.videoId;
 
   if (!perf) {
     return (
@@ -143,7 +145,7 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
           <YouTubePlayer
             key={playerKey}
             ref={playerRef}
-            videoId={perf.videoId}
+            videoId={clipVideo!}
             startSeconds={clipStart}
             endSeconds={clipEnd}
             controls={false}
@@ -193,6 +195,12 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
       {phase !== 'reveal' && (
         <div className="card perf-item" style={{ marginTop: 12 }}>
           <div className="meta">{comp?.name} · {cat?.name} · {roundLabel(perf.roundType)}</div>
+          {perf.examAppearances && perf.examAppearances.length > 0 && (
+            <div className="meta">
+              🎓 Salió en {perf.examAppearances.length} examen{perf.examAppearances.length !== 1 ? 'es' : ''}:{' '}
+              {perf.examAppearances.map((a) => `${a.exam} (#${a.order})`).join(' · ')}
+            </div>
+          )}
           <div className="who" style={split && phase === 'playingAo' ? { opacity: 0.45 } : undefined}>
             <span style={{ color: 'var(--aka)', fontWeight: 800 }}>{split && phase === 'playing' ? '▶ ' : ''}AKA</span> {aka?.displayName}{' '}
             <span className="muted">({aka?.countryCode})</span>
