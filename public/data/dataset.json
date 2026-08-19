@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-19T13:55:40.494Z",
+  "generatedAt": "2026-08-19T14:04:06.801Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -6142,19 +6142,6 @@
       "countryCode": "ESP"
     },
     {
-      "id": "exam-gema",
-      "displayName": "GEMA",
-      "country": "—",
-      "countryCode": "—",
-      "notes": "País por confirmar"
-    },
-    {
-      "id": "exam-mota-bra",
-      "displayName": "MOTA",
-      "country": "BRA",
-      "countryCode": "BRA"
-    },
-    {
       "id": "exam-japon-jpn",
       "displayName": "JAPÓN",
       "country": "JPN",
@@ -6308,6 +6295,18 @@
       "displayName": "AHMADOV ELDAR",
       "country": "AZE",
       "countryCode": "AZE"
+    },
+    {
+      "id": "exam-morales-gema-esp",
+      "displayName": "MORALES GEMA",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-mota-nicole-bra",
+      "displayName": "MOTA NICOLE",
+      "country": "BRA",
+      "countryCode": "BRA"
     }
   ],
   "videos": [
@@ -22004,8 +22003,8 @@
       "competitionId": "former-exams-ekf-wkf",
       "categoryId": "senior-female-kata",
       "roundType": "OTHER",
-      "akaAthleteId": "exam-gema",
-      "aoAthleteId": "exam-mota-bra",
+      "akaAthleteId": "exam-morales-gema-esp",
+      "aoAthleteId": "exam-mota-nicole-bra",
       "kataAka": "Kushanku",
       "kataAo": "Chatanyara Kushanku",
       "officialWinner": "AKA",
@@ -22029,7 +22028,7 @@
           "order": 4
         }
       ],
-      "notes": "Vídeo posiblemente no disponible (enlace youtu.be caído). Nombres completos por confirmar.",
+      "notes": "Final femenina · Karate 1 Series A Pamplona 2022. El enlace original está caído: falta un vídeo que funcione.",
       "status": "VIDEO_CATALOGUED",
       "videoId": "b2GHjcrtvsw",
       "startSeconds": 46

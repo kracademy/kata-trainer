@@ -71,11 +71,6 @@ export function orderQueue(perfs: Performance[], f: TrainFilters, ctx: Ctx, rece
   const pool = eligible.length ? eligible : perfs;
   const attemptsOf = (p: Performance) => ctx.attemptsByPerf.get(p.id) ?? [];
 
-  // En Former Exams, por defecto primero los que han salido en más exámenes
-  if (f.competitionType === 'FORMER_EXAM' && f.mode === 'RANDOM') {
-    return [...pool].sort((a, b) => (b.examAppearances?.length ?? 0) - (a.examAppearances?.length ?? 0));
-  }
-
   switch (f.mode) {
     case 'LEAST_PRACTICED':
       return [...pool].sort((a, b) => attemptsOf(a).length - attemptsOf(b).length);

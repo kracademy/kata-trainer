@@ -34,10 +34,10 @@ const ROWS = [
   },
   {
     apps: [1, 8, 3, 4, null],
-    aka: { name: 'GEMA', kata: 'Kushanku', video: 'b2GHjcrtvsw', t: 46 },
-    ao: { name: 'MOTA', cc: 'BRA', kata: 'Chatanyara Kushanku', video: 'b2GHjcrtvsw', t: 46 },
+    aka: { name: 'MORALES GEMA', cc: 'ESP', kata: 'Kushanku', video: 'b2GHjcrtvsw', t: 46 },
+    ao: { name: 'MOTA NICOLE', cc: 'BRA', kata: 'Chatanyara Kushanku', video: 'b2GHjcrtvsw', t: 46 },
     winner: 'AKA', cat: 'senior-female-kata',
-    note: 'Vídeo posiblemente no disponible (enlace youtu.be caído). Nombres completos por confirmar.',
+    note: 'Final femenina · Karate 1 Series A Pamplona 2022. El enlace original está caído: falta un vídeo que funcione.',
   },
   {
     apps: [null, null, 4, 3, null],
