@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-18T18:28:11.978Z",
+  "generatedAt": "2026-08-19T13:55:40.494Z",
   "competitions": [
     {
       "id": "karate-one-series-a-guadalajara-2026",
@@ -6124,13 +6124,6 @@
       "countryCode": "AUT"
     },
     {
-      "id": "exam-yaiza",
-      "displayName": "YAIZA",
-      "country": "—",
-      "countryCode": "—",
-      "notes": "País por confirmar"
-    },
-    {
       "id": "exam-scordo-sandy-fra",
       "displayName": "SCORDO SANDY",
       "country": "FRA",
@@ -6180,13 +6173,6 @@
       "countryCode": "JPN"
     },
     {
-      "id": "exam-raul",
-      "displayName": "RAUL",
-      "country": "—",
-      "countryCode": "—",
-      "notes": "País por confirmar"
-    },
-    {
       "id": "exam-brasil-bra",
       "displayName": "BRASIL",
       "country": "BRA",
@@ -6231,12 +6217,6 @@
       "countryCode": "USA"
     },
     {
-      "id": "exam-torres-gutierrez-ariel-usa",
-      "displayName": "TORRES GUTIERREZ ARIEL",
-      "country": "USA",
-      "countryCode": "USA"
-    },
-    {
       "id": "exam-cadete-a-venecia-2024",
       "displayName": "CADETE A (VENECIA 2024)",
       "country": "—",
@@ -6246,20 +6226,6 @@
     {
       "id": "exam-cadete-b-venecia-2024",
       "displayName": "CADETE B (VENECIA 2024)",
-      "country": "—",
-      "countryCode": "—",
-      "notes": "País por confirmar"
-    },
-    {
-      "id": "exam-vicente-para-karate",
-      "displayName": "VICENTE (PARA-KARATE)",
-      "country": "—",
-      "countryCode": "—",
-      "notes": "País por confirmar"
-    },
-    {
-      "id": "exam-eldar-para-karate",
-      "displayName": "ELDAR (PARA-KARATE)",
       "country": "—",
       "countryCode": "—",
       "notes": "País por confirmar"
@@ -6305,6 +6271,43 @@
       "displayName": "ESTADOS UNIDOS",
       "country": "USA",
       "countryCode": "USA"
+    },
+    {
+      "id": "exam-martin-yaiza-esp",
+      "displayName": "MARTIN YAIZA",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-moto-ryuji-jpn",
+      "displayName": "MOTO RYUJI",
+      "country": "JPN",
+      "countryCode": "JPN"
+    },
+    {
+      "id": "exam-martin-raul-esp",
+      "displayName": "MARTIN RAUL",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-por-confirmar",
+      "displayName": "POR CONFIRMAR",
+      "country": "—",
+      "countryCode": "—",
+      "notes": "País por confirmar"
+    },
+    {
+      "id": "exam-yanguez-vicente-esp",
+      "displayName": "YANGUEZ VICENTE",
+      "country": "ESP",
+      "countryCode": "ESP"
+    },
+    {
+      "id": "exam-ahmadov-eldar-aze",
+      "displayName": "AHMADOV ELDAR",
+      "country": "AZE",
+      "countryCode": "AZE"
     }
   ],
   "videos": [
@@ -21936,9 +21939,10 @@
       "competitionId": "former-exams-ekf-wkf",
       "categoryId": "senior-female-kata",
       "roundType": "OTHER",
-      "akaAthleteId": "exam-yaiza",
+      "akaAthleteId": "exam-martin-yaiza-esp",
       "aoAthleteId": "exam-scordo-sandy-fra",
       "kataAka": "Chatanyara Kushanku",
+      "kataAo": "Unsu",
       "officialWinner": "AO",
       "officialResultType": "AO_WINS",
       "formerExam": true,
@@ -21956,7 +21960,7 @@
           "order": 1
         }
       ],
-      "notes": "Vídeo antiguo (playlist): puede no estar disponible. Nombre de AKA y país por confirmar.",
+      "notes": "Final del Campeonato de Europa 2012. Vídeo antiguo (playlist): puede no estar disponible.",
       "status": "VIDEO_CATALOGUED",
       "videoId": "H-U7ojTyKBA"
     },
@@ -22060,8 +22064,10 @@
       "competitionId": "former-exams-ekf-wkf",
       "categoryId": "senior-male-kata",
       "roundType": "OTHER",
-      "akaAthleteId": "exam-moto-jpn",
-      "aoAthleteId": "exam-raul",
+      "akaAthleteId": "exam-moto-ryuji-jpn",
+      "aoAthleteId": "exam-martin-raul-esp",
+      "kataAka": "Gojushiho Sho",
+      "kataAo": "Ohan Dai",
       "officialWinner": "AKA",
       "officialResultType": "AKA_WINS",
       "formerExam": true,
@@ -22083,10 +22089,15 @@
           "order": 5
         }
       ],
-      "notes": "Vídeo posiblemente no disponible. Katas no anotados; nombres completos por confirmar.",
-      "status": "VIDEO_CATALOGUED",
-      "videoId": "b2GHjcrtvsw",
-      "startSeconds": 669
+      "notes": "Karate 1 Series A Pamplona 2022.",
+      "status": "READY",
+      "videoId": "uqBhx0K3avY",
+      "startSeconds": 679,
+      "akaStartSeconds": 679,
+      "aoStartSeconds": 886,
+      "endSeconds": 1037,
+      "akaEndSeconds": 842,
+      "aoEndSeconds": 1037
     },
     {
       "id": "former-exams-ekf-wkf_06",
@@ -22179,7 +22190,7 @@
       "categoryId": "senior-male-kata",
       "roundType": "OTHER",
       "akaAthleteId": "exam-tozaki-gakuji-usa",
-      "aoAthleteId": "exam-torres-gutierrez-ariel-usa",
+      "aoAthleteId": "exam-por-confirmar",
       "kataAka": "Anan",
       "kataAo": "Gankaku",
       "officialWinner": "AKA",
@@ -22195,7 +22206,7 @@
           "order": 7
         }
       ],
-      "notes": "PKF 2024 · Final Male Kata. AO tuvo un desequilibrio en Gankaku.",
+      "notes": "AKA: Tozaki en la PKF 2024 (el vídeo enlazado). La actuación de AO era de OTRO encuentro: un Gankaku con desequilibrio medio — atleta y vídeo por confirmar.",
       "status": "VIDEO_CATALOGUED",
       "videoId": "Fbdc79xwiHE"
     },
@@ -22231,10 +22242,12 @@
       "competitionId": "former-exams-ekf-wkf",
       "categoryId": "senior-male-kata",
       "roundType": "OTHER",
-      "akaAthleteId": "exam-vicente-para-karate",
-      "aoAthleteId": "exam-eldar-para-karate",
-      "officialWinner": "AO",
-      "officialResultType": "AO_WINS",
+      "akaAthleteId": "exam-yanguez-vicente-esp",
+      "aoAthleteId": "exam-ahmadov-eldar-aze",
+      "kataAka": "Sansai",
+      "kataAo": "Kanku Sho",
+      "officialWinner": "AKA",
+      "officialResultType": "AKA_WINS",
       "formerExam": true,
       "examAppearances": [
         {
@@ -22242,7 +22255,7 @@
           "order": 3
         }
       ],
-      "notes": "EKF Championships · MEDAL BOUTS domingo. Para-Karate: la app no tiene categoría propia todavía. Apellidos por confirmar.",
+      "notes": "Final Para-Karate · Campeonato de Europa Guadalajara 2023 (medal bouts del domingo). A efectos del examen gana AKA: Vicente puntuó mejor en el kata, aunque el resultado global fue para AO.",
       "status": "VIDEO_CATALOGUED",
       "videoId": "6I8h4CVHjTo",
       "startSeconds": 17100

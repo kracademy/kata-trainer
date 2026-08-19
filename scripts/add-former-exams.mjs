@@ -20,10 +20,10 @@ const EXAM_LABELS = ['EKF 25', 'WKF 25-1', 'WKF 25-2', 'EKF 26', 'WKF 26-1'];
 const ROWS = [
   {
     apps: [null, 1, 1, 1, null],
-    aka: { name: 'YAIZA', kata: 'Chatanyara Kushanku', video: 'H-U7ojTyKBA' },
-    ao: { name: 'SCORDO SANDY', cc: 'FRA', video: 'H-U7ojTyKBA' },
+    aka: { name: 'MARTIN YAIZA', cc: 'ESP', kata: 'Chatanyara Kushanku', video: 'H-U7ojTyKBA' },
+    ao: { name: 'SCORDO SANDY', cc: 'FRA', kata: 'Unsu', video: 'H-U7ojTyKBA' },
     winner: 'AO', cat: 'senior-female-kata',
-    note: 'Vídeo antiguo (playlist): puede no estar disponible. Nombre de AKA y país por confirmar.',
+    note: 'Final del Campeonato de Europa 2012. Vídeo antiguo (playlist): puede no estar disponible.',
   },
   {
     apps: [6, 6, 2, 2, null],
@@ -48,10 +48,11 @@ const ROWS = [
   },
   {
     apps: [2, 2, 5, 5, null],
-    aka: { name: 'MOTO', cc: 'JPN', video: 'b2GHjcrtvsw', t: 669 },
-    ao: { name: 'RAUL', video: 'b2GHjcrtvsw', t: 669 },
+    aka: { name: 'MOTO RYUJI', cc: 'JPN', kata: 'Gojushiho Sho', video: 'uqBhx0K3avY', t: 679 },
+    ao: { name: 'MARTIN RAUL', cc: 'ESP', kata: 'Ohan Dai', video: 'uqBhx0K3avY', t: 886 },
     winner: 'AKA', cat: 'senior-male-kata',
-    note: 'Vídeo posiblemente no disponible. Katas no anotados; nombres completos por confirmar.',
+    clip: { start: 679, end: 1037, akaStart: 679, akaEnd: 842, aoStart: 886, aoEnd: 1037 },
+    note: 'Karate 1 Series A Pamplona 2022.',
   },
   {
     apps: [null, 5, 6, 6, null],
@@ -77,9 +78,9 @@ const ROWS = [
   {
     apps: [null, 3, null, 7, null],
     aka: { name: 'TOZAKI GAKUJI', cc: 'USA', kata: 'Anan', video: 'Fbdc79xwiHE' },
-    ao: { name: 'TORRES GUTIERREZ ARIEL', cc: 'USA', kata: 'Gankaku', video: 'Fbdc79xwiHE' },
+    ao: { name: 'POR CONFIRMAR', kata: 'Gankaku' },
     winner: 'AKA', cat: 'senior-male-kata',
-    note: 'PKF 2024 · Final Male Kata. AO tuvo un desequilibrio en Gankaku.',
+    note: 'AKA: Tozaki en la PKF 2024 (el vídeo enlazado). La actuación de AO era de OTRO encuentro: un Gankaku con desequilibrio medio — atleta y vídeo por confirmar.',
   },
   {
     apps: [null, 4, null, 8, null],
@@ -90,10 +91,10 @@ const ROWS = [
   },
   {
     apps: [3, null, null, null, null],
-    aka: { name: 'VICENTE (PARA-KARATE)', kata: undefined, video: '6I8h4CVHjTo', t: 17100 },
-    ao: { name: 'ELDAR (PARA-KARATE)', video: '6I8h4CVHjTo', t: 17100 },
-    winner: 'AO', cat: 'senior-male-kata',
-    note: 'EKF Championships · MEDAL BOUTS domingo. Para-Karate: la app no tiene categoría propia todavía. Apellidos por confirmar.',
+    aka: { name: 'YANGUEZ VICENTE', cc: 'ESP', kata: 'Sansai', video: '6I8h4CVHjTo', t: 17100 },
+    ao: { name: 'AHMADOV ELDAR', cc: 'AZE', kata: 'Kanku Sho', video: '6I8h4CVHjTo', t: 17100 },
+    winner: 'AKA', cat: 'senior-male-kata',
+    note: 'Final Para-Karate · Campeonato de Europa Guadalajara 2023 (medal bouts del domingo). A efectos del examen gana AKA: Vicente puntuó mejor en el kata, aunque el resultado global fue para AO.',
   },
   {
     apps: [4, null, null, null, null],
@@ -209,14 +210,23 @@ ROWS.forEach((row, i) => {
       perf.aoStartSeconds = row.ao.t;
     }
   }
+  // clip completo confirmado por el usuario (inicio/fin del bout + sub-clips)
+  if (row.clip) {
+    perf.startSeconds = row.clip.start;
+    perf.endSeconds = row.clip.end;
+    if (row.clip.akaStart != null) { perf.akaStartSeconds = row.clip.akaStart; perf.akaEndSeconds = row.clip.akaEnd; }
+    if (row.clip.aoStart != null) { perf.aoStartSeconds = row.clip.aoStart; perf.aoEndSeconds = row.clip.aoEnd; }
+  }
   perf.status = perf.videoId ? (perf.endSeconds != null ? 'READY' : 'VIDEO_CATALOGUED') : 'VIDEO_MISSING';
 
   if (!perfs.has(id)) added++;
   perfs.set(id, perf);
 });
 
-ds.athletes = [...athletes.values()];
 ds.performances = [...perfs.values()];
+// limpiar atletas exam-* que ya no referencia ninguna actuación (renombrados en correcciones)
+const referenced = new Set(ds.performances.flatMap((p) => [p.akaAthleteId, p.aoAthleteId]));
+ds.athletes = [...athletes.values()].filter((a) => !a.id.startsWith('exam-') || referenced.has(a.id));
 ds.generatedAt = new Date().toISOString();
 writeFileSync(datasetPath, JSON.stringify(ds, null, 2));
 
