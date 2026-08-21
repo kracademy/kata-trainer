@@ -2,15 +2,39 @@ import { useEffect, useRef, useState } from 'react';
 import { db } from '../db/db';
 import { downloadJson, exportBackup, importBackup, type BackupFile } from '../logic/backup';
 import { syncDataset } from '../data/dataset';
+import { deleteLocalVideo, importVideoFile, listLocalVideos, type LocalVideoInfo } from '../logic/localVideos';
+
+const fmtSize = (b: number) => (b > 1e9 ? `${(b / 1e9).toFixed(1)} GB` : `${Math.round(b / 1e6)} MB`);
 
 export default function Settings() {
   const [persisted, setPersisted] = useState<boolean | null>(null);
   const [msg, setMsg] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLInputElement>(null);
+  const [videos, setVideos] = useState<LocalVideoInfo[]>([]);
+  const [importing, setImporting] = useState('');
 
   useEffect(() => {
     navigator.storage?.persisted?.().then(setPersisted).catch(() => setPersisted(null));
+    listLocalVideos().then(setVideos).catch(() => setVideos([]));
   }, []);
+
+  async function doImportVideos(files: FileList) {
+    try {
+      await navigator.storage?.persist?.();
+      for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        setImporting(`Importando ${i + 1}/${files.length}: ${f.name}…`);
+        await importVideoFile(f, (pct) => setImporting(`Importando ${i + 1}/${files.length}: ${f.name} · ${pct}%`));
+      }
+      setImporting('');
+      setMsg(`✅ ${files.length} vídeo${files.length !== 1 ? 's' : ''} importado${files.length !== 1 ? 's' : ''}.`);
+      setVideos(await listLocalVideos());
+    } catch (e) {
+      setImporting('');
+      setMsg(`Error al importar vídeo: ${e instanceof Error ? e.message : e}`);
+    }
+  }
 
   async function doExport() {
     const data = await exportBackup();
@@ -53,6 +77,48 @@ export default function Settings() {
           style={{ display: 'none' }}
           onChange={(e) => e.target.files?.[0] && doImport(e.target.files[0])}
         />
+      </div>
+
+      <h2>Vídeos locales (sin anuncios)</h2>
+      <div className="card">
+        <p className="muted">
+          Si tienes los vídeos como archivos, impórtalos aquí y la app los usará en vez de YouTube: sin anuncios y
+          sin conexión. Nombres que reconoce: <b>id-del-encuentro.mp4</b> (clip ya cortado, ver listado de cortes) o{' '}
+          <b>id-de-youtube.mp4</b> (vídeo completo; la app salta sola a los minutos). En el iPhone puedes elegirlos
+          desde Archivos / iCloud Drive.
+        </p>
+        <button className="btn-primary" onClick={() => videoRef.current?.click()} disabled={!!importing}>
+          🎞 Importar vídeos
+        </button>
+        <input
+          ref={videoRef}
+          type="file"
+          accept="video/mp4,video/quicktime,video/webm,.mp4,.m4v,.mov,.webm"
+          multiple
+          style={{ display: 'none' }}
+          onChange={(e) => { if (e.target.files?.length) doImportVideos(e.target.files); e.target.value = ''; }}
+        />
+        {importing && <p className="muted center">{importing}</p>}
+        {videos.length > 0 && (
+          <>
+            <p className="muted" style={{ marginBottom: 6 }}>
+              {videos.length} vídeo{videos.length !== 1 ? 's' : ''} · {fmtSize(videos.reduce((s, v) => s + v.size, 0))} en total
+            </p>
+            {videos.map((v) => (
+              <div key={v.name} className="row" style={{ alignItems: 'center', marginBottom: 6 }}>
+                <span style={{ flex: 1, fontSize: '0.8rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {v.name} <span className="muted">({fmtSize(v.size)})</span>
+                </span>
+                <button
+                  style={{ flex: '0 0 auto', padding: '6px 10px' }}
+                  onClick={async () => { await deleteLocalVideo(v.name); setVideos(await listLocalVideos()); }}
+                >
+                  🗑
+                </button>
+              </div>
+            ))}
+          </>
+        )}
       </div>
 
       <h2>Datos</h2>

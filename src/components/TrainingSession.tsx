@@ -1,10 +1,15 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { db, LOCAL_USER_ID } from '../db/db';
 import type { OfficialResultType, Performance, Winner } from '../db/types';
 import { isCloseResult, officialAverage } from '../db/types';
 import YouTubePlayer, { type YouTubePlayerHandle } from './YouTubePlayer';
+import LocalVideoPlayer from './LocalVideoPlayer';
+import { findLocalVideo } from '../logic/localVideos';
 import type { CatalogData } from '../logic/useCatalog';
 import { roundLabel } from '../logic/format';
+
+/** Fuente local resuelta: object URL + desfase de tiempos (clip cortado vs vídeo completo). */
+type LocalSrc = { url: string; offset: number } | null | undefined; // undefined = resolviendo
 
 type Phase = 'playing' | 'interlude' | 'playingAo' | 'decision' | 'reveal';
 
@@ -62,6 +67,28 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
   const clipEnd = !split ? perf?.endSeconds : onAkaClip ? perf?.akaEndSeconds : perf?.aoEndSeconds;
   // en exámenes, la actuación de AO puede venir de otro vídeo
   const clipVideo = (!onAkaClip && perf?.aoVideoId) || perf?.videoId;
+
+  // Vídeo local (sin anuncios): <performanceId>.mp4 = clip cortado; <videoId>.mp4 = vídeo completo
+  const [local, setLocal] = useState<LocalSrc>(undefined);
+  useEffect(() => {
+    let alive = true;
+    let objUrl: string | null = null;
+    setLocal(undefined);
+    (async () => {
+      if (!perf?.id || !clipVideo) { if (alive) setLocal(null); return; }
+      const clipFile = await findLocalVideo([perf.id]);
+      const file = clipFile ?? (await findLocalVideo([clipVideo]));
+      if (!alive) return;
+      if (!file) { setLocal(null); return; }
+      objUrl = URL.createObjectURL(file);
+      setLocal({ url: objUrl, offset: clipFile ? (perf.startSeconds ?? 0) : 0 });
+    })();
+    return () => {
+      alive = false;
+      if (objUrl) URL.revokeObjectURL(objUrl);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [perf?.id, clipVideo]);
 
   if (!perf) {
     return (
@@ -141,7 +168,25 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
 
       {perf.videoId && (
       <div className={`player-wrap${fullscreen ? ' fs' : ''}`}>
-        {!videoError && (
+        {!videoError && local != null && (
+          <LocalVideoPlayer
+            key={`local-${playerKey}`}
+            ref={playerRef}
+            src={local.url}
+            startSeconds={clipStart != null ? Math.max(0, clipStart - local.offset) : undefined}
+            endSeconds={clipEnd != null ? clipEnd - local.offset : undefined}
+            controls={false}
+            playbackRate={rate}
+            onPlayingChange={setPlaying}
+            onEnded={() => {
+              setFullscreen(false);
+              if (phase === 'playing') setPhase(split ? 'interlude' : 'decision');
+              else if (phase === 'playingAo') setPhase('decision');
+            }}
+            onError={() => setLocal(null)}
+          />
+        )}
+        {!videoError && local === null && (
           <YouTubePlayer
             key={playerKey}
             ref={playerRef}
@@ -238,6 +283,7 @@ export default function TrainingSession({ queue, data, onExit }: Props) {
             <button className="chip" onClick={() => setPlayerKey((k) => k + 1)} title="Recargar el vídeo si se queda en negro">
               ↻
             </button>
+            {local && <span className="badge ready">🎞 Local · sin anuncios</span>}
           </div>
         </>
       )}

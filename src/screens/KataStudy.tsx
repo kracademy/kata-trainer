@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCatalog } from '../logic/useCatalog';
 import { roundLabel } from '../logic/format';
 import YouTubePlayer from '../components/YouTubePlayer';
+import LocalVideoPlayer from '../components/LocalVideoPlayer';
+import { findLocalVideo } from '../logic/localVideos';
 import type { Performance } from '../db/types';
 
 /** Una ejecución concreta de un kata: atleta + lado + clip. */
@@ -35,6 +37,24 @@ export default function KataStudy() {
   const [selectedKata, setSelectedKata] = useState<string | null>(null);
   const [playing, setPlaying] = useState<Execution | null>(null);
   const [playerKey, setPlayerKey] = useState(0);
+
+  // vídeo local si existe (clip del bout o vídeo completo)
+  const [local, setLocal] = useState<{ url: string; offset: number } | null | undefined>(undefined);
+  useEffect(() => {
+    let alive = true;
+    let objUrl: string | null = null;
+    setLocal(undefined);
+    (async () => {
+      if (!playing?.perf.videoId) { if (alive) setLocal(null); return; }
+      const clipFile = await findLocalVideo([playing.perf.id]);
+      const file = clipFile ?? (await findLocalVideo([playing.perf.videoId]));
+      if (!alive) return;
+      if (!file) { setLocal(null); return; }
+      objUrl = URL.createObjectURL(file);
+      setLocal({ url: objUrl, offset: clipFile ? (playing.perf.startSeconds ?? 0) : 0 });
+    })();
+    return () => { alive = false; if (objUrl) URL.revokeObjectURL(objUrl); };
+  }, [playing]);
 
   const executions = useMemo(() => {
     const out: Execution[] = [];
@@ -95,14 +115,26 @@ export default function KataStudy() {
       <>
         <h1>{playing.kata}</h1>
         <div className="player-wrap">
-          <YouTubePlayer
-            key={playerKey}
-            videoId={playing.perf.videoId!}
-            startSeconds={playing.start}
-            endSeconds={playing.end}
-            controls={true}
-          />
+          {local != null && (
+            <LocalVideoPlayer
+              key={`local-${playerKey}`}
+              src={local.url}
+              startSeconds={playing.start != null ? Math.max(0, playing.start - local.offset) : undefined}
+              endSeconds={playing.end != null ? playing.end - local.offset : undefined}
+              controls={true}
+            />
+          )}
+          {local === null && (
+            <YouTubePlayer
+              key={playerKey}
+              videoId={playing.perf.videoId!}
+              startSeconds={playing.start}
+              endSeconds={playing.end}
+              controls={true}
+            />
+          )}
         </div>
+        {local && <p className="muted center" style={{ margin: '6px 0 0' }}>🎞 Vídeo local · sin anuncios</p>}
         <button className="btn-secondary" style={{ marginTop: 10 }} onClick={() => setPlayerKey((k) => k + 1)}>
           ↻ Recargar vídeo (si se queda en negro)
         </button>
